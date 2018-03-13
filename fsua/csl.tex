@@ -1,0 +1,27 @@
+\chapter{Kontextsensitive Sprachen $\csl$: Typ-1}
+\begin{equation*}
+	\csl\subset\rec\subset\re
+\end{equation*}
+Wortproblem entscheidbar. Abschluss unter allen Operationen.
+
+\section{Algorithmus zur Entscheidbarkeit des Wortproblems:}
+Die Funktion $\mathrm{Abl}_n(X)$ wird iteriert angewendet, bis sich entweder $X$ nicht mehr ändert ($w\not\in L(G)$) oder das gesuchte Wort $w$ in $X$ enthalten ist ($w\in L(G)$).
+
+Dabei ist $n$ die Länge des gesuchten Worts $w$, also $|w|$.
+
+Die Funktion $\mathrm{Abl}_n(X)$ ist für eine Grammatik $G$ wie folgt definiert:
+\begin{equation*}
+	\mathrm{Abl}_n(X)\coloneqq X\cup\set{w\in(V\cup\Sigma)^\star}{|w|\leq n \wedge \exists y\in X:y\Rightarrow_G w}
+\end{equation*}
+
+
+\section{Automatenmodell LBA:}
+Die Kontextsensitiven Sprachen werden von linear beschränkten Automaten akzeptiert.
+
+
+
+\section{Beispiele: }
+\begin{itemize}
+	\item $L_1=\set{a^nb^nc^n}{n\geq 1}$ (drei und mehr gleiche Exponenten)
+	\item
+\end{itemize}

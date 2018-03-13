@@ -1,0 +1,25 @@
+\chapter{Anwedungen der Sätze}
+\section{Pumping-Lemma für Typ-3}\label{bsp:pumpingLemma}
+Für die Sprache $L=\set{a^nb^n}{n\geq 1}$:%
+\begin{align*}
+	\intertext{Zunächst wählt man ein Wort $x$, mit $|x|\geq n$:}
+	x&=a^nb^n \in L,\quad |a^nb^n|=2n>n\\
+	\intertext{Nun zu einer beliebigen Zerlegung $x=uvw$, für die die Bedingungen gelten:}
+	x&=uvw=a^nb^n\\
+	u&=a^{n-l-k} \quad v=a^l \quad w=a^k b^n \text{ mit $l\geq 1$}\\
+	x&=(a^{n-l-k}) (a^l) (a^k b^n)\\
+	\intertext{Pumpt man nun $v$ mit $v=0$:}
+	x&=(a^{n-l-k}) (a^l)^i (a^k b^n)=(a^{n-l-k}) (a^l)^0 (a^k b^n)\\
+	x&=(a^{n-l-k}) (a^k b^n) = a^{n-l} b^n \not\in L\text{, da $l\geq 1$}\\
+\end{align*}
+\section{Myhill-Nerode-Äquivalenz}\label{bsp:myhill}
+Für die Sprache $L=\set{w\in\simpleset{a,b}^\star}{w \text{ enthält das Teilwort $abb$}}$:%
+\begin{align*}
+	\intertext{Finden der Äquivalenzklassen:}
+	[\epsilon]&=\simpleset{\epsilon, b, bb, \ldots}\\
+	[a]&=\simpleset{a, ba, bba, aba, \ldots}=\set{wa}{w\in\simpleset{a,b}^\star}\\
+	[ab]&=\simpleset{ab}=\set{wab}{w\in\simpleset{a,b}^\star}\\
+	[abb]&=\simpleset{abb, }=\set{wabbw'}{w,w'\in\simpleset{a,b}^\star}
+\end{align*}
+
+\end{document}

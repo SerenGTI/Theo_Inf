@@ -1,0 +1,20 @@
+\chapter{Deterministisch Kontextfreie Sprachen $\dcfl$:}
+\begin{equation*}
+	\dcfl\subset\cfl\subset\csl\subset\rec\subset\re
+\end{equation*}
+Wort-, Leerheits- und Äquivalenzproblem entscheidbar. Abschluss nur unter Komplement.
+
+Beschreib- und erkennbar durch einen endlichen deterministischen Kellerautomaten (DPDA).
+
+\section{Sätze zu den deterministisch kontextfreien Sprachen:}
+\begin{itemize}
+	\item Eine deterministisch kontextfreie Sprache geschnitten mit einer regulären Sprache ist wieder eine deterministisch kontextfreie Sprache.
+	\begin{equation*}
+		L_{\dcfl}\cap L_{\reg} \in \dcfl
+\end{equation*}
+\end{itemize}
+
+\section{Beispiele: }
+\begin{itemize}
+	\item $L_1=\set{w\$w^R}{w\in\Sigma^\star}$ (markierte Palindrome)
+\end{itemize}

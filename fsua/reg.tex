@@ -1,0 +1,153 @@
+\chapter{Reguläre Sprachen $\reg$: Typ-3}
+\begin{equation*}
+	\reg\subset\dcfl\subset\cfl\subset\csl\subset\rec\subset\re
+\end{equation*}
+
+\section{Automatenmodell DEA:}
+Ein deterministischer endlicher Automat ist ein 5-Tupel
+\begin{equation*}
+	M=(Z,\Sigma,\delta,z_0,E)
+\end{equation*}
+\begin{description}
+	\item[$Z$] endliche Zustandsmenge
+	\item[$\Sigma$] Eingabealphabet
+	\item[$\delta$] Überführungsfunktion $\delta:Z\times\Sigma\rightarrow Z$
+	\item[$z_0$] Startzustand, $z_0\in Z$
+	\item[$E$] Endzustandsmenge, $E\subseteq Z$
+\end{description}
+\bigskip
+Es lässt sich außerdem eine erweiterte Funktion $\hat\delta$ definieren:
+\begin{align*}
+	&\hat\delta:Z\times\Sigma^\star\rightarrow Z\\
+	\intertext{Mit den folgenden Eigenschaften:}
+	&\hat\delta(z,\epsilon)=z\\
+	&\hat\delta(z,ax)=\hat\delta(\delta(z,a),x)
+\end{align*}
+Die von einem deterministischen Automaten $M$ akzeptierte Sprache ist
+\begin{equation*}
+	T(M)=\set{w\in\Sigma^\star}{\hat\delta(z_0,w)\in E}
+\end{equation*}
+
+\section{Automatenmodell NEA:}
+Ein nichtdeterministischer endlicher Automat ist ein 5-Tupel
+\begin{equation*}
+	M=(Z,\Sigma,\delta,S,E)
+\end{equation*}
+\begin{description}
+	\item[$Z$] endliche Zustandsmenge
+	\item[$\Sigma$] Eingabealphabet
+	\item[$\delta$] Überführungsfunktion $\delta:Z\times\Sigma\rightarrow \Pot(Z)$
+	\item[$S$] Startzustandsmenge, $S\subseteq Z$
+	\item[$E$] Endzustandsmenge, $E\subseteq Z$
+\end{description}
+Der NEA ist formal stärker als der DEA, sie akzeptieren jedoch beide die selbe Sprachklasse.
+
+Die akzeptierte Sprache eines nichtdeterministischen endlichen Automaten ist:
+\begin{equation*}
+	T(M)=\set{w\in\Sigma^\star}{\hat\delta(S,w)\cap E\neq \emptyset}
+\end{equation*}
+
+\section{Reguläre Ausdrücke}
+Die regulären Sprachen lassen sich zusätzlich zu den zwei Automatenmodellen auch durch sog. reguläre Ausdrücke beschreiben. Eine Definition für die Syntax der regulären Ausdrücke ist:
+\begin{itemize}
+	\item $\emptyset$ und $\epsilon$ sind reguläre Ausdrücke.
+	\item $a$ ist ein regulärer Ausdruck für alle $a\in\Sigma$
+	\item Wenn $\alpha$ und $\beta$ eguläre Ausdrücke sind, dann sind auch $\alpha\beta$, $(\alpha|\beta)$ und $(\alpha)^\star$ reguläre Ausdrücke.
+\end{itemize}
+Die Semantik der regulären Ausdrücke ist ebenso induktiv bestimmt:
+\begin{itemize}
+	\item $L(\emptyset)=\emptyset$ und $L(\epsilon)=\simpleset{\epsilon}$
+	\item $L(a)=\simpleset{a}$ für jedes $a\in\Sigma$
+	\item $L(\alpha \beta)=L(\alpha)L(\beta)$, $L(\alpha|\beta)=L(\alpha)\cup L(\beta)$, $L((\alpha)^\star)=L(\alpha)^\star$
+\end{itemize}
+
+
+
+
+
+
+\section{Sätze zu den regulären Sprachen:}
+\begin{itemize}
+	\item Typ-3 Sprachen können \emph{nicht} inhärent mehrdeutig sein, da sich zu jeder Sprache ein Minimalautomat bilden lässt.
+	\item Die Klasse der Typ-3 Sprachen ist unter allen boole'schen Operationen, Sternoperation und der Konkatenation abgeschlossen.
+	\item Für reguläre Sprachen ist das Wortproblem (in Linearzeit), das Leerheitsproblem, das Äquivalenzproblem sowie das Schnittproblem entscheidbar.
+\end{itemize}
+\subsection{Pumping-Lemma für Typ-3}%
+	Für jede reguläre Sprache $L$ gibt es ein $n\in\N$, so dass für jedes $x\in L$ mit $|x|\geq n$ eine Zerlegung in drei Teile exisitert: $x=uvw$, so dass die drei Bedingungen erfüllt sind:
+	\begin{itemize}
+		\item $|v|\geq 1$
+		\item $|uv|\leq n$
+		\item $\forall i \in\N: uv^iw\in L$ (\glqq Pump-Bedingung\grqq)
+	\end{itemize}
+	\begin{align*}
+		\intertext{Gilt die Negation dieser Aussage, also}
+		\forall n\in\N:\exists x\in L, |x|\geq n : \forall u,v,w \in\Sigma^\star, x=uvw, |v|\geq 1, |uv|\leq n:\exists i\in\N:uv^iw\not\in L
+		\intertext{so ist L nicht regulär!}
+ 	\end{align*}%
+
+	\textbf{ABER:} Das Pumping-Lemma gibt keine Charakterisierung der Typ-3 Sprachen an! Es gibt auch Sprachen, die nicht Typ-3 sind, die Aussage des Lemmas aber trotzdem erfüllen!
+
+	Das Pumping-Lemma gibt also nur eine Möglichkeit, zu Beweisen, dass eine Sprache \emph{nicht} regulär ist! (Siehe \autoref{bsp:pumpingLemma})
+\subsection{Myhill-Nerode-Äquivalenz}%
+	Mit der Myhill-Nerode-Äquivalenz ist es möglich nachzuweisen, ob eine Sprache regulär ist.
+	\begin{align*}
+		&x \mathrm R_L y \Longleftrightarrow \left[\forall w\in\Sigma^\star : xw\in L \Leftrightarrow yw\in L\right]\\
+		\intertext{Bzw. anhand eines DEA (dies führt zu einer Verfeinerung von $\mathrm R_L$)}
+		&x \mathrm R_M y \Longleftrightarrow \left[\delta (z_0,x)=\delta (z_0,y)\right]\\
+		\intertext{Es gilt:}
+		&x \mathrm R_M y \Rightarrow \forall w\in\Sigma^\star : \delta (z_0,xw)=\delta (z_0,yw) \Rightarrow x \mathrm R_L y
+	\end{align*}
+	Die Sprache $L\subseteq \Sigma^\star$ ist genau dann regulär, wenn der Index der Myhill-Nerode-Äquivalenz $\mathrm R_L$endlich ist.
+\subsection{Erkennung durch Monoide -- Syntaktisches Monoid}
+Sei $L\subseteq \Sigma^\star$ eine formale Sprache und $M$ ein Monoid.
+
+$M$ erkennt $L$, wenn eine Teilmenge $A\subseteq M$ und ein Homomorphismus $\varphi:\Sigma^\star \rightarrow M$ existiert, so dass gilt:
+\begin{align*}
+	L&=\varphi^{-1}(A) &&\text{d.h. }w\in L \Leftrightarrow \varphi(w)\in A\\
+	L&=\varphi^{-1}(\varphi(L)) &&\text{d.h. }w\in L \Leftrightarrow \varphi(w)\in \varphi(L)
+\end{align*}
+
+Weiter kann man für eine konkrete Sprache $L$ die \emph{syntaktische Kongruenz} definieren:
+\begin{align*}
+	w_1\equiv_Lw_2 \Longleftrightarrow [\forall x,y\in\Sigma^\star : xw_1y\in L \Leftrightarrow xw_2y\in L]
+\end{align*}
+
+Basierend auf dieser Kongruenz definieren wir das Quotientenmonoid der Kongruenz, dessen Elemente die Äquivalenzklassen sind.
+
+Das Quotientenmonoid oder auch syntaktisches Monoid bezüglich der syntaktischen Kongruenz wird mit
+\begin{equation*}
+	\mathrm{Synt}(L)\coloneqq\left(\Sigma^\star/\equiv_L\right)
+\end{equation*}
+bezeichnet.
+
+Für jede Sprache $L$ gibt es ein syntaktisches Monoid das $L$ mit dem Homomorphismus
+\begin{equation*}
+	\varphi: L\rightarrow \mathrm{Synt}(L), w\mapsto [w]
+\end{equation*}
+erkennt.
+Ist $|\mathrm{Synt}(L)|$ endlich, so ist $L$ regulär bzw. erkennbar.
+
+
+
+\section{Beispiele: }
+\begin{itemize}
+	\item $L_1=\Sigma^\star$
+	\item $L_2=L(a(a|b)^\star bb(ab)^\star)$
+	\item Automat $M$ mit $L_3=T(M)=\set{(ab)^n}{n\in\N_0}$:\\
+
+	\vspace{1em}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+	                    semithick]
+	  \tikzstyle{every state}=[fill=none,draw=black,text=black]
+
+	  \node[initial,state,accepting] (A)                    {$q_a$};
+	  \node[state]         (B) [right of=A] {$q_b$};
+	  \node[state]         (C) [below of=A] {$q_f$};
+
+	  \path (A) edge [bend left]  node {a} (B)
+	            edge              node {b} (C)
+	        (B) edge [bend left]  node {b} (A)
+	            edge [bend left]  node {a} (C)
+	        (C) edge [loop left]  node {a,b} (C);
+	\end{tikzpicture}
+\end{itemize}

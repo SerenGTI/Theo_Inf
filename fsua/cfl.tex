@@ -1,0 +1,94 @@
+\chapter{Kontextfreie Sprachen $\cfl$: Typ-2}
+\begin{equation*}
+	\cfl\subset\csl\subset\rec\subset\re
+\end{equation*}
+Wort- und Leerheitsproblem entscheidbar.
+
+Beschreib- und erkennbar durch einen nichtdeterministischen Kellerautomaten (PDA).
+\section{Automatenmodell PDA:}
+
+
+\section{Sätze zu den kontextfreien Sprachen:}
+\begin{itemize}
+	\item Jede kontextfreie Sprache über einem unären Alphabet ist regulär!
+	\item Die Klasse der kontextfreien Sprachen ist abgeschlossen unter Sternoperation, Vereinigung und Konkatenation.
+	\item Das Wortproblem ($\mathcal O(n^3)$) sowie das Leerheitsproblem sind entscheidbar.
+\end{itemize}
+\subsection{Pumping-Lemma für Typ-2:}
+Sei $L\subseteq \Sigma^\star$ eine kontextfreie Sprache, dann gibt es eine Zahl $n$ so, dass für alle $z\in L$ mit $|z|\geq n$ eine Zerlegung mit $z=uvwxy$ in $u,v,w,x,y\in\Sigma^\star$ exisitert für die die drei Bedingungen erfüllt sind:
+\begin{itemize}
+	\item $|vx|\geq 1$
+	\item $|vwx|\leq n$
+	\item $\forall i\in N: uv^iwx^iy\in L$
+\end{itemize}
+
+
+\section{Chomsky-Normalform}
+Eine Typ-2 Grammatik $(V,\Sigma,P,S)$ ist in Chomsky-Normalform (CNF),  wenn gilt:
+\begin{equation*}
+	\forall (u,v)\in P: v\in V^2\cup \Sigma
+\end{equation*}
+Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in CNF für die gilt $L(G)=L(G')$!
+\subsection{Umformungsalgorithmus:}
+\begin{enumerate}
+	\item Zunächst wollen wir erreichen, dass folgendes gilt: $(u,v)\in P\Rightarrow (|v|>1 \vee v\in \Sigma)$
+	\begin{enumerate}
+		\item \textbf{Ringableitungen entfernen:}
+
+		Eine Ringableitung liegt vor, wenn es Variablen $A_1,\ldots A_r$ gibt, die sich im Kreis in einander ableiten lassen, d.h. es gibt Regeln $A_i\rightarrow A_{i+1}$ und $A_r\rightarrow A_1$.
+
+		Um dies loszuwerden, werden alle Variablen $A_i$ durch eine neue Variable $A$ ersetzt. Überflüssige Regeln wie $A\rightarrow A$ werden gelöscht.
+		\item \textbf{Variablen anordnen:}
+
+		Man legt eine Ordnung der Variablen fest: $V=\simpleset{B_1, B_2, \ldots, B_n}$, hierfür muss gelten:
+		\begin{equation*}
+			A_i\rightarrow A_j \in P \Leftrightarrow i<j
+		\end{equation*}
+		Falls dies nicht gilt, müssen Abkürzungen verwendet werden, also alle Produktionen von $A_j$ werden eingesetzt:
+		\begin{equation*}
+			P=(P\setminus\simpleset{A_i\rightarrow A_j})\cup\set{(A_i,w)}{(A_j,w)\in P}
+		\end{equation*}
+	\end{enumerate}
+	\item Jetzt gilt für jede Regel $(u,v)\in P$ entweder $v\in\Sigma$ oder $|v|\geq 2$.
+
+	Für letztere Regeln werden nun Pseudoterminale eingeführt. Es werden neue Variablen und Produktionen für jedes Terminalsymbol hinzugefügt, z.B. $V_a\rightarrow a$.
+
+	\item \textbf{Letzer Schritt:} Alle rechten Seiten mit $|v|>2$ müssen nun noch auf Länge 2 gekürzt werden. Hierfür werden wiederum neue Variablen eingefügt:%
+	\begin{align*}
+		A\rightarrow C_1C_2C_3\\
+		\intertext{Wird gekürzt zu}
+		A\rightarrow C_1D_1\\
+		D_1\rightarrow C_2C_3
+	\end{align*}
+\end{enumerate}
+
+\section{Greibach-Normalform}
+Eine Typ-2 Grammatik $(V,\Sigma,P,S)$ ist in Greibach-Normalform (GNF),  wenn gilt:
+\begin{equation*}
+	\forall (u,v)\in P: v\in \Sigma V^\star
+\end{equation*}
+Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in GNF für die gilt $L(G)=L(G')$!
+\subsection{Umformungsalgorithmus:}
+\begin{enumerate}
+	\item \textbf{Mh?}
+
+	\item \textbf{Beseitigung von Linksrekursion:}
+
+	Alle Produktionsregeln sind von der Form:
+	\begin{align*}
+		A&\rightarrow A\alpha_1|\ldots|A\alpha_k|\beta_1|\ldots|\beta_l\\
+		\intertext{Diese können durch diese $2k+2l$ Regeln ersetzt werden:}
+		A&\rightarrow \beta_1|\ldots|\beta_l\\
+		A&\rightarrow \beta_1B|\ldots|\beta_lB\\
+		B&\rightarrow \alpha_1|\ldots|\alpha_k\\
+		B&\rightarrow \alpha_1B|\ldots|\alpha_kB
+	\end{align*}%
+	Nun sind keinerlei Linksrekursionen mehr vorhanden!
+\end{enumerate}
+
+\section{Beispiele: }
+\begin{itemize}
+	\item $L_1=\set{a^nb^n}{n\geq 1}$ (zwei gleiche Exponenten)
+	\item $L_2=\set{ww^R}{w\in\Sigma^\star}$ (unmarkierte Palindrome)
+	\item Korrekt geklammerte arithmetische Ausdrücke (Dyck-Wörter)
+\end{itemize}

@@ -12,14 +12,53 @@ Für die Sprache $L=\set{a^nb^n}{n\geq 1}$:%
 	x&=(a^{n-l-k}) (a^l)^i (a^k b^n)=(a^{n-l-k}) (a^l)^0 (a^k b^n)\\
 	x&=(a^{n-l-k}) (a^k b^n) = a^{n-l} b^n \not\in L\text{, da $l\geq 1$}\\
 \end{align*}
+
+
 \section{Myhill-Nerode-Äquivalenz}\label{bsp:myhill}
 Für die Sprache $L=\set{w\in\simpleset{a,b}^\star}{w \text{ enthält das Teilwort $abb$}}$:%
 \begin{align*}
 	\intertext{Finden der Äquivalenzklassen:}
-	[\epsilon]&=\simpleset{\epsilon, b, bb, \ldots}\\
-	[a]&=\simpleset{a, ba, bba, aba, \ldots}=\set{wa}{w\in\simpleset{a,b}^\star}\\
-	[ab]&=\simpleset{ab}=\set{wab}{w\in\simpleset{a,b}^\star}\\
-	[abb]&=\simpleset{abb, }=\set{wabbw'}{w,w'\in\simpleset{a,b}^\star}
+	[\epsilon]&=\simpleset{\epsilon, b, bb, \ldots}=\set{b^n}{n\in N_0}\\
+	[a]&=\set{b^na^m}{n\in\N_0, m\in\N^+}\\
+	[ab]&=\set{w\in\simpleset{a,b}^\star}{w \text{ enthält das Teilwort $ab$ aber nicht das Teilwort $abb$}}\\
+	[abb]&=\set{wabbw'}{w,w'\in\simpleset{a,b}^\star}
 \end{align*}
 
-\end{document}
+
+\section{Pumping-Lemma für Typ-2}
+\begin{itemize}
+	\item
+	Für die Sprache $L=\set{a^nb^nc^n}{n\geq 1}$:
+
+	Zunächst wählt man ein Wort $x$, mit $|x|\geq n$:
+	\begin{equation*}
+		x=a^nb^nc^n \in L,\quad |a^nb^nc^n|=3n>n
+	\end{equation*}
+	Nun zu einer beliebigen Zerlegung $x=uvwxy$, für die die Bedingungen gelten. Da $|vwx|\leq n$, können $v$ und $x$ nur maximal zwei unterschiedliche Buchstaben beinhalten, niemals jedoch $a$, $b$ und $c$.
+
+	Damit kann $uv^iwx^iy$ nicht in $L$ sein für ein $i\neq 1$. \hfill $\Box$
+	\item
+	Für die Sprache $L=\set{a^n}{n \text{ ist eine Quadratzahl}}$:
+
+	Zunächst wählt man ein Wort $x$, mit $|x|\geq n$:
+	\begin{equation*}
+		x=a^{n^2} \in L
+	\end{equation*}
+	Bei jeder Zerlegung $x=uvwxy$ sind nur $a$s in den Teilwörtern $v$ und $x$, die gepumpt werden.
+
+	Betrachtet man die Länge $|vx|=r$, so gilt:
+	\begin{equation*}
+		|uv^iwx^iy|=n^2+r(i-1)
+	\end{equation*}
+	Insbesondere gilt für das Wort
+	\begin{align*}
+		x'&=uv^2wx^2y=a^s\\
+		|x'|&=n^2+r=s
+	\end{align*}
+	Das hieße, $n^2+r$ müsste eine Quadratzahl sein damit $x'$ wiederum in $L$ läge.
+  Für $r$ gilt aber die Ausgangsbedinung des Pumping-Lemmas!
+	\begin{equation*}
+		|vwx|=r+|w|\leq n
+	\end{equation*}
+	$s$ kann damit unmöglich eine Quadratzahl sein. \hfill $\Box$
+\end{itemize}

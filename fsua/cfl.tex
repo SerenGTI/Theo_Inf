@@ -4,8 +4,7 @@
 \end{equation*}
 Wort- und Leerheitsproblem entscheidbar.
 
-Beschreib- und erkennbar durch einen nichtdeterministischen Kellerautomaten (PDA).
-\section{Automatenmodell PDA:}
+\section{Automatenmodell PDA:}\label{cfl:pda}
 Der Push Down Automata (Kellerautomat) ist ähnlich definiert wie ein nichtdeterministischer endlicher Automat (Siehe \autoref{reg:nea}).
 
 Der PDA jedoch hat einen entscheidenden Unterschied, er hat einen sog. \emph{Kellerspeicher}, in dem Informationen zwischengespeichert werden können.
@@ -18,10 +17,18 @@ Der PDA jedoch hat einen entscheidenden Unterschied, er hat einen sog. \emph{Kel
 	\item[$Z$] endliche Zustandsmenge
 	\item[$\Sigma$] Eingabealphabet
 	\item[$\Gamma$] Kelleralphabet
-	\item[$\delta$] Überführungsfunktion $\delta:Z\times(\Sigma\cup\simpleset\epsilon)\rightarrow \Pot_e(Z\times\Gamma^\star)$
+	\item[$\delta$] Überführungsfunktion $\delta:Z\times(\Sigma\cup\simpleset\epsilon)\times\Gamma\rightarrow \Pot_e(Z\times\Gamma^\star)$
 	\item[$z_0$] Startzustand, $z_0\in Z$
 	\item[$\#$] Keller-Bottom-Symbol $\#\in \Gamma\setminus\simpleset\Sigma$
 \end{description}
+
+\paragraph{Akzeptierte Sprache eines nichtdeterministischen PDA:}
+\begin{equation*}
+	N(M)\coloneqq\set{w\in \Sigma^\star}{\exists z\in Z: (z_0, w, \#)\vdash^\star (z,\epsilon,\epsilon)}
+\end{equation*}
+dies wird auch als \emph{Akzeptieren durch leeren Keller} bezeichnet.
+
+Insbesondere beim deterministischen Kellerautomaten gibt es eine zweite Definition der akzeptierten Sprache, beide Definitionen sind äquivalent (Siehe \autoref{dcfl:dpda}).
 
 \paragraph{Konfiguration des PDA: }
 Eine Konfiguration ist jedes Element $k$ aus der Menge $Z\times\Sigma^\star\times\Gamma^\star$
@@ -35,13 +42,6 @@ Ein möglicher Übergang ist also für $(z',B_1\ldots B_k)\in\delta(z,a_1,A_1)$:
 	(z,a_1a_2\ldots a_n,A_1\ldots A_m)\vdash (z',a_2\ldots a_n,B_1\ldots B_kA_2\ldots A_m)
 \end{equation*}
 
-Die akzeptierte Sprache eines nichtdeterministischen PDA ist
-\begin{equation*}
-	N(M)\coloneqq\set{w\in \Sigma^\star}{\exists z\in Z: (z_0, w, \#)\vdash^\star (z,\epsilon,\epsilon)}
-\end{equation*}
-dies wird auch als \emph{akzeptieren durch leeren Keller} bezeichnet.
-
-Insbesondere beim deterministischen Kellerautomaten gibt es eine zweite Definition der akzeptierten Sprache, beide Definitionen sind äquivalent (Siehe \autoref{dcfl:dpda}).
 
 
 \section{Sätze zu den kontextfreien Sprachen:}
@@ -165,7 +165,30 @@ Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in GNF für die gilt $L(G
 
 \section{Beispiele: }
 \begin{itemize}
-	\item $L_1=\set{a^nb^n}{n\geq 1}$ (zwei gleiche Exponenten)
-	\item $L_2=\set{ww^R}{w\in\Sigma^\star}$ (unmarkierte Palindrome)
+	\item $L_1=\set{ww^R}{w\in\Sigma^\star}$ (unmarkierte Palindrome)
 	\item Korrekt geklammerte arithmetische Ausdrücke (Dyck-Wörter)
+	\item Kellerautomat, der die Sprache $L_2=\set{a^nb^n}{n\geq 1}$ akzeptiert:
+
+	\vspace{1em}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+	                    semithick]
+	  \tikzstyle{every state}=[fill=none,draw=black,text=black]
+
+	  \node[initial,state] 	(A)              {$q_a$};
+	  \node[state]         	(B) [right of=A] {$q_b$};
+
+	  \path (A) edge [loop above] node {\begin{tabular}{c}$a,\#,A\#$\\$a,A,AA$ \end{tabular}} (A)
+	            edge              node {$b,A,\epsilon$} (B)
+	        (B) edge [loop above] node {\begin{tabular}{c}$b,A,\epsilon$\\$\epsilon,\#,\epsilon$ \end{tabular}} (B);
+	\end{tikzpicture}
+
+	Konfigurationsübergänge bei Eingabewort $aaabb$:%
+	\begin{align*}
+		(z_a,aaabb,\#)&\vdash(z_a,aabb,A\#)\\
+									&\vdash(z_a,abb,A\#)\\
+									&\vdash(z_a,bb,AAA\#)\\
+									&\vdash(z_a,b,AA\#)\\
+									&\vdash(z_a,\epsilon,A\#)\\
+									&\rightsquigarrow aaabb \not\in N(M)=L_2
+	\end{align*}
 \end{itemize}

@@ -9,6 +9,35 @@ Beschreib- und erkennbar durch einen endlichen deterministischen Kellerautomaten
 
 
 \section{Automatenmodell DPDA:}\label{dcfl:dpda}
+Der deterministische Kellerautomat ist ähnlich definiert wie ein der nichtdeterministische (Siehe \autoref{cfl:pda}).
+
+Der Unterschied zum PDA liegt dabei, dass beim DPDA in jeder Situation nur ein Übergang möglich sein darf,
+\begin{equation*}
+	\forall z\in Z, a\in\Sigma, A\in\Gamma : |\delta(z,a,A)|+|\delta(z,\epsilon,A)|\leq 1
+\end{equation*}
+und der DPDA akzeptiert nicht durch leeren Keller sondern durch Endzustände.
+
+\paragraph{Ein deterministischer Kellerautomat ist ein 7-Tupel}
+\begin{equation*}
+	M=(Z,\Sigma,\Gamma,\delta,z_0,\#, E)
+\end{equation*}
+\begin{description}
+	\item[$Z$] endliche Zustandsmenge
+	\item[$\Sigma$] Eingabealphabet
+	\item[$\Gamma$] Kelleralphabet
+	\item[$\delta$] Überführungsfunktion $\delta:Z\times(\Sigma\cup\simpleset\epsilon)\times\Gamma \rightarrow Z\times\Gamma^\star$
+	\item[$z_0$] Startzustand, $z_0\in Z$
+	\item[$\#$] Keller-Bottom-Symbol $\#\in \Gamma\setminus\simpleset\Sigma$
+	\item[$E$] Endzustandsmenge $E\subseteq Z$
+\end{description}
+
+\paragraph{Akzeptierte Sprache eines deterministischen PDA:}
+\begin{equation*}
+	N(M)\coloneqq\set{w\in \Sigma^\star}{\exists e\in E, V\in \Gamma^\star: (z_0, w, \#)\vdash^\star (e,\epsilon,V)}
+\end{equation*}
+dies wird auch als \emph{Akzeptieren durch Endzustand} bezeichnet.
+
+Beide Akzeptanzarten, (durch Endzustand und leeren Keller, siehe \autoref{cfl:pda}) sind äquivalent.
 
 
 \section{Sätze zu den deterministisch kontextfreien Sprachen:}

@@ -10,6 +10,8 @@ Nicht äquivalent sind Zustände, bei denen bei Eingabe eines Worts vom einen au
 
 So sind im ersten Schritt Zustandspaare aus Endzustand und Nichtendzustand nicht äquivalent und werden markiert.
 
+\subsection*{Am Beispiel:}
+
 \vspace{1em}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
 										semithick]
@@ -39,11 +41,11 @@ Die Paare $\simpleset{z_i,z_4}$ mit $i=0,1,2,3$ werden markiert:
 	\cline{2-2}
 	$z_1$ & 	\multicolumn{1}{|c|}{ }		&				&				&			 \\
 	\cline{2-3}
-	$z_2$ & 	\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{|c|}{ }		&				&			 \\
+	$z_2$ & 	\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{c|}{ }		&				&			 \\
 	\cline{2-4}
-	$z_3$ & 	\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{|c|}{ }		&			 \\
+	$z_3$ & 	\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{c|}{ }		&		\multicolumn{1}{c|}{ }		&			 \\
 	\cline{2-5}
-	$z_4$ & 	\multicolumn{1}{|c|}{$\epsilon$}		&		\multicolumn{1}{|c|}{$\epsilon$}		&		\multicolumn{1}{|c|}{$\epsilon$}		&		\multicolumn{1}{|c|}{$\epsilon$}	 \\
+	$z_4$ & 	\multicolumn{1}{|c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}	 \\
 	\cline{2-5}
 				& $z_0$ & $z_1$ & $z_2$ & $z_3$\\
 \end{tabular}
@@ -54,11 +56,11 @@ Durch Testen der Zustandspaare erhält man die untenstehende Tabelle. Hierbei wu
 	\cline{2-2}
 	$z_1$ & 	\multicolumn{1}{|c|}{a}		&				&				&			 \\
 	\cline{2-3}
-	$z_2$ & 	\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{|c|}{a}		&				&			 \\
+	$z_2$ & 	\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{c|}{a}		&				&			 \\
 	\cline{2-4}
-	$z_3$ & 	\multicolumn{1}{|c|}{a}		&		\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{|c|}{a}		&			 \\
+	$z_3$ & 	\multicolumn{1}{|c|}{a}		&		\multicolumn{1}{c|}{ }		&		\multicolumn{1}{c|}{a}		&			 \\
 	\cline{2-5}
-	$z_4$ & 	\multicolumn{1}{|c|}{$\epsilon$}		&		\multicolumn{1}{|c|}{$\epsilon$}		&		\multicolumn{1}{|c|}{$\epsilon$}		&		\multicolumn{1}{|c|}{$\epsilon$}	 \\
+	$z_4$ & 	\multicolumn{1}{|c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}	 \\
 	\cline{2-5}
 				& $z_0$ & $z_1$ & $z_2$ & $z_3$\\
 \end{tabular}
@@ -84,3 +86,39 @@ Damit lassen sich Zustände zusammenfassen: $p=\simpleset{z_0,z_2}, q=\simpleset
 \begin{equation*}
 	T(M)=\set{waaw'}{w,w'\in\simpleset{a,b}^\star}
 \end{equation*}
+
+
+\section{CYK-Algorithmus zur Lösung des Wortproblems für Typ-2}\label{algo:cyk}
+Mit dem CYK-Algorithmus ist das Wortproblem für Typ-2 in $\mathcal O(n^3)$ entscheidbar.
+
+Hierfür werden alle Ableitungsmöglichkeiten in einer Tabelle geordnet dargestellt. Ist am Ende die Startvariable als Startknoten für die Ableitung möglich, so ist das Wort in $L$.
+
+
+\subsection*{Am Beispiel:}
+Produktionsregeln der Grammatik (CNF):
+
+\begin{equation*}
+	S\rightarrow AX|YB, A\rightarrow XA|AB|a, B\rightarrow XY|BB, X\rightarrow YA|a, Y\rightarrow XX|b
+\end{equation*}
+
+Eingabewort: $abbaab$
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ccccccc}
+	Länge & a & b & b & a & a & b\\
+	\cline{2-7}
+	1 & \multicolumn{1}{|c|}{$\simpleset{A,X}$} & \multicolumn{1}{c|}{$\simpleset{Y}$} & \multicolumn{1}{c|}{$\simpleset{Y}$} & \multicolumn{1}{c|}{$\simpleset{A,X}$} & \multicolumn{1}{c|}{$\simpleset{A,X}$} & \multicolumn{1}{c|}{$\simpleset{Y}$}\\
+	\cline{2-7}
+	2 & \multicolumn{1}{|c|}{$\simpleset{B}$} & \multicolumn{1}{c|}{$\emptyset$} & \multicolumn{1}{c|}{$\simpleset{X}$} & \multicolumn{1}{c|}{$\simpleset{A,S,Y}$} & \multicolumn{1}{c|}{$\simpleset{B}$} &\\
+	\cline{2-6}
+	3 & \multicolumn{1}{|c|}{$\emptyset$} & \multicolumn{1}{c|}{$\emptyset$} & \multicolumn{1}{c|}{$\simpleset{A,Y,X}$} & \multicolumn{1}{c|}{$\simpleset{A}$} &&\\
+	\cline{2-5}
+	4 & \multicolumn{1}{|c|}{$\emptyset$} & \multicolumn{1}{c|}{$\simpleset{X}$} & \multicolumn{1}{c|}{$\simpleset{B,X}$} &&&\\
+	\cline{2-4}
+	5 & \multicolumn{1}{|c|}{$\simpleset{S,Y}$} & \multicolumn{1}{c|}{$\simpleset{B,S}$} &&&&\\
+	\cline{2-3}
+	6 & \multicolumn{1}{|c|}{$\simpleset{A,B}$} &&&&&\\
+	\cline{2-2}
+\end{tabular}
+
+Da die unterste Zelle nun $\simpleset{A,B}$ enthält, ist $w=abbaab\not\in L$

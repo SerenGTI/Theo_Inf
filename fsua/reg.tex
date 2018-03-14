@@ -28,7 +28,7 @@ Die von einem deterministischen Automaten $M$ akzeptierte Sprache ist
 	T(M)=\set{w\in\Sigma^\star}{\hat\delta(z_0,w)\in E}
 \end{equation*}
 
-\section{Automatenmodell NEA:}
+\section{Automatenmodell NEA:}\label{reg:nea}
 Ein nichtdeterministischer endlicher Automat ist ein 5-Tupel
 \begin{equation*}
 	M=(Z,\Sigma,\delta,S,E)
@@ -71,6 +71,7 @@ Die Semantik der regulären Ausdrücke ist ebenso induktiv bestimmt:
 	\item Typ-3 Sprachen können \emph{nicht} inhärent mehrdeutig sein, da sich zu jeder Sprache ein Minimalautomat bilden lässt.
 	\item Die Klasse der Typ-3 Sprachen ist unter allen boole'schen Operationen, Sternoperation und der Konkatenation abgeschlossen.
 	\item Für reguläre Sprachen ist das Wortproblem (in Linearzeit), das Leerheitsproblem, das Äquivalenzproblem sowie das Schnittproblem entscheidbar.
+	\item Alle Typ-2 Sprachen über einem einelementigen Alphabet sind bereits regulär.
 \end{itemize}
 \subsection{Pumping-Lemma für Typ-3}%
 	Für jede reguläre Sprache $L$ gibt es ein $n\in\N$, so dass für jedes $x\in L$ mit $|x|\geq n$ eine Zerlegung in drei Teile exisitert: $x=uvw$, so dass die drei Bedingungen erfüllt sind:

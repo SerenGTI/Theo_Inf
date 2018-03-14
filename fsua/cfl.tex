@@ -6,13 +6,55 @@ Wort- und Leerheitsproblem entscheidbar.
 
 Beschreib- und erkennbar durch einen nichtdeterministischen Kellerautomaten (PDA).
 \section{Automatenmodell PDA:}
+Der Push Down Automata (Kellerautomat) ist ähnlich definiert wie ein nichtdeterministischer endlicher Automat (Siehe \autoref{reg:nea}).
+
+Der PDA jedoch hat einen entscheidenden Unterschied, er hat einen sog. \emph{Kellerspeicher}, in dem Informationen zwischengespeichert werden können.
+
+\paragraph{Ein Kellerautomat ist ein 6-Tupel}
+\begin{equation*}
+	M=(Z,\Sigma,\Gamma,\delta,z_0,\#)
+\end{equation*}
+\begin{description}
+	\item[$Z$] endliche Zustandsmenge
+	\item[$\Sigma$] Eingabealphabet
+	\item[$\Gamma$] Kelleralphabet
+	\item[$\delta$] Überführungsfunktion $\delta:Z\times(\Sigma\cup\simpleset\epsilon)\rightarrow \Pot_e(Z\times\Gamma^\star)$
+	\item[$z_0$] Startzustand, $z_0\in Z$
+	\item[$\#$] Keller-Bottom-Symbol $\#\in \Gamma\setminus\simpleset\Sigma$
+\end{description}
+
+\paragraph{Konfiguration des PDA: }
+Eine Konfiguration ist jedes Element $k$ aus der Menge $Z\times\Sigma^\star\times\Gamma^\star$
+
+Einen Konfigurationsübergang stellt man durch $\vdash$ dar.
+
+Die aktuelle Konfiguration sei $(z,a_1a_2\ldots a_n,A_1\ldots A_m)$, möglich sind jetzt die Übergänge aus $\delta(z,a_1,A_1)$ und $\delta(z,\epsilon,A_1)$.
+
+Ein möglicher Übergang ist also für $(z',B_1\ldots B_k)\in\delta(z,a_1,A_1)$:
+\begin{equation*}
+	(z,a_1a_2\ldots a_n,A_1\ldots A_m)\vdash (z',a_2\ldots a_n,B_1\ldots B_kA_2\ldots A_m)
+\end{equation*}
+
+Die akzeptierte Sprache eines nichtdeterministischen PDA ist
+\begin{equation*}
+	N(M)\coloneqq\set{w\in \Sigma^\star}{\exists z\in Z: (z_0, w, \#)\vdash^\star (z,\epsilon,\epsilon)}
+\end{equation*}
+dies wird auch als \emph{akzeptieren durch leeren Keller} bezeichnet.
+
+Insbesondere beim deterministischen Kellerautomaten gibt es eine zweite Definition der akzeptierten Sprache, beide Definitionen sind äquivalent (Siehe \autoref{dcfl:dpda}).
 
 
 \section{Sätze zu den kontextfreien Sprachen:}
 \begin{itemize}
-	\item Jede kontextfreie Sprache über einem unären Alphabet ist regulär!
+	\item Alle Typ-2 Sprachen über einem einelementigen Alphabet sind bereits regulär.
 	\item Die Klasse der kontextfreien Sprachen ist abgeschlossen unter Sternoperation, Vereinigung und Konkatenation.
-	\item Das Wortproblem ($\mathcal O(n^3)$) sowie das Leerheitsproblem sind entscheidbar.
+
+	Zur Vereinigung: $G_1=(V_1,\Sigma, P_1,S_1), G_2=(V_2,\Sigma, P_2,S_2), V_1\cap V_2=\emptyset, S\not\in V_1\cup V_2$.
+	\begin{equation*}
+		G=(V_1\cup V_2, \Sigma, P_1\cup P_2\cup\simpleset{(S,S_1),(S,S_2)},S) \ \rightsquigarrow\  L(G)=L(G_1)\cup L(G_2)
+	\end{equation*}
+	\item Das Wortproblem ($\mathcal O(n^3)$) sowie das Leerheitsproblem sind entscheidbar (Siehe \autoref{algo:cyk}).
+	\item Die Klasse der Typ-2 Sprachen ist identisch zu der durch EBNF beschreibbaren Sprachen.
 \end{itemize}
 \subsection{Pumping-Lemma für Typ-2:}
 Sei $L\subseteq \Sigma^\star$ eine kontextfreie Sprache, dann gibt es eine Zahl $n$ so, dass für alle $z\in L$ mit $|z|\geq n$ eine Zerlegung mit $z=uvwxy$ in $u,v,w,x,y\in\Sigma^\star$ exisitert für die die drei Bedingungen erfüllt sind:
@@ -29,6 +71,8 @@ Eine Typ-2 Grammatik $(V,\Sigma,P,S)$ ist in Chomsky-Normalform (CNF),  wenn gil
 	\forall (u,v)\in P: v\in V^2\cup \Sigma
 \end{equation*}
 Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in CNF für die gilt $L(G)=L(G')$!
+
+Für alle Ableitungen in CNF gilt: Die Ableitung eines Wortes der Länge $n$ benötigt genau $2n-1$ Schritte!
 \subsection{Umformungsalgorithmus:}
 \begin{enumerate}
 	\item Zunächst wollen wir erreichen, dass folgendes gilt: $(u,v)\in P\Rightarrow (|v|>1 \vee v\in \Sigma)$
@@ -51,9 +95,9 @@ Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in CNF für die gilt $L(G
 	\end{enumerate}
 	\item Jetzt gilt für jede Regel $(u,v)\in P$ entweder $v\in\Sigma$ oder $|v|\geq 2$.
 
-	Für letztere Regeln werden nun Pseudoterminale eingeführt. Es werden neue Variablen und Produktionen für jedes Terminalsymbol hinzugefügt, z.B. $V_a\rightarrow a$.
+	Für letztere Regeln werden nun \textbf{Pseudoterminale} eingeführt. Es werden neue Variablen und Produktionen für jedes Terminalsymbol hinzugefügt, z.B. $V_a\rightarrow a$.
 
-	\item \textbf{Letzer Schritt:} Alle rechten Seiten mit $|v|>2$ müssen nun noch auf Länge 2 gekürzt werden. Hierfür werden wiederum neue Variablen eingefügt:%
+	\item \textbf{Letzter Schritt:} Alle rechten Seiten mit $|v|>2$ müssen nun noch auf Länge 2 gekürzt werden. Hierfür werden wiederum neue Variablen eingefügt:%
 	\begin{align*}
 		A\rightarrow C_1C_2C_3\\
 		\intertext{Wird gekürzt zu}
@@ -68,9 +112,29 @@ Eine Typ-2 Grammatik $(V,\Sigma,P,S)$ ist in Greibach-Normalform (GNF),  wenn gi
 	\forall (u,v)\in P: v\in \Sigma V^\star
 \end{equation*}
 Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in GNF für die gilt $L(G)=L(G')$!
+
 \subsection{Umformungsalgorithmus:}
 \begin{enumerate}
-	\item \textbf{Mh?}
+	\item \textbf{Der erste Algorithmus:}
+
+	Der erste Algorithmus hat zum Ziel, dass alle Produktionen einer bestimmten Ordnung unterliegen.
+	Hierfür werden zunächst die Variablen angeordnet:
+	\begin{equation*}
+		V=\simpleset{A_1,A_2,\ldots,A_m}
+	\end{equation*}
+	Nun sollen nur Regeln $A_i\rightarrow A_j\alpha$ in $P$ sein, wenn $i<j$ gilt.
+
+	Um dies zu erreichen wird solange Eingesetzt bis keine Regeln dieser Form vorliegen.
+
+	Für alle $A_i\rightarrow A_j\alpha \in P$ mit $i> j$ werden alle Produktionsregeln
+	\begin{equation*}
+		A_j\rightarrow \beta_1|\ldots|\beta_r
+	\end{equation*}
+	Eingesetzt zu
+	\begin{equation*}
+		A_i\rightarrow \beta_1\alpha|\ldots|\beta_r\alpha
+	\end{equation*}
+	Und schließlich die Regel $A_i\rightarrow A_j\alpha$ aus $P$ gestrichen.
 
 	\item \textbf{Beseitigung von Linksrekursion:}
 
@@ -84,6 +148,19 @@ Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in GNF für die gilt $L(G
 		B&\rightarrow \alpha_1B|\ldots|\alpha_kB
 	\end{align*}%
 	Nun sind keinerlei Linksrekursionen mehr vorhanden!
+
+	\item \textbf{Der zweite Algorithmus:}
+
+	Der zweite Algorithmus hat zum Ziel, dass alle rechten Seiten mit einem Terminalsymbol beginnen.
+
+	Da die Regeln mit $A_m$ auf der linken Seite nur in ein Terminal übergehen können, da sie am Ende der Variablenanordnung stehen müssen wir nur alle $A_m$-Produktionen bei den $A_{m-1}$-Regeln einsetzen und so weiter.
+
+	\item \textbf{Der letzte Schritt:}
+
+	Als letztes müssen wir überprüfen ob die $B$-Regeln aus der Beseitigung der Linksrekursionen die gewünschte Form haben.
+	Da aber alle $B$-Produktionen entweder mit einem $A_i$ oder einem Terminal beginnen, muss wieder nur eingesetzt werden.
+
+	Schließlich müssen die Terminalsymbole, die in allen Produktionen weiter hinten auftreten durch Pseudoterminale ersetzt werden.
 \end{enumerate}
 
 \section{Beispiele: }

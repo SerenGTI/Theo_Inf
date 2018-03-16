@@ -1,10 +1,78 @@
-\chapter{Kontextsensitive Sprachen $\csl$: Typ-1}
+\chapter{Kontextsensitive Sprachen}
 \begin{equation*}
-	\csl\subset\rec\subset\re
+	\text{Typ-1} = \csl\subset\rec\subset\re
 \end{equation*}
-Wortproblem entscheidbar. Abschluss unter allen Operationen.
 
-\section{Algorithmus zur Entscheidbarkeit des Wortproblems:}
+\section{Automatenmodell Turingmaschine}
+\paragraph{Eine Turingmaschine ist ein 7-Tupel}
+\begin{equation*}
+	M=(Z,\Sigma,\Gamma,\delta,z_0,\Box,E)
+\end{equation*}
+\begin{description}
+	\item[$Z$] endliche Zustandsmenge
+	\item[$\Sigma$] Eingabealphabet $\Sigma\subseteq\Gamma$
+	\item[$\Gamma$] Bandalphabet
+	\item[$\delta$] Überführungsfunktion $\delta: Z\times\Gamma\rightarrow Z\times\Gamma\times\simpleset{L,R,N}$
+	\item[$z_0$] Startzustand, $z_0\in Z$
+	\item[$\Box$] Leersymbol, $\Box\in\Gamma\setminus\Sigma$
+	\item[$E$] Endzustandsmenge $E\subseteq Z$
+\end{description}
+
+\paragraph{Konfiguration}
+Eine Konfiguration $k$ einer Turingmaschine definieren wir als ein Element der Menge
+\begin{equation*}
+	k\in\Gamma^\star Z\Gamma^\star
+\end{equation*}
+Das bedeutet, dass sich die Turingmaschine in der Konfiguration $k=\alpha z\beta$ im Zustand $z$ befindet und der Schreib- Lesekopf das erste Symbol von $\beta$ liest.
+
+
+\paragraph{Die akzeptierte Sprache einer Turingmaschine}
+Die akzeptierte Sprache einer Turingmaschine ist definiert als
+\begin{equation*}
+	T(M)\coloneqq\set{w\in\Sigma^\star}{\exists \alpha,\beta\in\Gamma^\star, e\in E: z_ow\vdash^\star \alpha e\beta}
+\end{equation*}
+Wenn $w\not\in T(M)$ können drei verschiedene Dinge geschehen:
+\begin{enumerate}
+	\item Die Turingmaschine hält an und ist nicht in einem Endzustand.
+	\item Die Turingmaschine läuft weiter und kommt irgendwann in eine Schleife
+
+	$z_ow\vdash^\star \alpha z\beta\vdash^\star\alpha'z'\beta'\vdash^\star\alpha z\beta\vdash\cdots$
+	\item Die Turingmaschine rechnet endlos, ohne in eine Schleife zu kommen (Halteproblem).
+\end{enumerate}
+
+\subsection{Einschränkung LBA:}
+Ein linear beschränkter Automat ist eine Turingmaschine, die bei der Verarbeitung der Eingabe niemals den Platz der Eingabe auf dem Arbeitsband verlässt.
+
+Um das zu erreichen muss das letze Symbol der Eingabe markiert sein um den rechten Rand der Eingabe erkennbar zu machen, deshalb definieren wir:
+\begin{equation*}
+	\Sigma'=\Sigma\cup\set{\hat a}{a\in\Sigma}
+\end{equation*}
+Eine nichtdeterministische Turingmaschine nennen wir einen linear beschränkten Automaten, wenn gilt:
+\begin{equation*}
+	\forall a_1a_2\ldots a_{n-1}\hat a_n\in\Sigma^+, \alpha,\beta\in\Gamma^\star, z\in Z \text{ mit } z_0a_1a_2\ldots a_{n-1}\hat a_n\vdash^\star \alpha z \beta : |\alpha\beta|\leq n
+\end{equation*}
+
+Für die akzeptierte Sprache gilt dann:
+\begin{equation*}
+	T(M)\coloneqq\set{a_1\ldots a_n\in\Sigma^\star}{\exists \alpha,\beta\in\Gamma^\star, e\in E: z_oa_1\ldots\hat a_n\vdash^\star \alpha e\beta}
+\end{equation*}
+
+\textbf{Die Klasse der durch LBAs erkannten Sprachen ist gleich der Typ-1 Sprachen!}
+
+Dabei ist die Frage ob nichtdeterministische und deterministische LBAs gleich mächtig sind noch offen.
+
+
+
+\section{Sätze zu $\csl$}
+\begin{itemize}
+	\item Die Klasse der kontextsensitiven Sprachen ist abgeschlossen unter allen Operationen!
+	\item Für die kontextsensitiven Sprachen und alle höheren Sprachklassen gibt es die sog. Epsilon-Sonderregel, die oft verwendet wird um trotz der Eigenschaft nichtverkürzend ein Wort der Länge Null zu erreichen:
+	\begin{equation*}
+		(S,\epsilon)\in P \ \text{ aber }\  \forall (u,v)\in P:S\not\in v
+	\end{equation*}
+\end{itemize}
+
+\subsection{Algorithmus zur Entscheidbarkeit des Wortproblems:}
 Die Funktion $\mathrm{Abl}_n(X)$ wird iteriert angewendet, bis sich entweder $X$ nicht mehr ändert ($w\not\in L(G)$) oder das gesuchte Wort $w$ in $X$ enthalten ist ($w\in L(G)$).
 
 Dabei ist $n$ die Länge des gesuchten Worts $w$, also $|w|$.
@@ -15,13 +83,37 @@ Die Funktion $\mathrm{Abl}_n(X)$ ist für eine Grammatik $G$ wie folgt definiert
 \end{equation*}
 
 
-\section{Automatenmodell LBA:}
-Die Kontextsensitiven Sprachen werden von linear beschränkten Turingmaschinen akzeptiert.
+\section{Kuroda-Normalform}
+Eine Typ-1 Grammatik $(V,\Sigma, P, S)$ ist in Kuroda-Normalform wenn alle Regeln von einem der vier Typen sind:
+\begin{itemize}
+	\item $A\rightarrow a$
+	\item $A\rightarrow B$
+	\item $A\rightarrow BC$
+	\item $AB\rightarrow CD$
+\end{itemize}
+Wobei $A,B,C,D\in V$ und $a\in \Sigma$ ist.
+
+Zu jeder Typ-1 Grammatik existiert eine äquivalente Grammatik in Kuroda-Normalform
 
 
+\subsection{Umformungsalgorithmus}
+\begin{enumerate}
+	\item \textbf{Pseudoterminale:}
+	Zunächst alle Terminalsymbole, die nicht alleine auf einer rechten Seite stehen durch Pseudoterminale ersetzen.
 
-\section{Beispiele: }
+	Jetzt stören noch die Regeln $A_1\ldots A_n\rightarrow B_1\ldots B_m$ mit $1\leq n\leq m, m>2$
+
+	\item Für Regeln der Form $A\rightarrow B_1\ldots B_m, m>2$ können wir die gleiche Methode wie bei den Typ-2 Normalformen anwenden (Siehe \autoref{cnf:algorithmus}).
+
+	\item Regeln der Form $A_1\ldots A_n\rightarrow B_1\ldots B_m$ mit $2\leq n\leq m, m>2$ ersetzen wir durch:
+	\begin{align*}
+		&A_1D_1\rightarrow B_1D_1\\
+		&D_1A_2A_1\ldots A_n\rightarrow B_2\ldots B_m
+	\end{align*}
+\end{enumerate}
+
+\section{Beispiele}
 \begin{itemize}
 	\item $L_1=\set{a^nb^nc^n}{n\geq 1}$ (drei und mehr gleiche Exponenten)
-	\item
+	\item $L_2=\set{a^{n^2}}{n\in N^+}$
 \end{itemize}

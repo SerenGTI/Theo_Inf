@@ -1,12 +1,7 @@
-\chapter{Deterministisch Kontextfreie Sprachen $\dcfl$:}
+\chapter{Deterministisch kontextfreie Sprachen}
 \begin{equation*}
 	\dcfl\subset\cfl\subset\csl\subset\rec\subset\re
 \end{equation*}
-Wort-, Leerheits- und Äquivalenzproblem entscheidbar. Abschluss nur unter Komplement.
-
-Beschreib- und erkennbar durch einen endlichen deterministischen Kellerautomaten (DPDA).
-
-
 
 \section{Automatenmodell DPDA:}\label{dcfl:dpda}
 Der deterministische Kellerautomat ist ähnlich definiert wie ein der nichtdeterministische (Siehe \autoref{cfl:pda}).
@@ -40,15 +35,49 @@ dies wird auch als \emph{Akzeptieren durch Endzustand} bezeichnet.
 Beide Akzeptanzarten, (durch Endzustand und leeren Keller, siehe \autoref{cfl:pda}) sind äquivalent.
 
 
-\section{Sätze zu den deterministisch kontextfreien Sprachen:}
+\section{Sätze zu $\dcfl$:}
 \begin{itemize}
 	\item Eine deterministisch kontextfreie Sprache geschnitten mit einer regulären Sprache ist wieder eine deterministisch kontextfreie Sprache.
 	\begin{equation*}
 		L_1\in\dcfl, L_2\in\reg \Rightarrow L_1\cap L_2\in\dcfl
-\end{equation*}
+	\end{equation*}
+	\item Die Klasse der deterministisch kontextfreien Sprachen ist nur abgeschlossen unter Komplement.
+	\item Das Leerheitsproblem (Markieren von produktiven Variablen), das Wortproblem (in Linearzeit mit Kellerautomat) und das Äquivalenzproblem sind entscheidbar.
+
+	Zum Äquivalenzproblem:
+	\begin{align*}
+		L=L'&\Leftrightarrow L\subseteq L' \wedge L'\subseteq L\\
+				&\Leftrightarrow L\cap \overline{L'} = \emptyset \wedge L'\cap \overline L=\emptyset
+	\end{align*}
+	entscheidbar, da Abschluss unter Komplement und Leerheitsproblem entscheidbar.
 \end{itemize}
+
 
 \section{Beispiele: }
 \begin{itemize}
 	\item $L_1=\set{w\$w^R}{w\in\Sigma^\star}$ (markierte Palindrome)
+	\item Deterministischer Kellerautomat, der die Sprache $L_2=\set{a^nb^n}{n\geq 1}$ akzeptiert:
+
+	\vspace{1em}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+	                    semithick]
+	  \tikzstyle{every state}=[fill=none,draw=black,text=black]
+
+	  \node[initial,state] 	(A)              {$q_a$};
+	  \node[state]         	(B) [right of=A] {$q_b$};
+
+	  \path (A) edge [loop above] node {\begin{tabular}{c}$a,\#,A\#$\\$a,A,AA$ \end{tabular}} (A)
+	            edge              node {$b,A,\epsilon$} (B)
+	        (B) edge [loop above] node {\begin{tabular}{c}$b,A,\epsilon$\\$\epsilon,\#,\epsilon$ \end{tabular}} (B);
+	\end{tikzpicture}
+
+	Konfigurationsübergänge bei Eingabewort $aaabb$:%
+	\begin{align*}
+		(z_a,aaabb,\#)&\vdash(z_a,aabb,A\#)\\
+									&\vdash(z_a,abb,A\#)\\
+									&\vdash(z_a,bb,AAA\#)\\
+									&\vdash(z_a,b,AA\#)\\
+									&\vdash(z_a,\epsilon,A\#)\\
+									&\rightsquigarrow aaabb \not\in N(M)=L_2
+	\end{align*}
 \end{itemize}

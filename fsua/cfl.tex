@@ -1,13 +1,11 @@
-\chapter{Kontextfreie Sprachen $\cfl$: Typ-2}
+\chapter{Kontextfreie Sprachen}
 \begin{equation*}
-	\cfl\subset\csl\subset\rec\subset\re
+	\text{Typ-2} = \cfl\subset\csl\subset\rec\subset\re
 \end{equation*}
-Wort- und Leerheitsproblem entscheidbar.
+\section{Automatenmodell PDA}\label{cfl:pda}
+Der Push DownAutomat (Kellerautomat) ist ähnlich definiert wie ein nichtdeterministischer endlicher Automat (Siehe \autoref{reg:nea}).
 
-\section{Automatenmodell PDA:}\label{cfl:pda}
-Der Push Down Automata (Kellerautomat) ist ähnlich definiert wie ein nichtdeterministischer endlicher Automat (Siehe \autoref{reg:nea}).
-
-Der PDA jedoch hat einen entscheidenden Unterschied, er hat einen sog. \emph{Kellerspeicher}, in dem Informationen zwischengespeichert werden können.
+Der PDA jedoch hat einen entscheidenden Unterschied, er hat einen sogenannten \emph{Kellerspeicher}, in dem Informationen zwischengespeichert werden können.
 
 \paragraph{Ein Kellerautomat ist ein 6-Tupel}
 \begin{equation*}
@@ -22,7 +20,7 @@ Der PDA jedoch hat einen entscheidenden Unterschied, er hat einen sog. \emph{Kel
 	\item[$\#$] Keller-Bottom-Symbol $\#\in \Gamma\setminus\simpleset\Sigma$
 \end{description}
 
-\paragraph{Akzeptierte Sprache eines nichtdeterministischen PDA:}
+\paragraph{Akzeptierte Sprache eines nichtdeterministischen PDA}
 \begin{equation*}
 	N(M)\coloneqq\set{w\in \Sigma^\star}{\exists z\in Z: (z_0, w, \#)\vdash^\star (z,\epsilon,\epsilon)}
 \end{equation*}
@@ -30,7 +28,7 @@ dies wird auch als \emph{Akzeptieren durch leeren Keller} bezeichnet.
 
 Insbesondere beim deterministischen Kellerautomaten gibt es eine zweite Definition der akzeptierten Sprache, beide Definitionen sind äquivalent (Siehe \autoref{dcfl:dpda}).
 
-\paragraph{Konfiguration des PDA: }
+\paragraph{Konfiguration des PDA}
 Eine Konfiguration ist jedes Element $k$ aus der Menge $Z\times\Sigma^\star\times\Gamma^\star$
 
 Einen Konfigurationsübergang stellt man durch $\vdash$ dar.
@@ -44,19 +42,20 @@ Ein möglicher Übergang ist also für $(z',B_1\ldots B_k)\in\delta(z,a_1,A_1)$:
 
 
 
-\section{Sätze zu den kontextfreien Sprachen:}
+\section{Sätze zu $\cfl$}
 \begin{itemize}
 	\item Alle Typ-2 Sprachen über einem einelementigen Alphabet sind bereits regulär.
+	\item Die Kontextfreien Sprachen sind gegen Substitution abgeschlossen.
 	\item Die Klasse der kontextfreien Sprachen ist abgeschlossen unter Sternoperation, Vereinigung und Konkatenation.
 
 	Zur Vereinigung: $G_1=(V_1,\Sigma, P_1,S_1), G_2=(V_2,\Sigma, P_2,S_2), V_1\cap V_2=\emptyset, S\not\in V_1\cup V_2$.
 	\begin{equation*}
 		G=(V_1\cup V_2, \Sigma, P_1\cup P_2\cup\simpleset{(S,S_1),(S,S_2)},S) \ \rightsquigarrow\  L(G)=L(G_1)\cup L(G_2)
 	\end{equation*}
-	\item Das Wortproblem ($\mathcal O(n^3)$) sowie das Leerheitsproblem sind entscheidbar (Siehe \autoref{algo:cyk}).
+	\item Das Wortproblem ($\mathcal O(n^3)$) sowie das Leerheits- und Endlichkeitsproblem ist entscheidbar (Siehe \autoref{algo:cyk}).
 	\item Die Klasse der Typ-2 Sprachen ist identisch zu der durch EBNF beschreibbaren Sprachen.
 \end{itemize}
-\subsection{Pumping-Lemma für Typ-2:}
+\subsection{Pumping-Lemma für Typ-2}
 Sei $L\subseteq \Sigma^\star$ eine kontextfreie Sprache, dann gibt es eine Zahl $n$ so, dass für alle $z\in L$ mit $|z|\geq n$ eine Zerlegung mit $z=uvwxy$ in $u,v,w,x,y\in\Sigma^\star$ exisitert für die die drei Bedingungen erfüllt sind:
 \begin{itemize}
 	\item $|vx|\geq 1$
@@ -70,10 +69,10 @@ Eine Typ-2 Grammatik $(V,\Sigma,P,S)$ ist in Chomsky-Normalform (CNF),  wenn gil
 \begin{equation*}
 	\forall (u,v)\in P: v\in V^2\cup \Sigma
 \end{equation*}
-Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in CNF für die gilt $L(G)=L(G')$!
+Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in CNF, für die gilt $L(G)=L(G')$!
 
 Für alle Ableitungen in CNF gilt: Die Ableitung eines Wortes der Länge $n$ benötigt genau $2n-1$ Schritte!
-\subsection{Umformungsalgorithmus:}
+\subsection{Umformungsalgorithmus}\label{cnf:algorithmus}
 \begin{enumerate}
 	\item Zunächst wollen wir erreichen, dass folgendes gilt: $(u,v)\in P\Rightarrow (|v|>1 \vee v\in \Sigma)$
 	\begin{enumerate}
@@ -111,9 +110,9 @@ Eine Typ-2 Grammatik $(V,\Sigma,P,S)$ ist in Greibach-Normalform (GNF),  wenn gi
 \begin{equation*}
 	\forall (u,v)\in P: v\in \Sigma V^\star
 \end{equation*}
-Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in GNF für die gilt $L(G)=L(G')$!
+Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in GNF, für die gilt $L(G)=L(G')$!
 
-\subsection{Umformungsalgorithmus:}
+\subsection{Umformungsalgorithmus}
 \begin{enumerate}
 	\item \textbf{Der erste Algorithmus:}
 
@@ -167,28 +166,5 @@ Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in GNF für die gilt $L(G
 \begin{itemize}
 	\item $L_1=\set{ww^R}{w\in\Sigma^\star}$ (unmarkierte Palindrome)
 	\item Korrekt geklammerte arithmetische Ausdrücke (Dyck-Wörter)
-	\item Kellerautomat, der die Sprache $L_2=\set{a^nb^n}{n\geq 1}$ akzeptiert:
-
-	\vspace{1em}
-	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
-	                    semithick]
-	  \tikzstyle{every state}=[fill=none,draw=black,text=black]
-
-	  \node[initial,state] 	(A)              {$q_a$};
-	  \node[state]         	(B) [right of=A] {$q_b$};
-
-	  \path (A) edge [loop above] node {\begin{tabular}{c}$a,\#,A\#$\\$a,A,AA$ \end{tabular}} (A)
-	            edge              node {$b,A,\epsilon$} (B)
-	        (B) edge [loop above] node {\begin{tabular}{c}$b,A,\epsilon$\\$\epsilon,\#,\epsilon$ \end{tabular}} (B);
-	\end{tikzpicture}
-
-	Konfigurationsübergänge bei Eingabewort $aaabb$:%
-	\begin{align*}
-		(z_a,aaabb,\#)&\vdash(z_a,aabb,A\#)\\
-									&\vdash(z_a,abb,A\#)\\
-									&\vdash(z_a,bb,AAA\#)\\
-									&\vdash(z_a,b,AA\#)\\
-									&\vdash(z_a,\epsilon,A\#)\\
-									&\rightsquigarrow aaabb \not\in N(M)=L_2
-	\end{align*}
+	\item $L_2=\set{}{}$
 \end{itemize}

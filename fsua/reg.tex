@@ -1,6 +1,6 @@
-\chapter{Reguläre Sprachen $\reg$: Typ-3}
+\chapter{Reguläre Sprachen}
 \begin{equation*}
-	\reg\subset\dcfl\subset\cfl\subset\csl\subset\rec\subset\re
+	\text{Typ-3} = \reg\subset\dcfl\subset\cfl\subset\csl\subset\rec\subset\re
 \end{equation*}
 
 \section{Automatenmodell DEA:}
@@ -133,7 +133,27 @@ Ist $|\mathrm{Synt}(L)|$ endlich, so ist $L$ regulär bzw. erkennbar.
 \section{Beispiele: }
 \begin{itemize}
 	\item $L_1=\Sigma^\star$
-	\item $L_2=L(a(a|b)^\star bb(ab)^\star)$
+	\item $L_2=L\left((a|b)a(a|b)a^\star\right)$
+
+	\vspace{1em}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+	                    semithick]
+	  \tikzstyle{every state}=[fill=none,draw=black,text=black]
+
+	  \node[initial,state] (A)              {$q_0$};
+	  \node[state]         (B) [right of=A] {$q_1$};
+	  \node[state]         (C) [above right of=B] {$q_2$};
+		\node[state, accepting] (D) [right of=C] {$q_3$};
+		\node[state]         (E) [below right of=B] {$q_4$};
+
+		\path (A) 	edge node {a,b} (B)
+					(B)				edge node {a} (C)
+	            			edge node {b} (E)
+					(C) 			edge node {a,b} (D)
+					(D) 		edge [loop right] node {a} (D)
+	            			edge node {b} (E)
+					(E)				edge [loop right] node {a} (E);
+	\end{tikzpicture}
 	\item Automat $M$ mit $L_3=T(M)=\set{(ab)^n}{n\in\N_0}$:\\
 
 	\vspace{1em}
@@ -150,5 +170,41 @@ Ist $|\mathrm{Synt}(L)|$ endlich, so ist $L$ regulär bzw. erkennbar.
 	        (B) edge [bend left]  node {b} (A)
 	            edge [bend left]  node {a} (C)
 	        (C) edge [loop left]  node {a,b} (C);
+	\end{tikzpicture}
+
+	\item Automat erkennt die Sprache
+
+	$L_3=\set{w\in\simpleset{a,b,c}^\star}{w \text{ enthält das Teilwort $abc$ aber nicht das Teilwort $ab$}}$:
+
+	\vspace{1em}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+	                    semithick]
+	  \tikzstyle{every state}=[fill=none,draw=black,text=black]
+
+	  \node[initial,state]   (Epsilon)   {$q_\epsilon$};
+	  \node[state]           (A) [right of=Epsilon] {$q_a$};
+	  \node[state]           (AB) [right of=A] {$q_{ab}$};
+		\node[state, accepting](ABC) [right of=AB] {$q_{abc}$};
+		\node[state]           (B) [below of=Epsilon] {$q_b$};
+		\node[state]           (BB) [right of=B] {$q_{bb}$};
+		\node[state, accepting](BE) [right of=BB] {$q_{be}$};
+
+	  \path (Epsilon) edge [loop above] node {c} (Epsilon)
+	            			edge [bend right] node {a} (A)
+										edge [bend right] node {b} (B)
+					(A)				edge [loop above] node {a} (A)
+	            			edge              node {b} (AB)
+										edge [bend right] node {c} (Epsilon)
+					(AB) 			edge [bend left]  node {a} (A)
+	            			edge              node {b} (BB)
+										edge              node {c} (ABC)
+					(ABC) 		edge [loop above] node {a,c} (ABC)
+	            			edge [bend left]  node {b} (BE)
+					(B)				edge              node {a} (A)
+										edge              node {b} (BB)
+										edge [bend right] node {c} (Epsilon)
+					(BB)			edge [loop below] node {a,b,c} (BB)
+					(BE)			edge [loop below] node {a,c} (ABC)
+										edge              node {b} (BB);
 	\end{tikzpicture}
 \end{itemize}

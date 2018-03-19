@@ -99,34 +99,57 @@ Die Semantik der regulären Ausdrücke ist ebenso induktiv bestimmt:
 		&x \mathrm R_M y \Rightarrow \forall w\in\Sigma^\star : \delta (z_0,xw)=\delta (z_0,yw) \Rightarrow x \mathrm R_L y
 	\end{align*}
 	Die Sprache $L\subseteq \Sigma^\star$ ist genau dann regulär, wenn der Index der Myhill-Nerode-Äquivalenz $\mathrm R_L$endlich ist.
+
+
 \subsection{Erkennung durch Monoide -- Syntaktisches Monoid}
-Sei $L\subseteq \Sigma^\star$ eine formale Sprache und $M$ ein Monoid.
+	Sei $L\subseteq \Sigma^\star$ eine formale Sprache und $M$ ein Monoid.
 
-$M$ erkennt $L$, wenn eine Teilmenge $A\subseteq M$ und ein Homomorphismus $\varphi:\Sigma^\star \rightarrow M$ existiert, so dass gilt:
-\begin{align*}
-	L&=\varphi^{-1}(A) &&\text{d.h. }w\in L \Leftrightarrow \varphi(w)\in A\\
-	L&=\varphi^{-1}(\varphi(L)) &&\text{d.h. }w\in L \Leftrightarrow \varphi(w)\in \varphi(L)
-\end{align*}
+	$M$ erkennt $L$, wenn eine Teilmenge $A\subseteq M$ und ein Homomorphismus $\varphi:\Sigma^\star \rightarrow M$ existiert, so dass gilt:
+	\begin{align*}
+		L&=\varphi^{-1}(A) &&\text{d.h. }w\in L \Leftrightarrow \varphi(w)\in A\\
+		L&=\varphi^{-1}(\varphi(L)) &&\text{d.h. }w\in L \Leftrightarrow \varphi(w)\in \varphi(L)
+	\end{align*}
 
-Weiter kann man für eine konkrete Sprache $L$ die \emph{syntaktische Kongruenz} definieren:
-\begin{align*}
-	w_1\equiv_Lw_2 \Longleftrightarrow [\forall x,y\in\Sigma^\star : xw_1y\in L \Leftrightarrow xw_2y\in L]
-\end{align*}
+	Weiter kann man für eine konkrete Sprache $L$ die \emph{syntaktische Kongruenz} definieren:
+	\begin{align*}
+		w_1\equiv_Lw_2 \Longleftrightarrow [\forall x,y\in\Sigma^\star : xw_1y\in L \Leftrightarrow xw_2y\in L]
+	\end{align*}
 
-Basierend auf dieser Kongruenz definieren wir das Quotientenmonoid der Kongruenz, dessen Elemente die Äquivalenzklassen sind.
+	Basierend auf dieser Kongruenz definieren wir das Quotientenmonoid der Kongruenz, dessen Elemente die Äquivalenzklassen sind.
 
-Das Quotientenmonoid oder auch syntaktisches Monoid bezüglich der syntaktischen Kongruenz wird mit
-\begin{equation*}
-	\mathrm{Synt}(L)\coloneqq\left(\Sigma^\star/\equiv_L\right)
-\end{equation*}
-bezeichnet.
+	Das Quotientenmonoid oder auch syntaktisches Monoid bezüglich der syntaktischen Kongruenz wird mit
+	\begin{equation*}
+		\mathrm{Synt}(L)\coloneqq\left(\Sigma^\star/\equiv_L\right)
+	\end{equation*}
+	bezeichnet.
 
-Für jede Sprache $L$ gibt es ein syntaktisches Monoid das $L$ mit dem Homomorphismus
-\begin{equation*}
-	\varphi: L\rightarrow \mathrm{Synt}(L), w\mapsto [w]
-\end{equation*}
-erkennt.
-Ist $|\mathrm{Synt}(L)|$ endlich, so ist $L$ regulär bzw. erkennbar.
+	Für jede Sprache $L$ gibt es ein syntaktisches Monoid das $L$ mit dem Homomorphismus
+	\begin{equation*}
+		\varphi: L\rightarrow \mathrm{Synt}(L), w\mapsto [w]
+	\end{equation*}
+	erkennt.
+	Ist $|\mathrm{Synt}(L)|$ endlich, so ist $L$ regulär bzw. erkennbar.
+
+	\subsection{Wohldefiniertheit des Produkts der Äquivalenzklassen}
+	\begin{equation*}
+		[u_1]_{\equiv_L}*[u_2]_{\equiv_L}\overset ? = [u_1u_2]_{\equiv_L} \quad\text{wohldefiniert?}
+	\end{equation*}
+
+	Es gilt:
+	\begin{align}
+		u_1,\widetilde{u_1}\in[u_1]_{\equiv_L} \Longleftrightarrow u_1\equiv_L \widetilde{u_1} \Longleftrightarrow \left[\forall x,y\in\Sigma^\star : xu_1y\in L \Leftrightarrow x\widetilde{u_1}y\in L\right]\label{reg:produktaequi1}\\
+		u_2,\widetilde{u_2}\in[u_2]_{\equiv_L} \Longleftrightarrow u_2\equiv_L \widetilde{u_2} \Longleftrightarrow \left[\forall x,y\in\Sigma^\star : xu_2y\in L \Leftrightarrow x\widetilde{u_2}y\in L\right]\label{reg:produktaequi2}
+	\end{align}
+	\begin{align*}
+		\intertext{Setzt man nun in \autoref{reg:produktaequi1} für $y=u_2y'$ ein:}
+		&u_1,\widetilde{u_1}\in[u_1]_{\equiv_L} \Longleftrightarrow u_1\equiv_L \widetilde{u_1} \Longleftrightarrow \left[\forall x,y'\in\Sigma^\star : xu_1u_2y'\in L \Leftrightarrow x\widetilde{u_1}u_2y'\in L\right]\\
+		\intertext{Äquivalent gilt das selbe für $\widetilde{u_2}$. Ebenso gilt das gleiche für \autoref{reg:produktaequi2} mit $x=x'u_1$:}
+		&u_2,\widetilde{u_2}\in[u_2]_{\equiv_L} \Longleftrightarrow u_2\equiv_L \widetilde{u_2} \Longleftrightarrow \left[\forall x',y\in\Sigma^\star : x'u_1u_2y\in L \Leftrightarrow x'u_1\widetilde{u_2}y\in L\right]
+		\intertext{Äquivalent gilt das selbe für $\widetilde{u_1}$. Setzt man nun alle Gleichungen zusammen, erhält man:}
+		&u_1u_2\equiv_L \widetilde{u_1}\widetilde{u_2} \Longleftrightarrow \left[\forall x,y\in\Sigma^\star : xu_1u_2y\in L \Leftrightarrow x\widetilde{u_1}\widetilde{u_2}y\in L\right]\\
+		\intertext{Dies gilt wie oben gezeigt für alle Kombinationen $u_1u_2, u_1\widetilde{u_2}, \widetilde{u_1}u_2$ und $\widetilde{u_1}\widetilde{u_2}$. Damit erzeugt diese Äquivalenz die Klasse:}
+		&[u_1u_2]_{\equiv_L} \text{ mit } u_1u_2, u_1\widetilde{u_2}, \widetilde{u_1}u_2,\widetilde{u_1}\widetilde{u_2}\in[u_1u_2]_{\equiv_L}
+	\end{align*}
 
 
 

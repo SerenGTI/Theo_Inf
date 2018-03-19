@@ -62,3 +62,17 @@ Für die Sprache $L=\set{w\in\simpleset{a,b}^\star}{w \text{ enthält das Teilwo
 	\end{equation*}
 	$s$ kann damit unmöglich eine Quadratzahl sein. \hfill $\Box$
 \end{itemize}
+
+\section{Beweis durch Abschlusseigenschaften}
+Zu zeigen: $L=\set{b^na^m}{n,m\in\N_0, n\neq m}\not\in\reg$
+\begin{align*}
+	\intertext{Annahme:}
+	&L\in\reg\\
+	\intertext{Mit dem Abschluss gegen Komplement folgt}
+	&\overline L\in\reg\\
+	\intertext{Wegen Abschluss gegen Schnitt folgt dann auch}
+	&\overline L \cap L(b^\star a ^\star) \in\reg\\
+	\intertext{Jedoch gilt}
+	&\overline L \cap L(b^\star a ^\star) = \set{b^na^n}{n\in \N_0} \in \dcfl \supsetneq \reg
+	\intertext{Widerspruch! $L\not\in\reg$}
+\end{align*}

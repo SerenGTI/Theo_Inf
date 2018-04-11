@@ -60,7 +60,7 @@ Sei $L\subseteq \Sigma^\star$ eine kontextfreie Sprache, dann gibt es eine Zahl 
 \begin{itemize}
 	\item $|vx|\geq 1$
 	\item $|vwx|\leq n$
-	\item $\forall i\in N: uv^iwx^iy\in L$
+	\item $\forall i\in\N: uv^iwx^iy\in L$
 \end{itemize}
 
 
@@ -78,12 +78,12 @@ Für alle Ableitungen in CNF gilt: Die Ableitung eines Wortes der Länge $n$ ben
 	\begin{enumerate}
 		\item \textbf{Ringableitungen entfernen:}
 
-		Eine Ringableitung liegt vor, wenn es Variablen $A_1,\ldots A_r$ gibt, die sich im Kreis in einander ableiten lassen, d.h. es gibt Regeln $A_i\rightarrow A_{i+1}$ und $A_r\rightarrow A_1$.
+		Eine Ringableitung liegt vor, wenn es Variablen $V_1,\ldots V_r$ gibt, die sich im Kreis in einander ableiten lassen, d.h. es gibt Regeln $V_i\rightarrow V_{i+1}$ und $V_r\rightarrow V_1$.
 
-		Um dies loszuwerden, werden alle Variablen $A_i$ durch eine neue Variable $A$ ersetzt. Überflüssige Regeln wie $A\rightarrow A$ werden gelöscht.
+		Um dies loszuwerden, werden alle Variablen $V_i$ durch eine neue Variable $V$ ersetzt. Überflüssige Regeln wie $V\rightarrow V$ werden gelöscht.
 		\item \textbf{Variablen anordnen:}
 
-		Man legt eine Ordnung der Variablen fest: $V=\simpleset{B_1, B_2, \ldots, B_n}$, hierfür muss gelten:
+		Man legt eine Ordnung der Variablen fest: $V=\simpleset{A_1, A_2, \ldots, A_n}$, hierfür muss gelten:
 		\begin{equation*}
 			A_i\rightarrow A_j \in P \Leftrightarrow i<j
 		\end{equation*}
@@ -162,9 +162,8 @@ Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in GNF, für die gilt $L(
 	Schließlich müssen die Terminalsymbole, die in allen Produktionen weiter hinten auftreten durch Pseudoterminale ersetzt werden.
 \end{enumerate}
 
-\section{Beispiele: }
+\section{Beispiele}
 \begin{itemize}
 	\item $L_1=\set{ww^R}{w\in\Sigma^\star}$ (unmarkierte Palindrome)
 	\item Korrekt geklammerte arithmetische Ausdrücke (Dyck-Wörter)
-	\item $L_2=\set{}{}$
 \end{itemize}

@@ -40,7 +40,7 @@ Wenn $w\not\in T(M)$ können drei verschiedene Dinge geschehen:
 	\item Die Turingmaschine rechnet endlos, ohne in eine Schleife zu kommen (Halteproblem).
 \end{enumerate}
 
-\subsection{Einschränkung LBA:}
+\subsection{Einschränkung LBA}
 Ein linear beschränkter Automat ist eine Turingmaschine, die bei der Verarbeitung der Eingabe niemals den Platz der Eingabe auf dem Arbeitsband verlässt.
 
 Um das zu erreichen muss das letze Symbol der Eingabe markiert sein um den rechten Rand der Eingabe erkennbar zu machen, deshalb definieren wir:
@@ -72,7 +72,7 @@ Dabei ist die Frage ob nichtdeterministische und deterministische LBAs gleich m�
 	\end{equation*}
 \end{itemize}
 
-\subsection{Algorithmus zur Entscheidbarkeit des Wortproblems:}
+\subsection{Algorithmus zur Entscheidbarkeit des Wortproblems}
 Die Funktion $\mathrm{Abl}_n(X)$ wird iteriert angewendet, bis sich entweder $X$ nicht mehr ändert ($w\not\in L(G)$) oder das gesuchte Wort $w$ in $X$ enthalten ist ($w\in L(G)$).
 
 Dabei ist $n$ die Länge des gesuchten Worts $w$, also $|w|$.
@@ -107,7 +107,7 @@ Zu jeder Typ-1 Grammatik existiert eine äquivalente Grammatik in Kuroda-Normalf
 
 	\item Regeln der Form $A_1\ldots A_n\rightarrow B_1\ldots B_m$ mit $2\leq n\leq m, m>2$ ersetzen wir durch:
 	\begin{align*}
-		&A_1D_1\rightarrow B_1D_1\\
+		&A_1A_2\rightarrow B_1D_1\\
 		&D_1A_2A_1\ldots A_n\rightarrow B_2\ldots B_m
 	\end{align*}
 \end{enumerate}

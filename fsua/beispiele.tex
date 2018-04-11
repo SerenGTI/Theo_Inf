@@ -30,11 +30,11 @@ Für die Sprache $L=\set{w\in\simpleset{a,b}^\star}{w \text{ enthält das Teilwo
 	\item
 	Für die Sprache $L=\set{a^nb^nc^n}{n\geq 1}$:
 
-	Zunächst wählt man ein Wort $x$, mit $|x|\geq n$:
+	Zunächst wählt man ein Wort $z$, mit $|z|\geq n$:
 	\begin{equation*}
 		x=a^nb^nc^n \in L,\quad |a^nb^nc^n|=3n>n
 	\end{equation*}
-	Nun zu einer beliebigen Zerlegung $x=uvwxy$, für die die Bedingungen gelten. Da $|vwx|\leq n$, können $v$ und $x$ nur maximal zwei unterschiedliche Buchstaben beinhalten, niemals jedoch $a$, $b$ und $c$.
+	Nun zu einer beliebigen Zerlegung $z=uvwxy$, für die die Bedingungen gelten. Da $|vwx|\leq n$, können $v$ und $x$ nur maximal zwei unterschiedliche Buchstaben beinhalten, niemals jedoch $a$, $b$ und $c$.
 
 	Damit kann $uv^iwx^iy$ nicht in $L$ sein für ein $i\neq 1$. \hfill $\Box$
 	\item
@@ -42,9 +42,9 @@ Für die Sprache $L=\set{w\in\simpleset{a,b}^\star}{w \text{ enthält das Teilwo
 
 	Zunächst wählt man ein Wort $x$, mit $|x|\geq n$:
 	\begin{equation*}
-		x=a^{n^2} \in L
+		z=a^{n^2} \in L
 	\end{equation*}
-	Bei jeder Zerlegung $x=uvwxy$ sind nur $a$s in den Teilwörtern $v$ und $x$, die gepumpt werden.
+	Bei jeder Zerlegung $z=uvwxy$ sind nur $a$s in den Teilwörtern $v$ und $x$, die gepumpt werden.
 
 	Betrachtet man die Länge $|vx|=r$, so gilt:
 	\begin{equation*}
@@ -52,8 +52,8 @@ Für die Sprache $L=\set{w\in\simpleset{a,b}^\star}{w \text{ enthält das Teilwo
 	\end{equation*}
 	Insbesondere gilt für das Wort
 	\begin{align*}
-		x'&=uv^2wx^2y=a^s\\
-		|x'|&=n^2+r=s
+		z'&=uv^2wx^2y=a^s\\
+		|z'|&=n^2+r=s
 	\end{align*}
 	Das hieße, $n^2+r$ müsste eine Quadratzahl sein damit $x'$ wiederum in $L$ läge.
   Für $r$ gilt aber die Ausgangsbedinung des Pumping-Lemmas!

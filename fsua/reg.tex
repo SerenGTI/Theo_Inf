@@ -1,4 +1,4 @@
-\chapter{Reguläre Sprachen}
+\chapter{Reguläre Sprachen}\label{sec:typ3}
 \begin{equation*}
 	\text{Typ-3} = \reg\subset\dcfl\subset\cfl\subset\csl\subset\rec\subset\re
 \end{equation*}
@@ -151,6 +151,19 @@ Die Semantik der regulären Ausdrücke ist ebenso induktiv bestimmt:
 		&[u_1u_2]_{\equiv_L} \text{ mit } u_1u_2, u_1\widetilde{u_2}, \widetilde{u_1}u_2,\widetilde{u_1}\widetilde{u_2}\in[u_1u_2]_{\equiv_L}
 	\end{align*}
 
+	\section{Konstruktionsalgorithmus für Minimal-DEAs}
+	Mit dem Beweis zur Myhill-Nerode-Äquivalenz wird ein Automat definiert, dieser ist isomorph zum Minimalautomaten.
+	Der Index der Myhill-Nerode-Äquivalenz ist genau die Anzahl der Zustände des Minimalautomaten.
+
+	Man kann mit einem einfachen Algorithmus aus einem beliebigen DEA den Minimalautomaten erzeugen:
+
+	Wir ermitteln algorithmisch, welche Zustände nicht äquivalent sind und verschmelzen die übrig bleibenden.
+	Nicht äquivalent sind Zustände, bei denen bei Eingabe eines Worts vom einen aus ein Endzustand erreicht wird, vom anderen jedoch nicht.
+
+	So sind im ersten Schritt Zustandspaare aus Endzustand und Nichtendzustand nicht äquivalent und werden markiert.
+
+
+
 
 
 \section{Beispiele: }
@@ -230,4 +243,120 @@ Die Semantik der regulären Ausdrücke ist ebenso induktiv bestimmt:
 					(BE)			edge [loop below] node {a,c} (ABC)
 										edge              node {b} (BB);
 	\end{tikzpicture}
+
+
+	\subsection*{Konstruktion für den Minimalautomaten}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+											semithick]
+		\tikzstyle{every state}=[fill=none,draw=black,text=black]
+
+		\node[initial,state] 						(A)              {$z_0$};
+		\node[state]         						(B) [below of=A] {$z_1$};
+		\node[state]         						(C) [below right of=A] {$z_2$};
+		\node[state]         						(D) [right of=A] {$z_3$};
+		\node[state, accepting]         (E) [right of=C] {$z_4$};
+
+		\path (A) edge 							node {a} (B)
+							edge			  			node {b} (C)
+					(B) edge [bend right] node {a} (E)
+							edge 						  node {b} (C)
+					(C) edge 						  node {a} (D)
+							edge [loop right] node {b} (C)
+					(D) edge 						  node {a} (E)
+							edge 							node {b} (A)
+					(E) edge [loop right] node {a,b} (E);
+	\end{tikzpicture}
+
+
+	Die Paare $\simpleset{z_i,z_4}$ mit $i=0,1,2,3$ werden markiert:
+
+	\begin{tabular}{ccccc}
+		\cline{2-2}
+		$z_1$ & 	\multicolumn{1}{|c|}{ }		&				&				&			 \\
+		\cline{2-3}
+		$z_2$ & 	\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{c|}{ }		&				&			 \\
+		\cline{2-4}
+		$z_3$ & 	\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{c|}{ }		&		\multicolumn{1}{c|}{ }		&			 \\
+		\cline{2-5}
+		$z_4$ & 	\multicolumn{1}{|c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}	 \\
+		\cline{2-5}
+					& $z_0$ & $z_1$ & $z_2$ & $z_3$\\
+	\end{tabular}
+
+	Durch Testen der Zustandspaare erhält man die untenstehende Tabelle. Hierbei wurden Zeugen für die Inäquivalenz eingetragen.
+
+	\begin{tabular}{ccccc}
+		\cline{2-2}
+		$z_1$ & 	\multicolumn{1}{|c|}{a}		&				&				&			 \\
+		\cline{2-3}
+		$z_2$ & 	\multicolumn{1}{|c|}{ }		&		\multicolumn{1}{c|}{a}		&				&			 \\
+		\cline{2-4}
+		$z_3$ & 	\multicolumn{1}{|c|}{a}		&		\multicolumn{1}{c|}{ }		&		\multicolumn{1}{c|}{a}		&			 \\
+		\cline{2-5}
+		$z_4$ & 	\multicolumn{1}{|c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}		&		\multicolumn{1}{c|}{$\epsilon$}	 \\
+		\cline{2-5}
+					& $z_0$ & $z_1$ & $z_2$ & $z_3$\\
+	\end{tabular}
+
+	Damit lassen sich Zustände zusammenfassen: $p=\simpleset{z_0,z_2}, q=\simpleset{z_1,z_3}$. Der Minimalautomat ist also:
+
+	\vspace{1em}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+											semithick]
+		\tikzstyle{every state}=[fill=none,draw=black,text=black]
+
+		\node[initial,state] 						(A)              {$p$};
+		\node[state]         						(B) [right of=A] {$q$};
+		\node[state, accepting]         (C) [right of=B] {$z_4$};
+
+		\path (A) edge [bend left]	node {a} (B)
+							edge [loop above]	node {b} (A)
+					(B) edge  						node {a} (C)
+							edge [bend left]  node {b} (A)
+					(C) edge [loop right] node {a,b} (C);
+	\end{tikzpicture}
+
+	\begin{equation*}
+		T(M)=\set{waaw'}{w,w'\in\simpleset{a,b}^\star}
+	\end{equation*}
 \end{itemize}
+
+\subsection{Pumping-Lemma für Typ-3}\label{bsp:pumpingLemma}
+Für die Sprache $L=\set{a^nb^n}{n\geq 1}$:%
+\begin{align*}
+	\intertext{Zunächst wählt man ein Wort $x$, mit $|x|\geq n$:}
+	x&=a^nb^n \in L,\quad |a^nb^n|=2n>n\\
+	\intertext{Nun zu einer beliebigen Zerlegung $x=uvw$, für die die Bedingungen gelten:}
+	x&=uvw=a^nb^n\\
+	u&=a^{n-l-k} \quad v=a^l \quad w=a^k b^n \text{ mit $l\geq 1$}\\
+	x&=(a^{n-l-k}) (a^l) (a^k b^n)\\
+	\intertext{Pumpt man nun $v$ mit $v=0$:}
+	x&=(a^{n-l-k}) (a^l)^i (a^k b^n)=(a^{n-l-k}) (a^l)^0 (a^k b^n)\\
+	x&=(a^{n-l-k}) (a^k b^n) = a^{n-l} b^n \not\in L\text{, da $l\geq 1$}\\
+\end{align*}
+
+
+\subsection{Myhill-Nerode-Äquivalenz}\label{bsp:myhill}
+Für die Sprache $L=\set{w\in\simpleset{a,b}^\star}{w \text{ enthält das Teilwort $abb$}}$:%
+\begin{align*}
+	\intertext{Finden der Äquivalenzklassen:}
+	[\epsilon]&=\simpleset{\epsilon, b, bb, \ldots}=\set{b^n}{n\in N_0}\\
+	[a]&=\set{b^na^m}{n\in\N_0, m\in\N^+}\\
+	[ab]&=\set{w\in\simpleset{a,b}^\star}{w \text{ enthält das Teilwort $ab$ aber nicht das Teilwort $abb$}}\\
+	[abb]&=\set{wabbw'}{w,w'\in\simpleset{a,b}^\star}
+\end{align*}
+
+
+\subsection{Beweis durch Abschlusseigenschaften}
+Zu zeigen: $L=\set{b^na^m}{n,m\in\N_0, n\neq m}\not\in\reg$
+\begin{align*}
+	\intertext{Annahme:}
+	&L\in\reg\\
+	\intertext{Mit dem Abschluss gegen Komplement folgt}
+	&\overline L\in\reg\\
+	\intertext{Wegen Abschluss gegen Schnitt folgt dann auch}
+	&\overline L \cap L(b^\star a ^\star) \in\reg\\
+	\intertext{Jedoch gilt}
+	&\overline L \cap L(b^\star a ^\star) = \set{b^na^n}{n\in \N_0} \in \dcfl \supsetneq \reg
+	\intertext{Widerspruch! $L\not\in\reg$}
+\end{align*}

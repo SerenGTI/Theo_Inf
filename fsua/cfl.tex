@@ -1,4 +1,4 @@
-\chapter{Kontextfreie Sprachen}
+\chapter{Kontextfreie Sprachen}\label{sec:typ2}
 \begin{equation*}
 	\text{Typ-2} = \cfl\subset\csl\subset\rec\subset\re
 \end{equation*}
@@ -62,6 +62,10 @@ Sei $L\subseteq \Sigma^\star$ eine kontextfreie Sprache, dann gibt es eine Zahl 
 	\item $|vwx|\leq n$
 	\item $\forall i\in\N: uv^iwx^iy\in L$
 \end{itemize}
+\subsection{CYK-Algorithmus zur Lösung des Wortproblems für Typ-2}\label{algo:cyk}
+Mit dem CYK-Algorithmus ist das Wortproblem für Typ-2 in $\mathcal O(n^3)$ entscheidbar.
+
+Hierfür werden alle Ableitungsmöglichkeiten in einer Tabelle geordnet dargestellt. Ist am Ende die Startvariable als Startknoten für die Ableitung möglich, so ist das Wort in $L$.
 
 
 \section{Chomsky-Normalform}
@@ -166,4 +170,72 @@ Zu jeder Typ-2 Grammatik existiert eine Grammatik $G'$ in GNF, für die gilt $L(
 \begin{itemize}
 	\item $L_1=\set{ww^R}{w\in\Sigma^\star}$ (unmarkierte Palindrome)
 	\item Korrekt geklammerte arithmetische Ausdrücke (Dyck-Wörter)
+\end{itemize}
+\subsection*{CYK-Algorithmus}
+Produktionsregeln der Grammatik (CNF):
+
+\begin{equation*}
+	S\rightarrow AX|YB, A\rightarrow XA|AB|a, B\rightarrow XY|BB, X\rightarrow YA|a, Y\rightarrow XX|b
+\end{equation*}
+
+Eingabewort: $abbaab$
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ccccccc}
+	Länge & a & b & b & a & a & b\\
+	\cline{2-7}
+	1 & \multicolumn{1}{|c|}{$\simpleset{A,X}$} & \multicolumn{1}{c|}{$\simpleset{Y}$} & \multicolumn{1}{c|}{$\simpleset{Y}$} & \multicolumn{1}{c|}{$\simpleset{A,X}$} & \multicolumn{1}{c|}{$\simpleset{A,X}$} & \multicolumn{1}{c|}{$\simpleset{Y}$}\\
+	\cline{2-7}
+	2 & \multicolumn{1}{|c|}{$\simpleset{B}$} & \multicolumn{1}{c|}{$\emptyset$} & \multicolumn{1}{c|}{$\simpleset{X}$} & \multicolumn{1}{c|}{$\simpleset{A,S,Y}$} & \multicolumn{1}{c|}{$\simpleset{B}$} &\\
+	\cline{2-6}
+	3 & \multicolumn{1}{|c|}{$\emptyset$} & \multicolumn{1}{c|}{$\emptyset$} & \multicolumn{1}{c|}{$\simpleset{A,Y,X}$} & \multicolumn{1}{c|}{$\simpleset{A}$} &&\\
+	\cline{2-5}
+	4 & \multicolumn{1}{|c|}{$\emptyset$} & \multicolumn{1}{c|}{$\simpleset{X}$} & \multicolumn{1}{c|}{$\simpleset{B,X}$} &&&\\
+	\cline{2-4}
+	5 & \multicolumn{1}{|c|}{$\simpleset{S,Y}$} & \multicolumn{1}{c|}{$\simpleset{B,S}$} &&&&\\
+	\cline{2-3}
+	6 & \multicolumn{1}{|c|}{$\simpleset{A,B}$} &&&&&\\
+	\cline{2-2}
+\end{tabular}
+
+Da die unterste Zelle nun $\simpleset{A,B}$ enthält, ist $w=abbaab\not\in L$
+
+
+
+\subsection{Pumping-Lemma für Typ-2}
+\begin{itemize}
+	\item
+	Für die Sprache $L=\set{a^nb^nc^n}{n\geq 1}$:
+
+	Zunächst wählt man ein Wort $z$, mit $|z|\geq n$:
+	\begin{equation*}
+		x=a^nb^nc^n \in L,\quad |a^nb^nc^n|=3n>n
+	\end{equation*}
+	Nun zu einer beliebigen Zerlegung $z=uvwxy$, für die die Bedingungen gelten. Da $|vwx|\leq n$, können $v$ und $x$ nur maximal zwei unterschiedliche Buchstaben beinhalten, niemals jedoch $a$, $b$ und $c$.
+
+	Damit kann $uv^iwx^iy$ nicht in $L$ sein für ein $i\neq 1$. \hfill $\Box$
+	\item
+	Für die Sprache $L=\set{a^n}{n \text{ ist eine Quadratzahl}}$:
+
+	Zunächst wählt man ein Wort $x$, mit $|x|\geq n$:
+	\begin{equation*}
+		z=a^{n^2} \in L
+	\end{equation*}
+	Bei jeder Zerlegung $z=uvwxy$ sind nur $a$s in den Teilwörtern $v$ und $x$, die gepumpt werden.
+
+	Betrachtet man die Länge $|vx|=r$, so gilt:
+	\begin{equation*}
+		|uv^iwx^iy|=n^2+r(i-1)
+	\end{equation*}
+	Insbesondere gilt für das Wort
+	\begin{align*}
+		z'&=uv^2wx^2y=a^s\\
+		|z'|&=n^2+r=s
+	\end{align*}
+	Das hieße, $n^2+r$ müsste eine Quadratzahl sein damit $x'$ wiederum in $L$ läge.
+  Für $r$ gilt aber die Ausgangsbedinung des Pumping-Lemmas!
+	\begin{equation*}
+		|vwx|=r+|w|\leq n
+	\end{equation*}
+	$s$ kann damit unmöglich eine Quadratzahl sein. \hfill $\Box$
 \end{itemize}

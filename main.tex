@@ -1,6 +1,6 @@
 \documentclass[orange]{simonkoenigzusammenfassung}
 
-\title{Theoretische Informatik\\\subtitleformat{Zusammenfassung zu den Modulen Theoretische Informatik I}}
+\title{Theoretische Informatik\\\subtitleformat{Zusammenfassung der Module Theoretische Informatik 1 \& 2}}
 \author{Simon \textsc{König}}
 
 \usepackage{pgf}
@@ -21,8 +21,23 @@
 
 
 
+\input{ueberblick}
+
+\part{Grundlagen}
+	\input{fsua/einstieg.tex}
+	\input{buk/aussagenlogik}
 \part{Formale Sprachen und Automatentheorie}
-\input{fsuaChapters}
-\part{Berechenbarkeit und Komplexität}
+	\input{fsua/fin.tex}
+	\input{fsua/reg.tex}
+	\input{fsua/dcfl.tex}
+	\input{fsua/cfl.tex}
+	\input{fsua/csl.tex}
+
+\part{Berechenbarkeitstheorie und Komplexität}
+	\input{fsua/re.tex}
+	\input{fsua/rec.tex}
+	\input{buk/berechenbarkeit}
+	\input{buk/entscheidbarkeiten}
+
 
 \end{document}

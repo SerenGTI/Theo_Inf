@@ -8,7 +8,13 @@
 \RequirePackage[top=3cm, bottom=4cm, outer=3.5cm, inner=3.5cm, heightrounded]{geometry}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{xcolor}
-\RequirePackage{hyperref}
+\RequirePackage[pdftex,
+            pdfauthor={Simon König},
+            pdftitle={Zusammenfassung zu den Modulen Theoretische Informatik 1 & 2},
+            pdfsubject={Formale Sprachen und Automatentheorie, Berechenbarkeit und Komplexität},
+            pdfkeywords={Theoretische Informatik, formale Sprachen, Automatentheorie, Berechenbarkeit, Komplexität, Universität Stuttgart},
+            pdfproducer={LaTeX with hyperref package},
+            pdfcreator={pdfTeX}]{hyperref}
 \RequirePackage{booktabs}
 \RequirePackage{array}
 

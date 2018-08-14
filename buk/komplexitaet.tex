@@ -1,0 +1,141 @@
+\chapter{Komplexitätstheorie}
+Die Frage in der Komplexitätstheorie ist, wie viel Aufwand benötigt wird, ein Problem zu lösen.
+Die theoretische Lösbarkeit wird in der Entscheidbarkeits- bzw. Berechenbarkeitstheorie behandelt.
+
+Die Komplexitätstheorie befasst sich mit oberen und unteren Schranken an den Ressourcenaufwand zur Problemlösung.
+Wichtig sind hierbei auch inhärente Komplexitäten, also eine Beschränkung nach oben und unten.
+\section{Komplexitätsklassen}
+Diese Komplexitätsklassen liegen alle in der Menge der entscheidbaren Sprachen. Alle folgenden Klassen sind also Teilmengen von $\rec$.
+
+Für alle Komplexitätsklassen $\mathcal C$ ist zu unterscheiden:
+\begin{align*}
+	\operatorname{co}\mathcal C=\set{L\in\Sigma^\star}{\overline L \in\mathcal C} && \overline{\mathcal C}=\set{L\in\Sigma^\star}{L\not\in \mathcal C}
+\end{align*}
+\subsection{Zeitklassen}
+\begin{multicols}{2}
+	Die Funktion $\mathrm{time}_M:\Sigma^\star\rightarrow \N$ ordnet einer Eingabe die Anzahl Schritte zu, die eine deterministische Maschine $M$ auf ihr ausführt.
+
+	Die Zeitklasse $\operatorname{DTIME}(f(n))$ enthält alle Probleme, die sich durch eine deterministische Turingmaschine in einem Zeitaufwand kleiner als $f$ lösen lassen. Das heißt, $f$ ist eine obere Schranke für die Komplexität der Probleme in $\operatorname{TIME}(f)$.
+
+	\columnbreak
+
+	Die Funktion $\mathrm{ntime}_M:\Sigma^\star\rightarrow \N$ ordnet einer Eingabe die Länge des kürzesten akzeptierenden Pfades der nichtdeterministischen Maschine $M$ zu. Falls die Maschine nicht akzeptiert, ist $\mathrm{ntime}_M(w)=0$.
+
+	Die Zeitklasse $\operatorname{NTIME}(f(n))$ enthält alle Probleme, die sich durch eine nichtdeterministische Turingmaschine in einem Zeitaufwand kleiner als $f$ lösen lassen.
+\end{multicols}
+
+
+
+\begin{center}
+	\renewcommand{\arraystretch}{2}
+	\begin{tabular}{rl}
+		\poly&$=\displaystyle\bigcup_{k\geq 1} \operatorname{DTIME}(n^k)$\\
+		\npoly&$=\displaystyle\bigcup_{k\geq 1} \operatorname{NTIME}(n^k)$
+	\end{tabular}
+\end{center}
+
+\subsection{Platzklassen}
+Analog zu den Zeitklassen sind Platzklassen definiert, die den maximal belegten Platz für eine Berechnung beschränken. Die Funktion $\mathrm{space}_M:\Sigma^\star\rightarrow \N$ ordnet dabei jeder Eingabe auf einer deterministischen Turingmaschine die Anzahl der maximal verwendeten Bandelemente (auf einem Arbeitsband) zu.
+
+So ist die Platzklasse $\operatorname{SPACE}(f(n))$ definiert als die Klasse aller Probleme für die $f$ eine Platzbeschränkung für alle Eingaben ist.
+
+Analog wie bei Zeitklassen die Unterscheidung deterministische-nichtdeterministische Platzklassen.
+\begin{center}
+	\renewcommand{\arraystretch}{2}
+	\begin{tabular}{rl}
+		\textbf{L}&$=\operatorname{DSPACE}(\log)$\\
+		\textbf{NL}&$=\operatorname{NSPACE}(\log)$\\
+		\textbf{PSPACE}&$=\displaystyle\bigcup_{k\geq 1} \operatorname{DSPACE}(n^k)=\bigcup_{k\geq 1} \operatorname{NSPACE}(n^k)$
+	\end{tabular}
+\end{center}
+
+\subsection{Wichtige Beziehungen zwischen den Klassen}
+\begin{itemize}
+	\item In den Platzklassen spielt die $\mathcal O$-Notation keine Rolle, Konstanten können wegen Bandreduktion und Bandkompression vernachlässigt werden
+	\begin{align*}
+		\operatorname{DSPACE}(\mathcal O(f))&=\operatorname{DSPACE}(f)\\
+		\operatorname{NSPACE}(\mathcal O(f))&=\operatorname{NSPACE}(f)
+	\end{align*}
+	\item In nichtdeterministischen Zeitklassen spielt die $\mathcal O$-Notation ebenfalls keine Rolle
+	\begin{equation*}
+		\operatorname{NTIME}(\mathcal O(f))=\operatorname{NTIME}(f)
+	\end{equation*}
+	\item Bei deterministischen Zeitklassen gilt i.A. $\operatorname{DTIME}(\mathcal O(f))\not=\operatorname{DTIME}(f)$, nur für größer als lineare Funktionen gilt Gleichheit d.h.
+	\begin{align*}
+		\operatorname{DTIME}(\mathcal O(f))&=\operatorname{DTIME}(f) \enspace f(n)\geq (1+\epsilon)n\text{ für ein }\epsilon>0\\
+		\operatorname{DTIME}(f)&\subseteq \operatorname{DTIME}(f\log f)
+	\end{align*}
+	\item Für alle $f(n)\geq n$ gilt für die Zeitklassen
+	\begin{equation*}
+		\operatorname{DTIME}(f)\subseteq\operatorname{NTIME}(f)\subseteq\operatorname{DSPACE}(f)
+	\end{equation*}
+	\item Und für alle $f(n)\geq \log n$ gilt
+	\begin{equation*}
+		\operatorname{DSPACE}(f)\subseteq\operatorname{NSPACE}(f)\subseteq\operatorname{DTIME}(2^{\mathcal O(f)})
+	\end{equation*}
+	\item \textbf{Satz von Savitch}:
+	\begin{equation*}
+		\operatorname{NSPACE}(s)\subseteq\operatorname{DSPACE}(s^2)
+	\end{equation*}
+	\item Sei $s_1\not\in\Omega(s_2)$ und $s_2\in\Omega(\log(n))$, dann gilt der \textbf{Platzhierarchiesatz}
+	\begin{equation*}
+		\operatorname{DSPACE}(s_2)\setminus\operatorname{DSPACE}(s_1)\not=\emptyset
+	\end{equation*}
+	\item Sei $t_1\log(t_1)\not\in\Omega(t_2)$ und $t_2\in\Omega(n\log(n))$, dann gilt der \textbf{Zeithierarchiesatz}
+	\begin{equation*}
+		\operatorname{DTIME}(t_2)\setminus\operatorname{DTIME}(t_1)\not=\emptyset
+	\end{equation*}
+	\item \textbf{Lückensatz von Borodin}: Für jede totale berechenbare Funktion $r(n)\geq n$ existiert effektiv eine totale berechenbare Funktion $s(n)\geq n+1$ mit
+	\begin{equation*}
+		\operatorname{DTIME}(s(n))=\operatorname{DTIME}(r(s(n)))
+	\end{equation*}
+	\item Translationtechnik:\\
+	Die Translationssätze werden verwendet, Separationen von größeren zu kleineren Klassen bzw. Gleichheiten oder Inklusionen von kleineren zu größeren Klassen zu übertragen.
+	Die durch Padding aufgebläte Sprache ist $Pad_f(L)\coloneqq \set{w\$^{f(|w|)-|w|}}{w\in L}$.
+	\begin{enumerate}
+		\item Für zwei Funktionen $f(n),g(n)\geq n$ gilt der \textbf{Translationssatz für Zeitklassen}:
+		\begin{align*}
+			Pad_f(L)\in \operatorname{DTIME}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{DTIME}(\mathcal O(g\circ f))\\
+			Pad_f(L)\in \operatorname{NTIME}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{NTIME}(\mathcal O(g\circ f))
+		\end{align*}
+		\item Und analog für $g\in\Omega(\log)$ und $f(n)\geq n$ der \textbf{Translationssatz für Platzklassen}:
+		\begin{align*}
+			Pad_f(L)\in \operatorname{DSPACE}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{DSPACE}(\mathcal O(g\circ f))\\
+			Pad_f(L)\in \operatorname{NSPACE}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{NSPACE}(\mathcal O(g\circ f))
+		\end{align*}
+	\end{enumerate}
+\end{itemize}
+
+
+
+
+
+\section{Reduktionen}
+Ähnlich wie in der Berechenbarkeitstheorie kann man zur Analyse der Komplexität von Problemen Reduktionen zwischen diesen entwickeln. Hier ist das Ergebnis allerdings sogar eine Beschränkung des Aufwands nach oben oder unten.
+
+Allerdings ist die many-one-Reduktion zu grob um sinnvolle Reduktionen zwischen Problemen mit Zeitbeschränkung durchzuführen. {\scriptsize(Ein Problem, das in Polynomialzeit lösbar ist, könnte durch eine many-one-Reduktionsfunktion gelöst werden. So kann man eigentlich alle berechenbaren Probleme aufeinander many-one-reduzieren, diese Aussage ist jedoch für eine Komplexitätsbetrachtung uninteressant.)}
+
+Deshalb gibt es die sog. Polynomialzeitreduktion. Hier ist eine Beschränkung an die Reduktionsfunktion gesetzt, nämlich muss diese zusätzlich in Polynomialzeit berechenbar sein. Man schreibt $A\leq_p B$.
+\begin{enumerate}
+	\item $A\leq_p B\wedge B\in \text{\poly}\Rightarrow A\in\text{\poly}$
+	\item $A\leq_p B\wedge B\in \text{\npoly}\Rightarrow A\in\text{\npoly}$
+\end{enumerate}
+
+
+\subsection{Härte und Vollständigkeit}
+\paragraph{NP-Härte}
+Eine Sprache ist \npoly-hart falls sich alle Probleme aus \npoly\ in Polynomialzeit darauf reduzieren lassen. Das heißt dieses Problem ist mindestens so schwierig zu lösen wie ein Problem aus \npoly. Es gilt: $A$ \npoly-hart und $A\leq_p B\Rightarrow B$ \npoly-hart.
+\paragraph{NP-Vollständigkeit}
+Ist eine Sprache \npoly-hart und selbst in \npoly\ enthalten, so nennt man sie \npoly-vollständig. Diese Sprachen gehören zu den schwierigsten Sprachen aus \npoly. Kann man von einer \npoly-vollständigen Sprache zeigen, dass sie sogar in \poly\ liegt, so hat man \poly$=$\npoly\ gezeigt.
+
+Einige \npoly-vollständige Probleme:
+\begin{center}
+	\begin{tabular}{r|l}
+		\textbf{SAT} & $\set{w}{w\text{ kodiert eine erfüllbare Formel}}$\\
+		\textbf{3KNF-SAT} & Ist eine Formel in KNF mit max. 3 Literalen pro Klausel erfüllbar?\\
+		\textbf{CLIQUE} & Enthält ein Graph eine Clique der Größe $k$?\\
+		\textbf{FÄRBBARKEIT} & Gibt es eine Knotenfärbung mit $k$ Farben?\\
+	\end{tabular}
+\end{center}
+
+\subsection{Logspace-Reduktion}

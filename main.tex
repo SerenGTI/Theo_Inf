@@ -1,6 +1,6 @@
-\documentclass[orange]{simonkoenigzusammenfassung}
+\documentclass[orange]{../LaTeX-Templates/Skript/skript}
 
-\title{Theoretische Informatik\\\subtitleformat{Zusammenfassung der Module Theoretische Informatik 1 \& 2}}
+\title{Theoretische Informatik\\\subtitleformat{Zusammenfassung der Module TI 1 und 2}}
 \author{Simon \textsc{König}}
 
 \usepackage{pgf}
@@ -15,6 +15,11 @@
 \newcommand{\reg}{\mathrm{(REG)}}
 \newcommand{\fin}{\mathrm{(FIN)}}
 
+\newcommand{\poly}{\textbf{P}}
+\newcommand{\npoly}{\textbf{NP}}
+
+\renewcommand{\version}{\today}
+
 \begin{document}
 \maketitle
 \tableofcontents
@@ -24,9 +29,9 @@
 \input{ueberblick}
 
 \part{Grundlagen}
-	\input{fsua/einstieg.tex}
 	\input{buk/aussagenlogik}
 \part{Formale Sprachen und Automatentheorie}
+	\input{fsua/einstieg.tex}
 	\input{fsua/fin.tex}
 	\input{fsua/reg.tex}
 	\input{fsua/dcfl.tex}
@@ -38,6 +43,7 @@
 	\input{fsua/rec.tex}
 	\input{buk/berechenbarkeit}
 	\input{buk/entscheidbarkeiten}
+	\input{buk/komplexitaet}
 
 
 \end{document}

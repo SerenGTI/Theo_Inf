@@ -1,69 +1,70 @@
 \chapter{Überblick}
-Ein kurzer Gesamtüberblick über den Zusammenhang von formalen Sprachen zur Berechenbarkeitstheorie:
+Ein kurzer Gesamtüberblick über den Zusammenhang von formalen Sprachen zur Komplexität und Berechenbarkeitstheorie:
 
 \definecolor{entscheidbar}{rgb}{0.4, 0.9, 0.7}
-
-	\begin{tikzpicture}
-		\tikzset{
+	\begin{center}
+		\begin{tikzpicture}
+			\tikzset{
 			grouplabel/.style={
-				draw,
-				fill = white,
-				rectangle,
-				inner sep = 4pt,
-				rounded corners=1pt
+			draw,
+			fill = white,
+			rectangle,
+			inner sep = 4pt,
+			rounded corners=1pt
 			}
-		}
+			}
 
-		\draw [rounded corners=5pt, dotted, line width=0.2mm] (0,0) rectangle (14,16.5);
-		\draw node at (7,16.5) [grouplabel] {alle formalen Sprachen};
-
-
-		% CO-SEMI-ENTSCHEIDBAR
-		\draw [rounded corners=5pt, dotted, line width=0.5mm] (0.5,0.5) rectangle (12,12);%co-semi
-		\draw node at (6,0.5) [grouplabel] {co-semi-entscheidbare Sprachen};
-		\draw node at (0.5,1.3) [label={right:$\chi'_{\overline L}(w)$ Turing-berechenbar, Komplement ist semi-entscheidbar}] {};
-
-		% SEMI-ENTSCHEIDBAR
-		\draw [rounded corners=5pt, dotted, line width=0.5mm] (2,2) rectangle (13.5,15.5);%semi
-		\draw node at (8,15.5) [grouplabel] {\hyperref[sec:typ0]{Typ-0$=\re$, semi-entscheidbare Sprachen}};
-		\draw node at (2,14.8) [label={right:$\operatorname{PCP, K, H, H_0, \ldots}$}] {};
-		\draw node at (2,14.3) [label={right:$\chi'_{L}(w)$ Turing-berechenbar}] {};
-		\draw node at (2,13.7) [label={right:$L=T(M) \rightsquigarrow$ wird durch eine TM akzeptiert}] {};
-		\draw node at (2,13.2) [label={right:$f:\N\rightarrow \Sigma^\star, f(\N)=L \rightsquigarrow$ rekursiv aufzählbar}] {};
-		\draw node at (2,12.7) [label={right:$f:\Sigma^\star\rightarrow\Sigma^\star, f(\Sigma^\star)=L \rightsquigarrow$ Wertebereich einer berechenbaren Funktion}] {};
+			\draw [rounded corners=5pt, dotted, line width=0.2mm] (0,0) rectangle (14,16.5);
+			\draw node at (7,16.5) [grouplabel] {alle formalen Sprachen};
 
 
+			% CO-SEMI-ENTSCHEIDBAR
+			\draw [rounded corners=5pt, dotted, line width=0.5mm] (0.5,0.5) rectangle (12,12);%co-semi
+			\draw node at (6,0.5) [grouplabel] {co-semi-entscheidbare Sprachen};
+			\draw node at (0.5,1.3) [label={right:$\chi'_{\overline L}(w)$ Turing-berechenbar, Komplement ist semi-entscheidbar}] {};
 
-
-		%ENTSCHEIDBAR
-		\draw [draw, fill=accent!50, line width=0.5mm] (2,2) rectangle (12,12);%entscheidbar
-		\draw node at (7,12) [grouplabel] {\hyperref[sec:rec]{entscheidbare Sprachen}};
-		\draw node at (2,10.5) [label={right:$\chi_{L}(w)$ Turing-berechenbar}] {};
+			% SEMI-ENTSCHEIDBAR
+			\draw [rounded corners=5pt, dotted, line width=0.5mm] (2,2) rectangle (13.5,15.5);%semi
+			\draw node at (8,15.5) [grouplabel] {\hyperref[sec:typ0]{Typ-0$=\re$, semi-entscheidbare Sprachen}};
+			\draw node at (2,14.8) [label={right:$\operatorname{PCP, K, H, H_0, \ldots}$}] {};
+			\draw node at (2,14.3) [label={right:$\chi'_{L}(w)$ Turing-berechenbar}] {};
+			\draw node at (2,13.7) [label={right:$L=T(M) \rightsquigarrow$ wird durch eine TM akzeptiert}] {};
+			\draw node at (2,13.2) [label={right:$f:\N\rightarrow \Sigma^\star, f(\N)=L \rightsquigarrow$ rekursiv aufzählbar}] {};
+			\draw node at (2,12.7) [label={right:$f:\Sigma^\star\rightarrow\Sigma^\star, f(\Sigma^\star)=L \rightsquigarrow$ Wertebereich einer berechenbaren Funktion}] {};
 
 
 
-		%% TYP1
-		\draw [rounded corners=2pt, line width=0.2mm] (2.2,2.2) rectangle (11.8,9.9);
-		\draw node at (7,9.9) [grouplabel] {\hyperref[sec:typ1]{Typ-1$=\csl$}};
-		\draw node at (2.2,9.2) [label={right:$a^nb^nc^n, a^{2^n}, \ldots$}] {};
-		\draw node at (2.2,8.7) [label={right:LBA}] {};
 
-		%% TYP2
-		\draw [rounded corners=2pt, line width=0.2mm] (2.4,2.4) rectangle (11.6,8.1);
-		\draw node at (7,8.1) [grouplabel] {\hyperref[sec:typ2]{Typ-2$=\cfl$}};
-		\draw node at (2.4,7.4) [label={right:$a^na^n, aa^R, \ldots$}] {};
-		\draw node at (2.4,6.9) [label={right:PDA}] {};
+			%ENTSCHEIDBAR
+			\draw [draw, fill=accent!50, line width=0.5mm] (2,2) rectangle (12,12);%entscheidbar
+			\draw node at (7,12) [grouplabel] {\hyperref[sec:rec]{entscheidbare Sprachen}};
+			\draw node at (2,10.5) [label={right:$\chi_{L}(w)$ Turing-berechenbar}] {};
 
-		% DCFL
-		\draw [rounded corners=2pt, line width=0.2mm] (2.6,2.6) rectangle (11.4,6.3);%dcfl
-		\draw node at (7,6.3) [grouplabel] {\hyperref[sec:typ2]{$\dcfl$}};
-		\draw node at (2.6,5.6) [label={right:$a^nb^n, a\$a^R, \ldots$}] {};
-		\draw node at (2.6,5.1) [label={right:DPDA}] {};
 
-		% TYP3
-		\draw [rounded corners=2pt, line width=0.2mm] (2.8,2.8) rectangle (11.2,4.5);
-		\draw node at (7,4.5) [grouplabel] {\hyperref[sec:typ3]{Typ-3$=\reg$}};
-		\draw node at (2.8,3.8) [label={right:$\Sigma^\star, \emptyset, a^\star,\ldots$}] {};
-		\draw node at (2.8,3.3) [label={right:DEA, NEA, reguläre Ausdrücke}] {};
 
-	\end{tikzpicture}
+			%% TYP1
+			\draw [rounded corners=2pt, line width=0.2mm] (2.2,2.2) rectangle (11.8,9.9);
+			\draw node at (7,9.9) [grouplabel] {\hyperref[sec:typ1]{Typ-1$=\csl$}};
+			\draw node at (2.2,9.2) [label={right:$a^nb^nc^n, a^{2^n}, \ldots$}] {};
+			\draw node at (2.2,8.7) [label={right:LBA}] {};
+
+			%% TYP2
+			\draw [rounded corners=2pt, line width=0.2mm] (2.4,2.4) rectangle (11.6,8.1);
+			\draw node at (7,8.1) [grouplabel] {\hyperref[sec:typ2]{Typ-2$=\cfl$}};
+			\draw node at (2.4,7.4) [label={right:$a^na^n, ww^R, \ldots$}] {};
+			\draw node at (2.4,6.9) [label={right:PDA}] {};
+
+			% DCFL
+			\draw [rounded corners=2pt, line width=0.2mm] (2.6,2.6) rectangle (11.4,6.3);%dcfl
+			\draw node at (7,6.3) [grouplabel] {\hyperref[sec:typ2]{$\dcfl$}};
+			\draw node at (2.6,5.6) [label={right:$a^nb^n, w\$w^R, \ldots$}] {};
+			\draw node at (2.6,5.1) [label={right:DPDA}] {};
+
+			% TYP3
+			\draw [rounded corners=2pt, line width=0.2mm] (2.8,2.8) rectangle (11.2,4.5);
+			\draw node at (7,4.5) [grouplabel] {\hyperref[sec:typ3]{Typ-3$=\reg$}};
+			\draw node at (2.8,3.8) [label={right:$\Sigma^\star, \emptyset, a^\star,\ldots$}] {};
+			\draw node at (2.8,3.3) [label={right:DEA, NEA, reguläre Ausdrücke}] {};
+
+		\end{tikzpicture}
+	\end{center}

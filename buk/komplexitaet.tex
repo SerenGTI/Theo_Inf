@@ -138,4 +138,39 @@ Einige \npoly-vollständige Probleme:
 	\end{tabular}
 \end{center}
 
+\paragraph{PSPACE-Vollständigkeit}
+\textbf{QBF} $=\set{F}{F\text{ ist eine geschlossene \textbf{QBF}-Formel, die sich zum Wert TRUE auswerten lässt.}}$ ist $\operatorname{PSPACE}$-vollständig.
+
 \subsection{Logspace-Reduktion}
+\paragraph{Logspace-Transducer}
+Ein Logspace-Transducer ist eine deterministische Turingmaschine mit einem read-only Eingabeband und einem logarithmisch beschränkten Arbeitsband, sowie einem write-only Ausgabeband auf dem der Schreib-/ Lesekopf nicht nach links bewegt werden kann.
+
+Eine Funktion heißt logspace-berechenbar, wenn ein Logspace-Transducer existiert, der sie berechnet.
+
+Auf Basis dieser Definitionen gibt es nun als verfeinerung der Polynomialzeitreduktion die Logspace-Reduktion:
+
+Seien $A,B\subseteq \Sigma^\star$ Sprachen. $A$ heißt auf $B$ logspace-reduzierbar, falls eine logspace-berechenbare Funktion $f:\Sigma^\star\rightarrow\Sigma^\star$ existiert, so dass
+\begin{equation*}
+	x\in A\Leftrightarrow f(x)\in B
+\end{equation*}
+Man schreibt dann $A\leq_{\log} B$.
+
+So kann man nun Begriffe wie \textbf{NL}- bzw. \poly-Härte/-Vollständigkeit sinnvoll (und analog zur \npoly-Vollständigkeit) definieren.
+
+Einige Probleme, die \textbf{NL}-vollständig bezüglich logspace-Reduktion sind:
+\begin{center}
+	\begin{tabular}{r|l}
+		\textbf{GAP} & Grapherreichbarkeitsproblem\\
+		\textbf{2-SAT} & erfüllbare boole'sche Formeln in 2KNF-Darstellung\\
+		\textbf{2-NSAT} & nicht erfüllbare Formeln in 2KNF-Darstellung
+	\end{tabular}
+\end{center}
+
+Einige Probleme, die \poly-vollständig bezüglich logspace-Reduktion sind:
+\begin{center}
+	\begin{tabular}{r|l}
+		\textbf{CFE} & $L_{cfe}=\set{w}{w\text{ ist Kodierung einer Typ-2 Grammatik $G$ mit }L(G)=\emptyset}$\\
+		\textbf{CVP} & Circuit Value Problem (Ausgabe des Schaltnetzes)\\
+		\textbf{MCVP} & Wie \textbf{CVP}, allerdings ohne Negationen
+	\end{tabular}
+\end{center}

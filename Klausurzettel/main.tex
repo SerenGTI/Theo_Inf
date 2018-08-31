@@ -37,87 +37,115 @@
 
 	Turingmaschine: $M=(Z,\Sigma,\Gamma,\delta,z_0,\Box,E)$ mit $\delta: Z\times\Gamma\rightarrow Z\times\Gamma\times\simpleset{L,N,R}$
 
+	ATM: zusätzlich $t: Z\rightarrow \simpleset{\forall, \exists}$
+
 	Endl. Automat: $M=(Z,\Sigma, \delta, S, E)$
 
-	Gerichteter Graph $G=(V,E), E= \set{(v,w)\in V^2}{\text{von $v$ zu $w$}}$
+	Gerich. Graph $G=(V,E), E= \set{(v,w)\in V^2}{\text{von $v$ zu $w$}}$
 
-	Ungerichteter Graph $G=(V,E), E= \set{\simpleset{v,w}\subseteq V}{\text{$v,w$ sind verbunden}}$
+	Unger. Graph $G=(V,E), E= \set{\simpleset{v,w}\subseteq V}{\text{$v,w$ sind verbunden}}$
 
 	\section{Berechenbarkeit}
-	LOOP-Anweisungen:
 	\begin{itemize}
-		\item $x_i\coloneqq x_j+c$ bzw. $x_i\coloneqq x_j-c$ mit $c\in\N$
-		\item \texttt{LOOP} $x_i$ \texttt{DO} $P$ \texttt{END}
-		\item Hintereinanderausführung von LOOP-Programmen
-	\end{itemize}
-
-	Primitiv rekursive Funktionen:
-	\begin{multicols}{2}
+		\item \textbf{LOOP-Anweisungen}:
 		\begin{itemize}
-			\item \texttt{s(n)}
-			\item \texttt{dec(n)}
-			\item \texttt{add(a,b)}
-			\item \texttt{sub(a,b)}
-			\item \texttt{mul(a,b)}
-			\item \texttt{c$^i_j$=j}
-			\item \texttt{even(n)}
-			\item \texttt{odd(n)}
-			\item \texttt{leq(a,b)}
-			\item \texttt{eq(a,b)}
+			\item $x_i\coloneqq x_j+c$ bzw. $x_i\coloneqq x_j-c$ mit $c\in\N$
+			\item \texttt{LOOP} $x_i$ \texttt{DO} $P$ \texttt{END}
+			\item Hintereinanderausführung von LOOP-Programmen
 		\end{itemize}
-	\end{multicols}
 
-	Nicht LOOP-berechenbare Funktionen (aber Turing):
-	\begin{itemize}
-		\item $\Omega$, nirgends definierte Funktion
-		\item $a(x,y)$, Ackermannfunktion
+		\item \textbf{Primitiv rekursive Funktionen}:
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item \texttt{s(n)}
+				\item \texttt{dec(n)}
+				\item \texttt{add(a,b)}
+				\item \texttt{sub(a,b)}
+				\item \texttt{mul(a,b)}
+				\item \texttt{c$^i_j$=j}
+				\item \texttt{even(n)}
+				\item \texttt{odd(n)}
+				\item \texttt{leq(a,b)}
+				\item \texttt{eq(a,b)}
+				\item \texttt{c(x,y)}
+			\end{itemize}
+		\end{multicols}
+
+		\item \textbf{Turing-berechenbar (nicht LOOP)}:
+		\begin{itemize}
+			\item $\Omega$, nirgends definierte Funktion
+			\item $a(x,y)$, Ackermannfunktion
+		\end{itemize}
+
+		\item \textbf{$\mu$-Rekursion bzw. WHILE}:
+		\begin{itemize}
+			\item Für eine Funktion $f(x_1,x_2,\ldots,x_k)$ ist
+			\begin{align*}
+				\mu f(x_2,\ldots,x_k)=\min\{n\in\N | &f(n,x_2,\ldots,x_k)=0\\&\wedge f(n_0,x_2,\ldots,x_k)>0 \enspace\forall n_0<n\}
+			\end{align*}
+			\item \textbf{Satz von Kleene}: Jede WHILE-berechenbare Funktion lässt sich mit einer WHILE-Schleife darstellen. Genauso bei $\mu$-Rekursion mit einem $\mu$-Operator.
+		\end{itemize}
 	\end{itemize}
-
 
 	\section{Entscheidbarkeit}
 	\begin{itemize}
 		\item $A\leq B$ und $A$ \textit{nicht} semi-entscheidbar, dann ist $B$ ebenfalls nicht semi-entscheidbar.
 		Ist $B$ semi-entscheidbar, dann ist auch $A$ semi-entscheidbar.
+		\item \textbf{Dovetailing}:
+		Simuliere Maschine $M$ auf Eingabe $\omega(e(n))$ genau $f(n)$ Schritte lang, erhöhe $n$. Hierbei sei $\omega(n)$ die Funktion zur rekursiven Aufzählbarkeit. $e(c(a,b))=a$ und $f(c(a,b))=b$.
 		\item \textbf{Satz von Rice}: $\mathcal R$ die Menge der Turing-berechenbaren Funktionen. Die Menge
 		\begin{equation*}
 			\mathcal C(\mathcal S)=\set{w}{M_w\text{ berechnet eine Funktion aus } \mathcal S}
 		\end{equation*}
 		ist unentscheidbar, wenn $\emptyset\neq\mathcal S\neq\mathcal R$.
 		\item Eine Sprache ist genau dann semi-entscheidbar, wenn sie sich auf $H$ reduzieren lässt. (Vortragsübung)
+		\item Für zwei kontextfreie Grammatiken sind unentscheidbar: Leerheit des Schnitts, Endlichkeit des Schnitts, Kontextfreiheit des Schnitts, Inklusion und Äquivalenz
+
+		\item \textbf{Entscheidbarkeiten}:
+
+		\begin{tabular}{r|cccc}
+			&Wortproblem&Leerheit&Äquivalenz&Schnitt\\
+			REG&\checkmark&\checkmark&\checkmark&\checkmark\\
+			DCFL&\checkmark&\checkmark&\checkmark&X\\
+			CFL&\checkmark&\checkmark&X&X\\
+			CSL&\checkmark&X&X&X\\
+			r.e.&X&X&X&X
+		\end{tabular}
+
+		\item \textbf{Abschlusseigenschaften}:
+
+		\begin{tabular}{r|ccccc}
+			&Schnitt&Vereinig.&Kompl.&Konkat.&Stern\\
+			REG&\checkmark&\checkmark&\checkmark&\checkmark&\checkmark\\
+			DCFL&X&X&\checkmark&X&X\\
+			CFL&X&\checkmark&X&\checkmark&\checkmark\\
+			CSL&\checkmark&\checkmark&\checkmark&\checkmark&\checkmark\\
+			r.e.&\checkmark&\checkmark&X&\checkmark&\checkmark
+		\end{tabular}
 	\end{itemize}
-	Entscheidbarkeiten
 
-	\begin{tabular}{r|cccc}
-		&Wortproblem&Leerheit&Äquivalenz&Schnitt\\
-		REG&\checkmark&\checkmark&\checkmark&\checkmark\\
-		DCFL&\checkmark&\checkmark&\checkmark&X\\
-		CFL&\checkmark&\checkmark&X&X\\
-		CSL&\checkmark&X&X&X\\
-		r.e.&X&X&X&X
-	\end{tabular}
 
-	Abschlusseigenschaften
-
-	\begin{tabular}{r|ccccc}
-		&Schnitt&Vereinig.&Kompl.&Konkat.&Stern\\
-		REG&\checkmark&\checkmark&\checkmark&\checkmark&\checkmark\\
-		DCFL&X&X&\checkmark&X&X\\
-		CFL&X&\checkmark&X&\checkmark&\checkmark\\
-		CSL&\checkmark&\checkmark&\checkmark&\checkmark&\checkmark\\
-		r.e.&\checkmark&\checkmark&X&\checkmark&\checkmark
-	\end{tabular}
-
-	\subsection{Probleme}
+	\subsection{Entscheidbarkeitsprobleme}
 	\begin{tabular}{r|c|l}
 		Spez Haltep & $K=\set{w}{M_w \text{ hält auf Eingabe } w}$ & semi\\
 		Allg Haltep & $H=\set{w\# x}{M_w \text{ hält auf Eingabe } x}$ & semi\\
 		Haltep auf $\epsilon$ & $H_0=\set{w}{M_w \text{ hält auf Eingabe } \epsilon}$ & semi\\
-		PCP & $((x_1,y_1),\ldots,(x_n,y_n))$ & semi\\
-		MPCP & Für alle Lösungen gilt $i_1=1$ & semi
+		PCP & $((x_1,y_1),\ldots,(x_n,y_n))$ zusammenpassen & semi\\
+		MPCP & Für alle Lösungen gilt $i_1=1$ & semi\\
+		WA & Menge aller wahren arithm. Formeln & unentsch.\\
+		$\overline{WA}$ & Menge aller falschen arithm. Formeln & unentsch.
 	\end{tabular}
 
 	\section{Komplexität}
 	\begin{itemize}
+		\item Wichtige Komplexitätsklassen \begin{itemize}
+			\item $\textbf{PSPACE}=\bigcup \operatorname{DSPACE}(p)=\bigcup \operatorname{NSPACE}(p)$
+			\item $\npoly = \bigcup \operatorname{NTIME}(p)$
+			\item $\poly = \bigcup \operatorname{DTIME}(p)$
+			\item $\textbf{NL}=\operatorname{NSPACE}(\log n)$
+			\item $\textbf{L}=\operatorname{DSPACE}(\log n)$
+		\end{itemize}
+		\item $\operatorname{co}\mathcal C=\set{L}{\overline L\in \mathcal C}$ und $\overline{\mathcal C}=\set{L}{L\not \in \mathcal C}$
 		\item In den Platzklassen ist $\mathcal O$-Notation egal, Konstanten können vernachlässigt werden
 		\begin{align*}
 			\operatorname{DSPACE}(\mathcal O(f))&=\operatorname{DSPACE}(f)\\
@@ -185,31 +213,48 @@
 				Pad_f(L)\in \operatorname{NSPACE}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{NSPACE}(\mathcal O(g\circ f))
 			\end{align*}
 		\end{enumerate}
+		\item Reduktionen
+		\begin{enumerate}
+			\item	Für zwei beliebige Sprachen $A$ und $B$ gilt
+			\begin{equation*}
+				A\leq_{\log}B\Rightarrow A\leq_p B\Rightarrow A\leq B\Rightarrow A\leq_T B
+			\end{equation*}
+			\item $A\leq_p B\wedge B\in \text{\poly}\Rightarrow A\in\text{\poly}$
+			\item $A\leq_p B\wedge B\in \text{\npoly}\Rightarrow A\in\text{\npoly}$
+			\item $A$ \npoly-vollständig, dann: $A\in \poly \Leftrightarrow \poly=\npoly$
+		\end{enumerate}
 	\end{itemize}
 
 	\includegraphics[width=\columnwidth]{graph.png}
 
-	Zu den Reduktionen
-	\begin{enumerate}
-		\item	Für zwei beliebige Sprachen $A$ und $B$ gilt
-		\begin{equation*}
-			A\leq_{\log}B\Rightarrow A\leq_p B\Rightarrow A\leq B\Rightarrow A\leq_T B
-		\end{equation*}
-		\item $A\leq_p B\wedge B\in \text{\poly}\Rightarrow A\in\text{\poly}$
-		\item $A\leq_p B\wedge B\in \text{\npoly}\Rightarrow A\in\text{\npoly}$
-		\item $A$ \npoly-vollständig, dann: $A\in \poly \Leftrightarrow \poly=\npoly$
-	\end{enumerate}
 
 	\subsection{Vollständige Probleme}
-	Folgende Probleme sind $\leq_p$ vollständig bezüglich \textbf{NP}
-	\begin{tabular}{r|l}
-		\textbf{SAT} & $\set{w}{w\text{ kodiert eine erfüllbare Formel}}$\\
-		\textbf{3KNF-SAT} & KNF mit max. 3 Literalen pro Klausel erfüllbar?\\
-		\textbf{CLIQUE} & Enthält ein Graph eine Clique der Größe $k$?\\
-		\textbf{FÄRB.} & Gibt es eine Knotenfärbung mit $k$ Farben?\\
-	\end{tabular}
+	\begin{itemize}
+		\item Folgende Probleme sind \npoly-vollständig bezüglich $\leq_p$:
+		\begin{tabular}{r|l}
+			\textbf{SAT} & $\set{w}{w\text{ kodiert eine erfüllbare Formel}}$\\
+			\textbf{3KNF-SAT} & KNF mit max. 3 Literalen pro Klausel erfüllbar?\\
+			\textbf{CLIQUE} & Enthält ein Graph eine Clique der Größe $k$?\\
+			\textbf{FÄRB.} & Gibt es eine Knotenfärbung mit $k$ Farben?\\
+		\end{tabular}
 
-	\textbf{NL}-vollstädnig bezüglich $\leq_{\log}$ ist \textbf{GAP}: existiert ein Pfad vom source-Knoten zum target-Knoten in einem gerichteten Graphen?
+		\item \textbf{QBF} ist \textbf{PSPACE}-vollständig.
+
+		\item \poly-vollständig bezüglich $\leq_{\log}$ ist
+		\begin{enumerate}
+			\item \textbf{CVP}: Circuit Value Problem, Wert eines Schaltnetzes bestimmen
+			\item \textbf{$L_{cfe}$}: Leerheit kontextfreier Sprachen
+		\end{enumerate}
+
+		\item \textbf{NL}-vollständig bezüglich $\leq_{\log}$ ist
+		\begin{enumerate}
+			\item \textbf{GAP}: existiert ein Pfad vom source-Knoten zum target-Knoten in einem gerichteten Graphen?
+			\item \textbf{2KNF-SAT}
+		\end{enumerate}
+	\end{itemize}
+
+
+
 
 
 	\section{Beispiele}

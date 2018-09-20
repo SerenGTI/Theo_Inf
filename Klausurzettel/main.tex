@@ -14,8 +14,10 @@
 \usepackage{enumitem}
 \usepackage{multicol}
 \usepackage{fancyhdr}
-\pagestyle{empty}
 
+
+
+\pagestyle{empty}
 
 \setlength{\parindent}{0pt}
 
@@ -161,7 +163,7 @@
 		\end{align*}
 		\item \textbf{Satz von Hennie und Stearns}: Falls $\epsilon>0, f(n)\geq (1+\epsilon)n$, dann gilt
 		\begin{equation*}
-			\operatorname{DTIME}(f)\subseteq\operatorname{DTIME}(f\log f)
+			\operatorname{DTIME}(f)\subseteq\operatorname{DTIME}_{\text{2-Band}}(f\log f)
 		\end{equation*}
 		\item Für alle $f(n)\geq n$ gilt für die Zeitklassen
 		\begin{equation*}

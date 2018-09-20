@@ -1,21 +1,18 @@
 \chapter{Rekursiv aufzählbare Sprachen}\label{sec:typ0}
 \begin{equation*}
-	\text{Typ-0} = \re
+	\operatorname{Typ-0} = \re
 \end{equation*}
 
 
 
-Eine Turingmaschine $M$ \emph{akzeptiert} die Sprache $L$, wenn sie nach endlicher Zeit stoppt und JA ausgibt.
-Bei Eingaben, die nicht zu $L$ gehören, rechnet sie unendlich lang weiter.
-Diese Sprachen $L$ gehören dann zu $\re$
-
-
-
+Eine Turingmaschine $M$ \emph{akzeptiert} die Sprache $L$, wenn sie nach endlicher Zeit hält.
+Bei Eingaben, die nicht zu $L$ gehören, rechnet sie unendlich lang weiter (dieses Verhalten führt später auf das Halteproblem).
+Solche Sprachen $L$ gehören dann zu $\re$, sie sind \emph{semi-entscheidbar}.
 
 
 
 \section{Sätze zu $\re$}
 \begin{itemize}
 	\item Die Klasse der Typ-0 Sprachen ist abgeschlossen unter Sternopertaion, Vereinigung, Schnitt und Konkatenation.
-	\item Die Klasse der durch Turingmaschinen erkennbaren Sprachen ist gleich der Klasse der rekursiv aufzählbaren.
+	\item Die Klasse der durch Turingmaschinen erkennbaren/akzeptierten Sprachen ist gleich der Klasse der rekursiv aufzählbaren.
 \end{itemize}

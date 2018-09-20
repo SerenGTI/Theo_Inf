@@ -1,4 +1,6 @@
-\chapter{Komplexitätstheorie}
+\chapter{Komplexität}
+{\color{red}ACHTUNG: Dieser Abschnitt ist noch nicht abgeschlossen und enthält möglicherweise Fehler!}
+
 Die Frage in der Komplexitätstheorie ist, wie viel Aufwand benötigt wird, ein Problem zu lösen.
 Die theoretische Lösbarkeit wird in der Entscheidbarkeits- bzw. Berechenbarkeitstheorie behandelt.
 
@@ -111,7 +113,11 @@ Analog wie bei Zeitklassen die Unterscheidung deterministische-nichtdeterministi
 
 
 \section{Reduktionen}
+Reduktionen können n icht nur verwendet werden um Entscheidbarkeiten festzustellen, sondern können genauso bei der Einstufung von Problemen in Komplexitätsklassen helfen. So kann man durch beschränken der Reduktionsfunktion beispielsweise eine Lösbarkeit in einer bestimmen Zeit übertragen.
+
 Ähnlich wie in der Berechenbarkeitstheorie kann man zur Analyse der Komplexität von Problemen Reduktionen zwischen diesen entwickeln. Hier ist das Ergebnis allerdings sogar eine Beschränkung des Aufwands nach oben oder unten.
+
+
 
 Allerdings ist die many-one-Reduktion zu grob um sinnvolle Reduktionen zwischen Problemen mit Zeitbeschränkung durchzuführen. {\scriptsize(Ein Problem, das in Polynomialzeit lösbar ist, könnte durch eine many-one-Reduktionsfunktion gelöst werden. So kann man eigentlich alle berechenbaren Probleme aufeinander many-one-reduzieren, diese Aussage ist jedoch für eine Komplexitätsbetrachtung uninteressant.)}
 

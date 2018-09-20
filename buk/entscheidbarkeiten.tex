@@ -1,4 +1,5 @@
 \chapter{Entscheidbarkeitstheorie}
+{\color{red}ACHTUNG: Dieser Abschnitt ist noch nicht abgeschlossen und enthält möglicherweise Fehler!}
 \section{Definitionen}
 Die Berechenbarkeitstheorie spielt sich unterhalb der Entscheidbarkeitstheorie ab. Wenn eine Sprache entscheidbar ist, macht es Sinn ihre Komplexität zu bestimmen. Andersherum heißt das, dass jede Sprache, die in einer der Komplexitätsklassen enthalten ist entscheidbar ist (also insbesondere semi- und co-semi-entscheidbar).
 
@@ -42,7 +43,7 @@ Dann ist die Menge $C(\mathcal S)=\set{w}{M_w \text{ berechnet eine Funktion aus
 
 \paragraph{Probleme in der Theorie der formalen Sprachen}
 \begin{itemize}
-	\item Für deterministisch kontextfreie Sprachen $L,K$ sind die Fragen $L\cap K=\emptyset$, $|L\cap K|<\infty$, $L\cap K \in \cfl$ sowie $L\subseteq K$ unentscheidbar.
+	\item Für deterministisch kontextfreie Sprachen $L,K\in\dcfl$ sind die Fragen $L\cap K=\emptyset$, $|L\cap K|<\infty$, $L\cap K \in \cfl$ sowie $L\subseteq K$ unentscheidbar.
 	\item Für eine kontextfreie Grammatik sind die Frage nach Mehrdeutigkeit, $\overline{L(G)}\in\cfl$, $L(G)\in \reg$ und $L(G)\in \dcfl$ alle unentscheidbar.
 	\item Für eine kontextsensitive-Grammatik ist die Leerheit sowie die Endlichkeit der Sprache unentscheidbar.
 \end{itemize}

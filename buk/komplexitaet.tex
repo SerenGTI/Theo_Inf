@@ -27,7 +27,6 @@ Für alle Komplexitätsklassen $\mathcal C$ ist zu unterscheiden:
 \end{multicols}
 
 
-
 \begin{center}
 	\renewcommand{\arraystretch}{2}
 	\begin{tabular}{rl}
@@ -45,28 +44,43 @@ Analog wie bei Zeitklassen die Unterscheidung deterministische-nichtdeterministi
 \begin{center}
 	\renewcommand{\arraystretch}{2}
 	\begin{tabular}{rl}
-		\textbf{L}&$=\operatorname{DSPACE}(\log)$\\
-		\textbf{NL}&$=\operatorname{NSPACE}(\log)$\\
+		\textbf{L}&$=\operatorname{DSPACE}(\log n)$\\
+		\textbf{NL}&$=\operatorname{NSPACE}(\log n)$\\
 		\textbf{PSPACE}&$=\displaystyle\bigcup_{k\geq 1} \operatorname{DSPACE}(n^k)=\bigcup_{k\geq 1} \operatorname{NSPACE}(n^k)$
 	\end{tabular}
 \end{center}
 
-\subsection{Wichtige Beziehungen zwischen den Klassen}
+\section{Beziehungen zwischen den Klassen}
+Für ein beliebiges $f:\N_0\rightarrow\N_0$, falls nicht näher angegeben
+\subsection{Äquivalenzen von Klassen}
 \begin{itemize}
 	\item In den Platzklassen spielt die $\mathcal O$-Notation keine Rolle, Konstanten können wegen Bandreduktion und Bandkompression vernachlässigt werden
 	\begin{align*}
-		\operatorname{DSPACE}(\mathcal O(f))&=\operatorname{DSPACE}(f)\\
-		\operatorname{NSPACE}(\mathcal O(f))&=\operatorname{NSPACE}(f)
+		\operatorname{DSPACE}(\mathcal O(f))&=\operatorname{DSPACE}_{\text{1-Band}}(f)\\
+		\operatorname{NSPACE}(\mathcal O(f))&=\operatorname{NSPACE}_{\text{1-Band}}(f)
 	\end{align*}
 	\item In nichtdeterministischen Zeitklassen spielt die $\mathcal O$-Notation ebenfalls keine Rolle
 	\begin{equation*}
 		\operatorname{NTIME}(\mathcal O(f))=\operatorname{NTIME}(f)
 	\end{equation*}
-	\item Bei deterministischen Zeitklassen gilt i.A. $\operatorname{DTIME}(\mathcal O(f))\not=\operatorname{DTIME}(f)$, nur für größer als lineare Funktionen gilt Gleichheit d.h.
+	\item Bei deterministischen Zeitklassen gilt i. A. $\operatorname{DTIME}(\mathcal O(f))\not=\operatorname{DTIME}(f)$, nur für größer als lineare Funktionen gilt Gleichheit d.h.
 	\begin{align*}
-		\operatorname{DTIME}(\mathcal O(f))&=\operatorname{DTIME}(f) \enspace f(n)\geq (1+\epsilon)n\text{ für ein }\epsilon>0\\
-		\operatorname{DTIME}(f)&\subseteq \operatorname{DTIME}(f\log f)
+		\operatorname{DTIME}(\mathcal O(f))&=\operatorname{DTIME}(f) \text{ mit } f(n)\geq (1+\epsilon)*n\text{ für ein }\epsilon>0
 	\end{align*}
+	\item \textbf{Satz von Immerman und Szelepcsenyi}: Falls $f\in \Omega(\log(n))$, gilt:
+	\begin{equation*}
+		\operatorname{NSPACE}(f)=\operatorname{coNSPACE}(f)
+	\end{equation*}
+	\item Alle deterministischen Zeit- und Platzklassen sind gegen Komplement abgeschlossen:
+	\begin{gather*}
+		\operatorname{DSPACE}(f)=\operatorname{coDSPACE}(f)\\
+		\operatorname{DTIME}(f)=\operatorname{coDTIME}(f)
+	\end{gather*}
+\end{itemize}
+
+
+\subsection{Hierarchien und Teilmengen}
+\begin{itemize}
 	\item Für alle $f(n)\geq n$ gilt für die Zeitklassen
 	\begin{equation*}
 		\operatorname{DTIME}(f)\subseteq\operatorname{NTIME}(f)\subseteq\operatorname{DSPACE}(f)
@@ -79,47 +93,37 @@ Analog wie bei Zeitklassen die Unterscheidung deterministische-nichtdeterministi
 	\begin{equation*}
 		\operatorname{NSPACE}(s)\subseteq\operatorname{DSPACE}(s^2)
 	\end{equation*}
-	\item Sei $s_1\not\in\Omega(s_2)$ und $s_2\in\Omega(\log(n))$, dann gilt der \textbf{Platzhierarchiesatz}
+	\item \textbf{Platzhierarchiesatz}: Sei $s_1\not\in\Omega(s_2)$ und $s_2\in\Omega(\log(n))$, dann gilt
+	\begin{gather*}
+		\operatorname{DSPACE}(s_2)\setminus\operatorname{DSPACE}(s_1)\not=\emptyset\\
+		\Rightarrow \operatorname{DSPACE}(s_1)\subsetneq\operatorname{DSPACE}(s_2)
+	\end{gather*}
+	\item \textbf{Zeithierarchiesatz}: Sei $t_1\log(t_1)\not\in\Omega(t_2)$ und $t_2\in\Omega(n\log(n))$, dann gilt
+	\begin{gather*}
+		\operatorname{DTIME}(t_2)\setminus\operatorname{DTIME}(t_1)\not=\emptyset\\
+		\Rightarrow \operatorname{DTIME}(t_1)\subsetneq \operatorname{DTIME}(t_2)
+	\end{gather*}
+	\item \textbf{Satz von Hennie und Stearns}: Falls $\epsilon>0, f(n)\geq (1+\epsilon)n$, dann gilt
 	\begin{equation*}
-		\operatorname{DSPACE}(s_2)\setminus\operatorname{DSPACE}(s_1)\not=\emptyset
+		\operatorname{DTIME}(f)\subseteq\operatorname{DTIME}_{\text{2-Band}}(f\log f)
 	\end{equation*}
-	\item Sei $t_1\log(t_1)\not\in\Omega(t_2)$ und $t_2\in\Omega(n\log(n))$, dann gilt der \textbf{Zeithierarchiesatz}
-	\begin{equation*}
-		\operatorname{DTIME}(t_2)\setminus\operatorname{DTIME}(t_1)\not=\emptyset
-	\end{equation*}
+\end{itemize}
+
+\subsection{Weitere Sätze}
+\begin{itemize}
 	\item \textbf{Lückensatz von Borodin}: Für jede totale berechenbare Funktion $r(n)\geq n$ existiert effektiv eine totale berechenbare Funktion $s(n)\geq n+1$ mit
 	\begin{equation*}
 		\operatorname{DTIME}(s(n))=\operatorname{DTIME}(r(s(n)))
 	\end{equation*}
-	\item Translationtechnik:\\
-	Die Translationssätze werden verwendet, Separationen von größeren zu kleineren Klassen bzw. Gleichheiten oder Inklusionen von kleineren zu größeren Klassen zu übertragen.
-	Die durch Padding aufgebläte Sprache ist $Pad_f(L)\coloneqq \set{w\$^{f(|w|)-|w|}}{w\in L}$.
-	\begin{enumerate}
-		\item Für zwei Funktionen $f(n),g(n)\geq n$ gilt der \textbf{Translationssatz für Zeitklassen}:
-		\begin{align*}
-			Pad_f(L)\in \operatorname{DTIME}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{DTIME}(\mathcal O(g\circ f))\\
-			Pad_f(L)\in \operatorname{NTIME}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{NTIME}(\mathcal O(g\circ f))
-		\end{align*}
-		\item Und analog für $g\in\Omega(\log)$ und $f(n)\geq n$ der \textbf{Translationssatz für Platzklassen}:
-		\begin{align*}
-			Pad_f(L)\in \operatorname{DSPACE}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{DSPACE}(\mathcal O(g\circ f))\\
-			Pad_f(L)\in \operatorname{NSPACE}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{NSPACE}(\mathcal O(g\circ f))
-		\end{align*}
-	\end{enumerate}
 \end{itemize}
 
 
-
-
-
-\section{Reduktionen}
-Reduktionen können n icht nur verwendet werden um Entscheidbarkeiten festzustellen, sondern können genauso bei der Einstufung von Problemen in Komplexitätsklassen helfen. So kann man durch beschränken der Reduktionsfunktion beispielsweise eine Lösbarkeit in einer bestimmen Zeit übertragen.
+\section{Polynomialzeitreduktion}\label{sec:polyred}
+Reduktionen können nicht nur verwendet werden um Entscheidbarkeiten festzustellen, sondern helfen genauso bei der Einstufung von Problemen in Komplexitätsklassen. So kann man durch Beschränken der Reduktionsfunktion beispielsweise eine Lösbarkeit in einer bestimmen Zeit zeigen.
 
 Ähnlich wie in der Berechenbarkeitstheorie kann man zur Analyse der Komplexität von Problemen Reduktionen zwischen diesen entwickeln. Hier ist das Ergebnis allerdings sogar eine Beschränkung des Aufwands nach oben oder unten.
 
-
-
-Allerdings ist die many-one-Reduktion zu grob um sinnvolle Reduktionen zwischen Problemen mit Zeitbeschränkung durchzuführen. {\scriptsize(Ein Problem, das in Polynomialzeit lösbar ist, könnte durch eine many-one-Reduktionsfunktion gelöst werden. So kann man eigentlich alle berechenbaren Probleme aufeinander many-one-reduzieren, diese Aussage ist jedoch für eine Komplexitätsbetrachtung uninteressant.)}
+Allerdings ist die bereits vorgestellte many-one-Reduktion (ohne Beschränkungen) zu grob um sinnvolle Reduktionen zwischen Problemen mit Zeitbeschränkung durchzuführen. {\scriptsize(Ein Problem, das in Polynomialzeit lösbar ist, könnte durch so eine Reduktionsfunktion gelöst werden. So kann man eigentlich alle berechenbaren Probleme aufeinander reduzieren, diese Aussage ist jedoch für eine Komplexitätsbetrachtung uninteressant.)}
 
 Deshalb gibt es die sog. Polynomialzeitreduktion. Hier ist eine Beschränkung an die Reduktionsfunktion gesetzt, nämlich muss diese zusätzlich in Polynomialzeit berechenbar sein. Man schreibt $A\leq_p B$.
 \begin{enumerate}
@@ -144,26 +148,29 @@ Einige \npoly-vollständige Probleme:
 	\end{tabular}
 \end{center}
 
-\paragraph{PSPACE-Vollständigkeit}
-\textbf{QBF} $=\set{F}{F\text{ ist eine geschlossene \textbf{QBF}-Formel, die sich zum Wert TRUE auswerten lässt.}}$ ist $\operatorname{PSPACE}$-vollständig.
+\paragraph{PSPACE-Vollständigkeit}\ \\
+Die quantifizierten booleschen Formeln (QBF) stellen ein bekanntes \textbf{PSPACE}-vollständiges Problem dar
+$$\text{\textbf{QBF} }=\set{F}{F\text{ ist eine geschlossene QBF-Formel, die sich zu TRUE auswerten lässt }}$$
 
-\subsection{Logspace-Reduktion}
+\subsection{Logspace-Reduktion}\label{subsec:logspace}
 \paragraph{Logspace-Transducer}
 Ein Logspace-Transducer ist eine deterministische Turingmaschine mit einem read-only Eingabeband und einem logarithmisch beschränkten Arbeitsband, sowie einem write-only Ausgabeband auf dem der Schreib-/ Lesekopf nicht nach links bewegt werden kann.
 
 Eine Funktion heißt logspace-berechenbar, wenn ein Logspace-Transducer existiert, der sie berechnet.
 
-Auf Basis dieser Definitionen gibt es nun als verfeinerung der Polynomialzeitreduktion die Logspace-Reduktion:
+\par
 
-Seien $A,B\subseteq \Sigma^\star$ Sprachen. $A$ heißt auf $B$ logspace-reduzierbar, falls eine logspace-berechenbare Funktion $f:\Sigma^\star\rightarrow\Sigma^\star$ existiert, so dass
+Auf Basis dieser Definitionen gibt es nun als Verfeinerung der Polynomialzeitreduktion die Logspace-Reduktion:
+
+Seien $A,B\subseteq \Sigma^\star$ Sprachen. $A$ heißt auf $B$ \emph{logspace-reduzierbar}, falls eine logspace-berechenbare Funktion $f:\Sigma^\star\rightarrow\Sigma^\star$ existiert, so dass
 \begin{equation*}
 	x\in A\Leftrightarrow f(x)\in B
 \end{equation*}
 Man schreibt dann $A\leq_{\log} B$.
 
-So kann man nun Begriffe wie \textbf{NL}- bzw. \poly-Härte/-Vollständigkeit sinnvoll (und analog zur \npoly-Vollständigkeit) definieren.
+So kann man nun Begriffe wie \textbf{NL}- bzw. \poly-Härte und -Vollständigkeit sinnvoll (und analog zur \npoly-Vollständigkeit) definieren.
 
-Einige Probleme, die \textbf{NL}-vollständig bezüglich logspace-Reduktion sind:
+Einige Probleme, die \textbf{NL}-vollständig bezüglich Logspace-Reduktion sind:
 \begin{center}
 	\begin{tabular}{r|l}
 		\textbf{GAP} & Grapherreichbarkeitsproblem\\
@@ -172,11 +179,37 @@ Einige Probleme, die \textbf{NL}-vollständig bezüglich logspace-Reduktion sind
 	\end{tabular}
 \end{center}
 
-Einige Probleme, die \poly-vollständig bezüglich logspace-Reduktion sind:
+Einige Probleme, die \poly-vollständig bezüglich Logspace-Reduktion sind:
 \begin{center}
 	\begin{tabular}{r|l}
 		\textbf{CFE} & $L_{cfe}=\set{w}{w\text{ ist Kodierung einer Typ-2 Grammatik $G$ mit }L(G)=\emptyset}$\\
-		\textbf{CVP} & Circuit Value Problem (Ausgabe des Schaltnetzes)\\
-		\textbf{MCVP} & Wie \textbf{CVP}, allerdings ohne Negationen
+		\textbf{CVP} & Circuit Value Problem (Ausgabe eines Schaltnetzes)\\
+		\textbf{MCVP} & Wie \textbf{CVP}, allerdings ohne Inverter (Negationen)
 	\end{tabular}
 \end{center}
+
+\subsection{Weitere Reduktionen}
+Man kann beliebige Reduktionen definieren indem man bestimmte Einschränkungen an die Reduktionsfunktion vorgibt.
+Bekannte Reduktionen sind die \hyperref[subsec:logspace]{Logplatz-Reduktion}, die \hyperref[sec:polyred]{Polynomialzeitreduktion}, die \hyperref[sec:reduktion]{allgemeine many-one-Reduktion} sowie die Turing-Reduktion $\leq_T$. Diese sind jeweils Verfeinerungen voneinander 
+\begin{equation*}
+	A\leq_{\log}B\Rightarrow A\leq_p B\Rightarrow A\leq B\Rightarrow A\leq_T B.
+\end{equation*}
+
+(Bei der Turing-Reduktion wird die Übersetzungsfunktion mit einer Orakel-Turingmaschine durchgeführt.)
+
+
+\section{Translationtechnik}
+Die Translationssätze werden verwendet, Separationen von größeren zu kleineren Klassen bzw. Gleichheiten oder Inklusionen von kleineren zu größeren Klassen zu übertragen.
+Die durch Padding mit $f$ aufgebläte Sprache ist $Pad_f(L)\coloneqq \set{w\$^{f(|w|)-|w|}}{w\in L}$, wobei $\simpleset{\$}\cap\Sigma = \emptyset$.
+\begin{enumerate}
+	\item Für zwei Funktionen $f(n),g(n)\geq n$ gilt der \textbf{Translationssatz für Zeitklassen}:
+	\begin{align*}
+		Pad_f(L)\in \operatorname{DTIME}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{DTIME}(\mathcal O(g\circ f))\\
+		Pad_f(L)\in \operatorname{NTIME}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{NTIME}(\mathcal O(g\circ f))
+	\end{align*}
+	\item Und analog für $g\in\Omega(\log)$ und $f(n)\geq n$ der \textbf{Translationssatz für Platzklassen}:
+	\begin{align*}
+		Pad_f(L)\in \operatorname{DSPACE}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{DSPACE}(\mathcal O(g\circ f))\\
+		Pad_f(L)\in \operatorname{NSPACE}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{NSPACE}(\mathcal O(g\circ f))
+	\end{align*}
+\end{enumerate}

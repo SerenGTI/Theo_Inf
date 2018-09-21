@@ -43,48 +43,44 @@
 	\end{tikzpicture}
 \end{center}
 
-\vspace{2em}
-Einige Funktionen, in den einzelnen Berechenbarkeitsklassen
-\vspace{1em}
-
-\begin{center}
-	\begin{tikzpicture}
-		\tikzset{
-			grouplabel/.style={
-				draw,
-				fill = white,
-				rectangle,
-				inner sep = 4pt,
-				rounded corners=1pt
-			}
-		}
-
-		\draw [rounded corners=5pt, dotted, line width=0.2mm] (0,0) rectangle (13.3,6.5);
-		\draw [rounded corners=5pt, dotted, line width=0.2mm, fill=white] (-0.2,6) rectangle (13.5,11);
-
-		\draw node (tm) at (7,11) [grouplabel] {WHILE/GOTO/Turing-berechenbar \& $\mu$-rekursiv};
-		\draw node (while) at (7,6) [grouplabel] {LOOP-berechenbar \& primitiv rekursiv};
-
-
-		\draw node[text width=12.5cm, align=left, anchor=north west] at (-0.2,10.5) {
-		\parbox{\textwidth}{
-		\begin{itemize}
-			\item Ackermannfunktion
-			\item
-		\end{itemize}
-		}};
-
-
-		\draw node[text width=12.5cm, align=left, anchor=north west] at (0,6) {
-		\parbox{\textwidth}{
-		\begin{itemize}
-			\item Cantor'sche Paarungsfunktion $c(x,y)=\binom{x+y+1}{2}+x$
-			mit den Umkehrungsfunktionen $e(c(x,y))=x$ und $f(c(x,y))=y$.
-			\item Beschränkter $\mathrm{max}$-Operator bzw. der beschränkte Existenz-Operator
-		\end{itemize}
-		}};
-	\end{tikzpicture}
-\end{center}
+% \begin{center}
+% 	\begin{tikzpicture}
+% 		\tikzset{
+% 			grouplabel/.style={
+% 				draw,
+% 				fill = white,
+% 				rectangle,
+% 				inner sep = 4pt,
+% 				rounded corners=1pt
+% 			}
+% 		}
+%
+% 		\draw [rounded corners=5pt, dotted, line width=0.2mm] (0,0) rectangle (13.3,6.5);
+% 		\draw [rounded corners=5pt, dotted, line width=0.2mm, fill=white] (-0.2,6) rectangle (13.5,11);
+%
+% 		\draw node (tm) at (7,11) [grouplabel] {WHILE/GOTO/Turing-berechenbar \& $\mu$-rekursiv};
+% 		\draw node (while) at (7,6) [grouplabel] {LOOP-berechenbar \& primitiv rekursiv};
+%
+%
+% 		\draw node[text width=12.5cm, align=left, anchor=north west] at (-0.2,10.5) {
+% 		\parbox{\textwidth}{
+% 		\begin{itemize}
+% 			\item $a(x,y)$, die Ackermannfunktion
+% 			\item $\Omega(x)$, die nirgends definierte Funktion
+% 		\end{itemize}
+% 		}};
+%
+%
+% 		\draw node[text width=12.5cm, align=left, anchor=north west] at (0,6) {
+% 		\parbox{\textwidth}{
+% 		\begin{itemize}
+% 			\item Cantor'sche Paarungsfunktion $c(x,y)=\binom{x+y+1}{2}+x$
+% 			mit den Umkehrungsfunktionen $e(c(x,y))=x$ und $f(c(x,y))=y$.
+% 			\item Beschränkter $\mathrm{max}$-Operator bzw. der beschränkte Existenz-Operator
+% 		\end{itemize}
+% 		}};
+% 	\end{tikzpicture}
+% \end{center}
 
 
 

@@ -1,27 +1,3 @@
-\chapter{Einstieg und Erste Definitionen}
-In der Theorie um formale Sprachen und die Automatentheorie geht es grundsätzlich darum, Probleme durch formale Sprachen beschreiben zu können. Diese Probleme werden dann in Klassen eingeordnet und gegeneinander abgregrenzt. Wichtig ist zu verstehen, wie man eine formale Sprache beschreiben kann und genauso wo die Unterschiede in den einzelnen Klassen sind.
-\begin{definition}{Alphabet}
-	Als Alphabet bezeichnen wir eine endliche, nichtleere Menge, deren Elemente Buchstaben genannt werden.
+\chapter{Einstieg}
+In der Theorie um formale Sprachen geht es grundsätzlich darum, Probleme durch formale Sprachen beschreiben zu können. Diese Probleme werden dann in Klassen eingeordnet und gegeneinander abgregrenzt. Wichtig ist zu verstehen, wie man eine formale Sprache beschreiben kann, zum Beispiel auch mithilfe der Automatentheorie und genauso wo die Unterschiede zwischen den einzelnen Klassen liegen.
 
-	Dieses wird üblich mit $\Sigma$ bezeichnet.
-\end{definition}
-
-\begin{definition}{Freies Monoid über $\Sigma$}
-	Ein Monoid ist eine Menge mit einer assoziativen Verknüpfung und einem neutralen Element. Die Menge aller endlichen Zeichenketten, die sich aus Elementen von $\Sigma$ bilden lassen bilden mit der \emph{Konkatenation} ein Monoid $\Sigma^\star$.
-
-	Das leere Wort ($\epsilon$) bildet das neutrale Element.
-\end{definition}
-
-
-\begin{definition}{Grammatik}
-	Eine Grammatik ist ein Quadrupel:
-	\begin{equation*}
-		G=(V,\Sigma, P, S)
-	\end{equation*}
-	\begin{description}
-		\item[$V$] Eine Menge an Zeichen, den Variablen
-		\item[$\Sigma$] Das Alphabet, $V\cap\Sigma =\emptyset$
-		\item[$P$] Die Produktionsmenge, $P\subseteq(V\cup\Sigma)^+\times(V\cup\Sigma)^\star$
-		\item[$S$] Das Startsymbol oder die Startvariable, $S\in V$
-	\end{description}
-\end{definition}

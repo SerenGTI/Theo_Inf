@@ -1,8 +1,9 @@
 \chapter{Entscheidbarkeitstheorie}
 {\color{red}ACHTUNG: Dieser Abschnitt ist noch nicht abgeschlossen und enthält möglicherweise Fehler!}
-\section{Definitionen}
-Die Berechenbarkeitstheorie spielt sich unterhalb der Entscheidbarkeitstheorie ab. Wenn eine Sprache entscheidbar ist, macht es Sinn ihre Komplexität zu bestimmen. Andersherum heißt das, dass jede Sprache, die in einer der Komplexitätsklassen enthalten ist entscheidbar ist (also insbesondere semi- und co-semi-entscheidbar).
 
+Die Berechenbarkeitstheorie spielt sich innerhalb der Entscheidbarkeitstheorie ab. Wenn eine Sprache entscheidbar ist, macht es Sinn ihre Komplexität zu bestimmen. Andersherum heißt das, dass jede Sprache, die in einer der Komplexitätsklassen enthalten ist entscheidbar ist (also insbesondere semi- und co-semi-entscheidbar).
+
+\section{Definitionen}
 \subsection{Charakteristische Funktionen}
 Für jede Menge $A$ existiert die sogenannte \emph{charakteristische Funktion} $\chi_A(w)$. Diese Funktion entscheidet für jedes Wort $w$ aus einer festgelegten Grundmenge, ob $w\in A$ gilt.
 \begin{equation*}
@@ -20,10 +21,12 @@ Ebenso lässt sich die semi-charakteristische Funktion $\chi_A'(w)$ definieren
 	\end{cases}
 \end{equation*}
 
-Eine Menge heißt entscheidbar, wenn ihre zugehörige charakteristische Funktion berechenbar ist. Eine Menge heißt semi-entscheidbar, falls die semi-charakteristische Funktion berechenbar ist.
+Eine Menge heißt entscheidbar, wenn ihre zugehörige charakteristische Funktion berechenbar ist. Eine Menge heißt semi-entscheidbar, falls die semi-charakteristische Funktion berechenbar ist. Das Komplement einer Mengen, deren semi-charakteristische Funktion berechenbar ist, heißt co-semi-entscheidbar.
+
+Ist eine Menge entscheidbar, so ist es ihr Komplement trivialerweise auch.
 
 \subsection{Rekursive Aufzählbarkeit}
-Eine Sprache $A$ ist rekursiv aufzählbar, wenn eine totale, berechenbare Funktion $c:\N\rightarrow\Sigma^\star$ existiert sodass $A=\set{c(n)}{n\in\N}$ gilt. Rekursive Aufzählbarkeit ist äquivalent zu semi-Entscheidbarkeit.
+Eine Sprache $A$ ist rekursiv aufzählbar, wenn eine totale, berechenbare Funktion $c:\N\rightarrow\Sigma^\star$ existiert sodass $A=\set{c(n)}{n\in\N}$ gilt. Rekursive Aufzählbarkeit ist äquivalent zu Semi-Entscheidbarkeit.
 
 \subsection{Entscheidbarkeitsprobleme}
 Hierbei seien die Gödelisierungen der Maschinen in einer geeigneten Art und Weise kodiert. Beispielsweise $w\in\simpleset{0,1}^\star$ für eine Maschine $M_w$.
@@ -33,8 +36,10 @@ Hierbei seien die Gödelisierungen der Maschinen in einer geeigneten Art und Wei
 	Spezielles Halteproblem & $K=\set{w}{M_w \text{ hält auf Eingabe } w}$ & semi-entscheidbar\\
 	Allgemeines Halteproblem & $H=\set{w\# x}{M_w \text{ hält auf Eingabe } x}$ & semi-entscheidbar\\
 	Halteproblem auf leerem Band & $H_0=\set{w}{M_w \text{ hält auf Eingabe } \epsilon}$ & semi-entscheidbar\\
-	PCP & ? & semi-entscheidbar\\
-	MPCP & Für alle Lösungen gilt $i_1=1$ & semi-entscheidbar
+	PCP & Postsches Korrespondenzproblem & semi-entscheidbar\\
+	MPCP & Für alle Lösungen gilt $i_1=1$ & semi-entscheidbar\\
+	WA & Menge aller wahren arithmetischen Formeln & unentscheidbar\\
+	$\overline{\text{WA}}$ & Menge aller falschen arithm. Formeln & unentscheidbar
 \end{tabular}
 
 \paragraph{Satz von Rice}
@@ -45,17 +50,17 @@ Dann ist die Menge $C(\mathcal S)=\set{w}{M_w \text{ berechnet eine Funktion aus
 \begin{itemize}
 	\item Für deterministisch kontextfreie Sprachen $L,K\in\dcfl$ sind die Fragen $L\cap K=\emptyset$, $|L\cap K|<\infty$, $L\cap K \in \cfl$ sowie $L\subseteq K$ unentscheidbar.
 	\item Für eine kontextfreie Grammatik sind die Frage nach Mehrdeutigkeit, $\overline{L(G)}\in\cfl$, $L(G)\in \reg$ und $L(G)\in \dcfl$ alle unentscheidbar.
-	\item Für eine kontextsensitive-Grammatik ist die Leerheit sowie die Endlichkeit der Sprache unentscheidbar.
+	\item Für eine kontextsensitive-Grammatik ist die Leerheit sowie die Endlichkeit der erzeugten Sprache unentscheidbar.
 \end{itemize}
 
-\section{Reduktion von Problemen}
-Um die prinzipielle Lösbarkeit zweier Probleme zu betrachten, gibt es die sog. many-one-Reduktion:
+\section{Reduktion von Problemen}\label{sec:reduktion}
+Um die prinzipielle Lösbarkeit zweier Probleme zu betrachten, verwendet man Reduktionen:
 
-Seien $A\subseteq \Sigma^\star$ und $B\subseteq \Gamma^\star$ zwei Probleme. Kann man eine totale und berechenbare Funktion $f:\Sigma^\star\rightarrow\Gamma^\star$ finden, so dass gilt
+Seien $A\subseteq \Sigma^\star$ und $B\subseteq \Gamma^\star$ zwei Probleme. Kann man eine \emph{totale und berechenbare Funktion} $f:\Sigma^\star\rightarrow\Gamma^\star$ finden, so dass gilt
 \begin{equation*}
 	x\in A\Leftrightarrow f(x)\in B,
 \end{equation*}
-so sagt man, $A$ ist auf $B$ reduzierbar.
+so sagt man, $A$ ist auf $B$ (many-one-)reduzierbar.
 Man schreibt dann auch $A\leq B$.
 
 \begin{enumerate}
@@ -63,4 +68,8 @@ Man schreibt dann auch $A\leq B$.
 	\item $A\leq B$ und $B$ semi-entscheidbar $\Rightarrow$ $A$ semi-entscheidbar.
 \end{enumerate}
 
-Bei der Reduktion übertragen sich immer fehlende Eigenschaften von links nach rechts. D.h. reduziert man ein semi-entscheidbares, aber nicht co-semi-entscheidbares Problem $A$ auf ein Problem $B$ ($A\leq B$), so ist $B$ ebenfalls nicht co-semi-entscheidbar. Über die semi-Entscheidbarkeit von $B$ wird keine Aussage gemacht.
+Bei der Reduktion übertragen sich immer fehlende Eigenschaften von links nach rechts, d.h. reduziert man ein semi-entscheidbares, aber nicht co-semi-entscheidbares Problem $A$ auf ein Problem $B$ (d.h. $A\leq B$), so ist $B$ ebenfalls nicht co-semi-entscheidbar. Über die Semi-Entscheidbarkeit von $B$ wird keine Aussage gemacht.
+
+Reduziert man allerdings ein unbekanntes Problem $A$ auf ein semi-entscheidbares Problem $B$ (d.h. $A\leq B$), so hat man die Semi-Entscheidbarkeit von $A$ gezeigt. Es übertragen sich also \glqq positive Eigenschaften\grqq\  von rechts nach links.
+
+Letzterer Sachverhalt wird klar, wenn man sich überlegt, dass man mit der Reduktion eine Funktion gefunden hat, die eine Fragestellung aus $A$ in eine aus $B$ überträgt. Man kann also das Entscheidungsproblem für $A$ zunächst in $B$ übersetzen und schließlich mit dem Entscheidungsalgorithmus für $B$ entscheiden.

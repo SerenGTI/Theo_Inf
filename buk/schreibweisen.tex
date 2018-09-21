@@ -1,0 +1,83 @@
+\chapter{Schreibweisen und Definitionen}
+
+\section{Formale Sprachen}
+\begin{definition}{Alphabet}
+	Als Alphabet bezeichnen wir eine endliche, nichtleere Menge, deren Elemente Buchstaben genannt werden.
+
+	Dieses wird üblich mit $\Sigma$ bezeichnet.
+\end{definition}
+
+\begin{definition}{Freies Monoid über $\Sigma$}
+	Ein Monoid ist eine Menge mit einer assoziativen Verknüpfung und einem neutralen Element. Die Menge aller endlichen Zeichenketten, die sich aus Elementen von $\Sigma$ bilden lassen bilden mit der \emph{Konkatenation} ein Monoid $\Sigma^\star$.
+
+	Das leere Wort ($\epsilon$) bildet das neutrale Element.
+\end{definition}
+
+\begin{definition}{Grammatik}
+	Eine Grammatik ist ein Quadrupel:
+	\begin{equation*}
+		G=(V,\Sigma, P, S)
+	\end{equation*}
+	\begin{description}
+		\item[$V$] Eine Menge an Zeichen, den Variablen
+		\item[$\Sigma$] Das Alphabet, $V\cap\Sigma =\emptyset$
+		\item[$P$] Die Produktionsmenge, $P\subseteq(V\cup\Sigma)^+\times(V\cup\Sigma)^\star$
+		\item[$S$] Das Startsymbol oder die Startvariable, $S\in V$
+	\end{description}
+\end{definition}
+
+\section{Turingmaschinen und deren Kodierungen}
+Für Kodierungen von Turingmaschinen wird stets ein Wort $w\in\simpleset{0,1}^\star$ verwendet. Die zugehörige Turingmaschine der Kodierung wird als $M_w$ bezeichnet. In der Literatur ist oft auch üblich für die Maschine nur $M$ zu verwenden, die zugehörige Kodierung ist dann $\langle M\rangle\in\Sigma^\star$.
+
+Die zugrundeliegende Gödelisierung darf keinen Einfluss auf die Arbeitsweise der Maschine haben.
+
+Es wird festgelegt, dass jedes Wort über dem Alphabet $\simpleset{0,1}$ einer Turingmaschine zugeordnet wird, dabei können mehrere Kodierungen auf die gleiche Turingmaschine abgebildet werden.
+
+
+\section{Grundlagen der Aussagenlogik}
+\subsection{Syntax der Aussagenlogik}
+\begin{itemize}
+	\item Atomare Formeln: $A_i$ mit $i\in\N$
+	\item $F$ und $G$ Formeln $\rightarrow$ $(F\wedge G)$, $(F\vee G)$ und $\neg F$ auch Formeln
+\end{itemize}
+
+Aus dieser grundlegenden Syntaxdefinition lassen sich die in der Mathematik sonst auch üblichen Verknüpfungen als Abkürzungen darstellen
+\begin{itemize}
+	\item Implikation: $F_i\Rightarrow F_j \equiv (\neg F_i\vee F_j)$
+	\item Äquivalenz: $F_i\Leftrightarrow F_j \equiv ((F_i\wedge F_j)\vee(\neg F_i\wedge \neg F_j))$
+	\item n-faches Und: $\bigwedge\limits_{i=1}^n F_i \equiv (\ldots((F_1\wedge F_2)\wedge F_3)\ldots \wedge F_n)$
+	\item n-faches Oder: $\bigvee\limits_{i=1}^n F_i \equiv (\ldots((F_1\vee F_2)\vee F_3)\ldots \vee F_n)$
+\end{itemize}
+
+\subsection{Semantik der Aussagenlogik}
+$D\subseteq\simpleset{A_1,A_2,\ldots}$ eine Teilmenge der Menge aller Variablen (atomare Formeln).
+
+Eine Abbildung $\mathcal A:D\rightarrow\simpleset{0,1}$ heißt Belegung. Durch diese Abbildung erhält jede atomare Formel einen Wert. Der Wert von zusammengesetzten aussagenlogischen Formeln berechnet sich wie üblich über die induktive Definition der Semantik, dies wird hier nicht näher ausgeführt.
+
+\begin{itemize}
+	\item Eine Belegung $\mathcal A$ ist \textbf{passend} zu einer  Formel $F$, falls alle in $F$ vorkommenden atomaren Variablen zum Definitionsbereich von $\mathcal A$ gehören.
+	\item Eine Belegung $\mathcal A$ ist \textbf{Modell} für eine Formel, falls $\mathcal A$ zu $F$ passend ist und $\mathcal A(F)=1$ gilt.\\
+			Man schreibt dann $\mathcal A \vDash F$.
+	\item $F$ ist \textbf{erfüllbar}, falls ein Modell für $F$ existiert.
+	\item $F$ ist \textbf{gültig}, falls alle passenden Belegungen Modelle sind. $\rightarrow$ $F$ nennt man dann eine  \textbf{Tautologie}. Das Komplement einer Tautologie ist unerfüllbar.
+	\item Zwei Formeln $F$ und $G$ heißen \textbf{semantisch äquivalent}, wenn alle zu beiden passenden Belegungen $\mathcal A$ gilt: $\mathcal A(F) = \mathcal A(G)$. Man schreibt dann $F\equiv G$.
+\end{itemize}
+
+\vspace{1em}
+
+Wichtige Äquivalenzen sind die folgenden:
+\begin{itemize}
+	\item Itempotenz: $F\equiv (F\wedge F)\equiv (F\vee F)$
+	\item Kommutativität: $(F\wedge G)\equiv (G\wedge F), (F\vee G)\equiv (G\vee F)$
+	\item Assoziativität: $((F\wedge G)\wedge H)\equiv(F\wedge (G\wedge H)), ((F\vee G)\vee H)\equiv(F\vee (G\vee H))$
+	\item Absorption: $(F\wedge (F\vee G))\equiv F \equiv (F\vee (F\wedge G))$
+	\item Distributivität: $(F\wedge (G\vee H))\equiv ((F\wedge G)\vee (F\wedge H)), (F\vee (G\wedge H))\equiv ((F\vee G)\wedge (F\vee H))$
+	\item Doppelnegation: $\neg\neg F \equiv F$
+	\item deMorgan-Regeln: $\neg (F\wedge G)\equiv (\neg F\vee \neg G), \neg (F\vee G)\equiv (\neg F\wedge \neg G)$
+\end{itemize}
+
+
+\subsection{Prädikatenlogik}
+
+
+

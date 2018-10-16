@@ -34,11 +34,12 @@ Die zugrundeliegende Gödelisierung darf keinen Einfluss auf die Arbeitsweise de
 Es wird festgelegt, dass jedes Wort über dem Alphabet $\simpleset{0,1}$ einer Turingmaschine zugeordnet wird, dabei können mehrere Kodierungen auf die gleiche Turingmaschine abgebildet werden.
 
 
-\section{Grundlagen der Aussagenlogik}
+\chapter{Grundlagen}
+\section{Aussagen- und Prädikatenlogik}
 \subsection{Syntax der Aussagenlogik}
 \begin{itemize}
 	\item Atomare Formeln: $A_i$ mit $i\in\N$
-	\item $F$ und $G$ Formeln $\rightarrow$ $(F\wedge G)$, $(F\vee G)$ und $\neg F$ auch Formeln
+	\item $F$ und $G$ Formeln, dann sind $(F\wedge G)$, $(F\vee G)$ und $\neg F$ auch Formeln
 \end{itemize}
 
 Aus dieser grundlegenden Syntaxdefinition lassen sich die in der Mathematik sonst auch üblichen Verknüpfungen als Abkürzungen darstellen
@@ -78,6 +79,11 @@ Wichtige Äquivalenzen sind die folgenden:
 
 
 \subsection{Prädikatenlogik}
+{\color{red}ACHTUNG: Dieser Abschnitt ist noch nicht abgeschlossen und enthält möglicherweise Fehler!}
 
+Die Prädikatenlogik stellt eine Erweiterung der Aussagenlogik dar. So können nun zusätzlich quantifizierte Aussagen getroffen, sowie Funktionen und Relationen definiert werden.
+
+
+Zur Auswertung von Prädikatenlogischen Formeln benötigen wir eine sogenannte Struktur $\mathcal A=(U_{\mathcal A}, I_{\mathcal A})$. Dabei ist $U_{\mathcal A}$ die Menge der Individuen. Die Abbildung $I{\mathcal A}$ ordnet jedem Prädikatsymbol, beziehungsweise Funktionssymbol ein Prädikat oder eine Funktion zu und jeder benutzten Variable ein Element aus $U_{\mathcal A}$.
 
 

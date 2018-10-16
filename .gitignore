@@ -5,3 +5,4 @@ main.synctex.gz
 *.log
 *.out
 *.aux
+main.fdb_latexmk

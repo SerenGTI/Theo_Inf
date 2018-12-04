@@ -1,8 +1,9 @@
 
-main.toc
-main.synctex.gz
+*.toc
+*.synctex.gz
 *.fls
 *.log
 *.out
 *.aux
-main.fdb_latexmk
+*.fdb_latexmk
+*.fdb_latexmk

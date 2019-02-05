@@ -1,6 +1,5 @@
+%!TEX root = ../main.tex
 \chapter{Komplexität}
-{\color{red}ACHTUNG: Dieser Abschnitt ist noch nicht abgeschlossen und enthält möglicherweise Fehler!}
-
 Die Frage in der Komplexitätstheorie ist, wie viel Aufwand benötigt wird, ein Problem zu lösen.
 Die theoretische Lösbarkeit wird in der Entscheidbarkeits- bzw. Berechenbarkeitstheorie behandelt.
 
@@ -19,21 +18,21 @@ Für alle Komplexitätsklassen $\mathcal C$ ist zu unterscheiden:
 
 	Die Zeitklasse $\operatorname{DTIME}(f(n))$ enthält alle Probleme, die sich durch eine deterministische Turingmaschine in einem Zeitaufwand kleiner als $f$ lösen lassen. Das heißt, $f$ ist eine obere Schranke für die Komplexität der Probleme in $\operatorname{TIME}(f)$.
 
+	\begin{equation*}
+		\poly=\displaystyle\bigcup_{k\geq 1} \operatorname{DTIME}(n^k)
+	\end{equation*}
+
 	\columnbreak
 
 	Die Funktion $\mathrm{ntime}_M:\Sigma^\star\rightarrow \N$ ordnet einer Eingabe die Länge des kürzesten akzeptierenden Pfades der nichtdeterministischen Maschine $M$ zu. Falls die Maschine nicht akzeptiert, ist $\mathrm{ntime}_M(w)=0$.
 
 	Die Zeitklasse $\operatorname{NTIME}(f(n))$ enthält alle Probleme, die sich durch eine nichtdeterministische Turingmaschine in einem Zeitaufwand kleiner als $f$ lösen lassen.
+
+	\begin{equation*}
+		\npoly=\displaystyle\bigcup_{k\geq 1} \operatorname{NTIME}(n^k)
+	\end{equation*}
 \end{multicols}
 
-
-\begin{center}
-	\renewcommand{\arraystretch}{2}
-	\begin{tabular}{rl}
-		\poly&$=\displaystyle\bigcup_{k\geq 1} \operatorname{DTIME}(n^k)$\\
-		\npoly&$=\displaystyle\bigcup_{k\geq 1} \operatorname{NTIME}(n^k)$
-	\end{tabular}
-\end{center}
 
 \subsection{Platzklassen}
 Analog zu den Zeitklassen sind Platzklassen definiert, die den maximal belegten Platz für eine Berechnung beschränken. Die Funktion $\mathrm{space}_M:\Sigma^\star\rightarrow \N$ ordnet dabei jeder Eingabe auf einer deterministischen Turingmaschine die Anzahl der maximal verwendeten Bandelemente (auf einem Arbeitsband) zu.
@@ -213,3 +212,32 @@ Die durch Padding mit $f$ aufgebläte Sprache ist $Pad_f(L)\coloneqq \set{w\$^{f
 		Pad_f(L)\in \operatorname{NSPACE}(\mathcal O(g))&\Leftrightarrow L\in \operatorname{NSPACE}(\mathcal O(g\circ f))
 	\end{align*}
 \end{enumerate}
+
+\paragraph{Beispiel:} Wir wollen für alle $c\in\N$ zeigen, dass $$\operatorname{NSPACE}(n^c)\neq \npoly.$$ 
+Wir nehmen an, dass ein $c$ existiert sodass $\operatorname{NSPACE}(n^c)=\npoly$. 
+Sei also
+\begin{equation*}
+	L\in\operatorname{NSPACE}(n^{3c})
+\end{equation*}
+eine beliebige Sprache. 
+
+Wir wählen die Padding-Funktion $f(n)=n^3$, damit folgt dann 
+\begin{equation*}
+	Pad_f(L)\in\operatorname{NSPACE}(n^c)=\npoly
+\end{equation*}
+nach Annahme. Es existiert also ein $k\in\N$ mit dem  
+\begin{equation*}
+	Pad_f(L)\in\operatorname{NTIME}(n^k)
+\end{equation*}
+ist. Nach dem Translationssatz für Zeitklassen ist dann $L\in \operatorname{NTIME}(n^{3k})\subset \npoly$. 
+
+Es wurde also gezeigt
+\begin{equation*}
+	\operatorname{NSPACE}(n^c)=\npoly\Rightarrow\operatorname{NSPACE}(n^{3c})\subseteq\npoly
+\end{equation*}
+
+Daraus folgt aber nach der Annahme
+\begin{equation*}
+	\operatorname{NSPACE}(n^{3c})\subseteq\npoly =\operatorname{NSPACE}(n^c)
+\end{equation*}
+was im Widerspruch zum Platzhierarchiesatz steht.\hfill$\Box$

@@ -274,7 +274,7 @@
 
 		\item \textbf{Ungleichheit mit dem Translationssatz}, $\forall c\in\N: \operatorname{NSPACE}(n^c)\neq \npoly$:
 
-		Annahme: $\exists c\in\N: \operatorname{NSPACE}(n^c)=\npoly$. Sei $L\in\operatorname{NSPACE}(n^{3c})$ beliebig. Mit $f(n)=n^3$ folgt dann, $Pad_f(L)\in\operatorname{NSPACE}(n^c)\subseteq\npoly$ nach Annahme. Es existiert also ein $k\in\N: Pad_f(L)\in\operatorname{NTIME}(n^k)$, nach Zeithierarchiesatz ist $L\in \operatorname{NTIME}(n^{3k})$. Es wurde gezeigt:
+		Annahme: $\exists c\in\N: \operatorname{NSPACE}(n^c)=\npoly$. Sei $L\in\operatorname{NSPACE}(n^{3c})$ beliebig. Mit $f(n)=n^3$ folgt dann, $Pad_f(L)\in\operatorname{NSPACE}(n^c)\subseteq\npoly$ nach Annahme. Es existiert also ein $k\in\N: Pad_f(L)\in\operatorname{NTIME}(n^k)$, nach Translationssatz ist $L\in \operatorname{NTIME}(n^{3k})$. Es wurde gezeigt:
 		\begin{equation*}
 			\operatorname{NSPACE}(n^c)\subseteq\npoly\Rightarrow\operatorname{NSPACE}(n^{3c})\subseteq\npoly
 		\end{equation*}

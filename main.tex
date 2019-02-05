@@ -1,6 +1,6 @@
-\documentclass[orange]{../LaTeX-Templates/Skript/skript}
+\documentclass[orange, ngerman]{../LaTeX-Templates/Skript/skript}
 
-\title{Theoretische Informatik\\\subtitleformat{Theoretische Informatik 1 und 2, Kurzzusammenfassung}}
+\title{Theoretische Informatik\\\subtitleformat{Kurzzusammenfassung zur theoretischen Informatik}}
 \author{Simon \textsc{König}}
 
 \usepackage{pgf}
@@ -25,10 +25,12 @@
 \tableofcontents
 
 
+\input{buk/schreibweisen}
 \input{ueberblick}
 
-\part{Grundlagen}
-	\input{buk/schreibweisen}
+%Kapitel -> TI
+\renewcommand{\prtname}{Theoretische Informatik}
+
 \part{Formale Sprachen und Automatentheorie}
 	\input{fsua/einstieg.tex}
 	\input{fsua/fin.tex}
@@ -44,5 +46,6 @@
 	\input{buk/entscheidbarkeiten}
 	\input{buk/komplexitaet}
 
-
+\part{Algorithmen und diskrete Strukturen}
+	
 \end{document}

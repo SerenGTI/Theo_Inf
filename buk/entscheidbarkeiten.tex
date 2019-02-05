@@ -1,6 +1,5 @@
+%!TEX root = ../main.tex
 \chapter{Entscheidbarkeitstheorie}
-{\color{red}ACHTUNG: Dieser Abschnitt ist noch nicht abgeschlossen und enthält möglicherweise Fehler!}
-
 Die Berechenbarkeitstheorie spielt sich innerhalb der Entscheidbarkeitstheorie ab. Wenn eine Sprache entscheidbar ist, macht es Sinn ihre Komplexität zu bestimmen. Andersherum heißt das, dass jede Sprache, die in einer der Komplexitätsklassen enthalten ist entscheidbar ist (also insbesondere semi- und co-semi-entscheidbar).
 
 \section{Definitionen}
@@ -21,7 +20,7 @@ Ebenso lässt sich die semi-charakteristische Funktion $\chi_A'(w)$ definieren
 	\end{cases}
 \end{equation*}
 
-Eine Menge heißt entscheidbar, wenn ihre zugehörige charakteristische Funktion berechenbar ist. Eine Menge heißt semi-entscheidbar, falls die semi-charakteristische Funktion berechenbar ist. Das Komplement einer Mengen, deren semi-charakteristische Funktion berechenbar ist, heißt co-semi-entscheidbar.
+Eine Menge heißt \emph{entscheidbar}, wenn ihre zugehörige charakteristische Funktion \emph{berechenbar} ist. Eine Menge heißt semi-entscheidbar, falls die semi-charakteristische Funktion berechenbar ist. Das Komplement einer Mengen, deren semi-charakteristische Funktion berechenbar ist, heißt co-semi-entscheidbar.
 
 Ist eine Menge entscheidbar, so ist es ihr Komplement trivialerweise auch.
 
@@ -45,6 +44,10 @@ Hierbei seien die Gödelisierungen der Maschinen in einer geeigneten Art und Wei
 \paragraph{Satz von Rice}
 Sei $\mathcal R$ die Klasse der Turing-berechenbaren Funktionen und $\mathcal S$ eine nichttriviale Teilmenge von $\mathcal R$.
 Dann ist die Menge $C(\mathcal S)=\set{w}{M_w \text{ berechnet eine Funktion aus } \mathcal S}$ unentscheidbar.
+
+Wichtig ist, dass der Satz von Rice nur Aussagen über berechnete Funktionen macht, Aussagen über die berechnende Turingmaschine werden nicht in Betracht gezogen.
+
+Bei der Verwendung des Satzes von Rice führt man eigentlich eine \hyperref[sec:reduktion]{Reduktion} durch, muss sich jedoch keine Funktion mehr einfallen lassen.
 
 \paragraph{Probleme in der Theorie der formalen Sprachen}
 \begin{itemize}
@@ -73,3 +76,19 @@ Bei der Reduktion übertragen sich immer fehlende Eigenschaften von links nach r
 Reduziert man allerdings ein unbekanntes Problem $A$ auf ein semi-entscheidbares Problem $B$ (d.h. $A\leq B$), so hat man die Semi-Entscheidbarkeit von $A$ gezeigt. Es übertragen sich also \glqq positive Eigenschaften\grqq\  von rechts nach links.
 
 Letzterer Sachverhalt wird klar, wenn man sich überlegt, dass man mit der Reduktion eine Funktion gefunden hat, die eine Fragestellung aus $A$ in eine aus $B$ überträgt. Man kann also das Entscheidungsproblem für $A$ zunächst in $B$ übersetzen und schließlich mit dem Entscheidungsalgorithmus für $B$ entscheiden.
+
+\paragraph{Beispiel einer Reduktion:}
+Wir wollen zeigen, dass die Sprache
+$$L=\set{w\in\simpleset{0,1}^\star}{T(M_w)\in\reg}$$
+das heißt die Menge der Turingmaschinen, die reguläre Sprachen akzeptieren, unentscheidbar ist. Dafür reduzieren wir $H_0\leq L$, dabei sei $f(w)$ die Kodierung einer Turingmaschine die auf Eingabe $x$ wie folgt arbeitet
+\begin{itemize}
+	\item Wenn die Eingabe von der Form $x=a^nb^n$ mit $n\in\N$ ist, akzeptiere.
+	\item Sonst lösche die Eingabe und simuliere $M_w$ auf leerem Band.
+\end{itemize}
+Hierbei sei die Maschine o.B.d.A. über einem Alphabet $\simpleset{a,b}\subset\Sigma$ definiert.
+Damit ist $f$ total und berechenbar und es gilt
+\begin{align*}
+	w\in H_0&\Rightarrow T(M_{f(w)})=\Sigma^\star & w\not\in H_0&\Rightarrow T(M_{f(w)})=\set{a^nb^n\in\Sigma^\star}{n\in\N}\\
+	&\Rightarrow T(M_{f(w)})\in\reg&&\Rightarrow T(M_{f(w)})\in\cfl\setminus\reg 
+\end{align*}
+Da $H_0$ unentscheidbar ist, ist es auch $L$.\hfill$\Box$

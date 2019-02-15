@@ -1,0 +1,61 @@
+%!TEX root = ../main.tex
+\chapter{Wichtige Abschätzungen}
+
+\section{Wachstum der Fakultät}
+\begin{equation*}
+	\log(n!)\in \Theta(n\log n)
+\end{equation*}
+denn es gilt 
+\begin{align*}
+	\forall n\geq 2:\quad \left(\frac n2\right)^{\frac n2} < n! < n^n \text{ oder auch } e*\left(\frac ne\right)^n\leq n!\leq n*e*\left(\frac ne\right)^n
+\end{align*}
+
+\section{Wachstum des Binomialkoeffizienten}
+Wir interessieren uns für die Binomialkoeffizienten der Form $\binom{2n}{n}$ bzw. $\binom{n}{\lceil \frac n2\rceil}=\binom{n}{\lfloor \frac n2\rfloor}$ (diese sind die Binomialkoeffizienten mit größtem Wert) für große $n$.
+Aus dem binomischen Lehrsatz folgt (mit $a=b=1$), dass
+\begin{equation*}
+	\sum_k\binom nk = 2^n.
+\end{equation*}
+Damit wissen wir, dass die Binomialkoeffizienten im Durchschnitt von der Größenordnung $\frac{2^n}n$ sind. Damit folgt
+\begin{equation*}
+	\forall n\geq 3:\quad\binom{n}{\lceil \frac n2\rceil}=\binom{n}{\lfloor \frac n2\rfloor}>\frac{2^n}n
+\end{equation*}
+
+
+
+\section{Wachstum des kleinsten gemeinsamen Vielfachen}
+\newcommand{\kgV}{\texttt{kgV}}
+Wir definieren zunächst
+\begin{equation*}
+	\kgV(n)=\kgV(2,\ldots,n).
+\end{equation*}
+es ist also das kleinste gemeinsame Vielfache der ersten $n$ natürlichen Zahlen.
+
+\section{Fibonacci-Zahlen}
+\begin{equation*}
+	F_0 = 0, F_1=1, F_n=F_{n-1}+F_{n-2}\enspace\forall n\geq 2
+\end{equation*}
+
+Sogenannte Dominostein-Interpretation der Fibonacci-Zahlen:
+Es stehen beliebig viele Dominosteine von zwei Sorten zu Verfügung, solche der Länge 1 und solche der Länge 2.
+
+Wie viele Möglichkeiten gibt es, damit eine Sequenz der Länge $n$ zu legen? $\rightsquigarrow F_n$
+
+\subsection{Abschätzung der Fibonacci-Zahlen}
+Es gilt 
+\begin{align*}
+	&F_n\leq 2^n\leq F_{2n}\\
+	\text{bzw. }&2^n\leq F_{2n}\leq 2^{2n}\\
+	\text{bzw. }&(\sqrt 2)^n\leq F_n\leq 2^n
+\end{align*}
+dies lässt sich durch Induktion leicht zeigen.
+
+Es gilt
+\begin{equation*}
+	\ggT(F_m,F_n)=F_{\ggT(m,n)}.
+\end{equation*}
+
+
+
+\section{Catalanzahlen}
+

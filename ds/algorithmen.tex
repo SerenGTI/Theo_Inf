@@ -1,0 +1,109 @@
+%!TEX root = ../main.tex
+
+\renewcommand{\time}{\operatorname{time}}
+\newcommand{\avtime}{\operatorname{av-time}}
+\renewcommand{\O}{\mathcal O}
+
+\chapter{Laufzeitanalyse}
+Zunächst benötigen wir einen Algorithmenbegriff.
+\begin{definition}{Algorithmus}
+	Ein Algorithmus ist eine schrittweise auszuführende Vorschrift, bei der jeder auszuführende Schritt tatsächlich in endlicher Zeit und auf eindeutig definierte Weise ausgeführt werden kann.
+\end{definition}
+Grundsätzlich soll vor Beginn der Ausführung immer eine Eingabe der Länge $n\in\N$ bereitgestellt sein, auf die die ausführende Maschine zugreifen kann.
+
+\section{Worst- und Average-case Laufzeiten}
+Analog zur Aufwandsanalyse von Maschinen aus Theoretischer Informatik 2 ist die Anzahl Berechnungsschritte, die für den gegebenen Algorithmus $A$ bei Input $x$ durchgeführt werden müssen gegeben durch die Abbildung
+\begin{equation*}
+ 	\time_A(x):\Sigma^\ast \rightarrow \N\cup\simpleset{\infty}.
+\end{equation*}
+Hieraus ergibt sich die \emph{worst-case-Laufzeit} bei Eingabelänge höchstens $n$ als
+\begin{equation*}
+	\time_A(n)=\max_{|x|\leq n}\simpleset{\time_A(x)}.
+\end{equation*}
+
+
+Um die sogenannte \emph{average-case-Laufzeit} zu berechnen, gehen wir davon aus, dass alle Eingaben der Länge $n$ gleich wahrscheinlich sind (gleichverteilt).
+Damit ist
+\begin{equation*}
+	\avtime_A(n)=\frac{1}{N}\sum_{|x|=n}\time_A(x)
+\end{equation*}
+wobei $N=|\set{x}{|x|=n}|$.
+
+
+\section{Landau-Symbole}
+Die fünf Landau-Symbole sind $\O, o, \Omega,\omega$ und $\Theta$, mit ihnen werden Klassen von Funktionen $\N\rightarrow\N$ beschrieben.
+
+\begin{description}
+	\item[$(\O)$] Man sagt $g$ ist zu $f$ eine asymptotische obere Schranke, wenn
+	\begin{equation*}
+		f\in\O(g)\enspace\Longleftrightarrow\enspace \limsup_{n\to\infty} \left|\frac{f(n)}{g(n)}\right|<\infty\enspace\Longleftrightarrow\enspace \ \exists c,N_0\in\N\ \forall n\geq N_0:f(n)\leq c*g(n)
+	\end{equation*}
+
+	\item[$(\Omega)$] Analog zu $\O$ stellt $\Omega$ die Klasse der asymptotischen unteren Schranken dar.
+	\begin{equation*}
+		f\in\Omega(g) \enspace\Longleftrightarrow\enspace \liminf_{n\to\infty} \left|\frac{f(n)}{g(n)}\right|>0\enspace\Longleftrightarrow\enspace \ \exists c,N_0\in\N\ \forall n\geq N_0:f(n)\geq c*g(n)
+	\end{equation*}
+
+
+	\item[$(\Theta)$] Man sagt $g$ ist zu $f$ eine asymptotisch scharfe Schranke, wenn
+	\begin{equation*}
+		f\in\Theta(g)\enspace\Longleftrightarrow\enspace f\in\Theta(g)\wedge f\in\O(g)
+	\end{equation*}
+	Es gilt $\Theta(g)=\O(g)\cap \Omega(g)$.
+
+
+	\item[$(o)$] $f$ ist gegenüber $g$ asymptotisch vernachlässigbar, wenn
+	\begin{equation*}
+		f\in o(g)\enspace\Longleftrightarrow\enspace \lim_{n\to\infty} \left|\frac{f(n)}{g(n)}\right|=0\enspace\Longleftrightarrow\enspace \ \forall c\ \exists N_0\in\N\ \forall n\geq N_0:f(n)< c*g(n)
+	\end{equation*}
+	Man sieht, dass $o(g)\subset \O(g)$ gilt.
+
+
+	\item[$(\omega)$] $f$ ist gegenüber $g$ asymptotisch dominant, wenn
+	\begin{equation*}
+		f\in\omega(g) \enspace\Longleftrightarrow\enspace \lim_{n\to\infty} \left|\frac{f(n)}{g(n)}\right|=\infty\enspace\Longleftrightarrow\enspace \ \forall c\ \exists N_0\in\N\ \forall n\geq N_0:f(n)\geq c*g(n)
+	\end{equation*}
+	Analog ist hier wieder $\omega(g)\subset \Omega(g)$.
+\end{description}
+
+
+\section{Rekursionsgleichungen}
+Rekursion bedeutet, ein Problem für den Parameterwert $n$ unter Zuhilfenahme des Ergebnisses für den/die Parameterwert/e $m$ bzw $m_i$ zu berechnen.
+Oft ist dabei $m<n$. Man reduziert also ein Problem auf ein bereits gelöstes plus einen meist nur noch kleinen Rechenaufwand.
+
+\paragraph{Beispiele:} Die Fibonacci-Zahlen sowie der euklidische Algorithmus werden oft rekursiv programmiert.
+Aber auch Suchalgorithmen wie die binäre Suche.
+
+\begin{satz}{Mastertheorem 1}
+	
+\end{satz}
+
+\begin{satz}{Mastertheorem 2}
+	
+\end{satz}
+
+
+
+
+\chapter{Entwurfsmethoden}
+\section{Divide and Conquer}
+Das divide and Conquer / Teile und herrsche-Prinzip basiert auf Rekursion. Allgemein wird die Eingabe in zwei (oder mehr) Teile aufgeteilt. Die Berechnung wird rekursiv auf den Teilen durchgeführt, am Schluss werden die beiden Teillösungen zur Gesamtlösung zusammengeführt.
+
+Wichtig für einen effizienten divide and conquer-Algorithmus ist, dass die Teile ungefähr gleich groß sind, d.h. $m\approx \frac n2$. Außerdem sollte das Aufteilen und Zusammensetzen mit linearer Zeit ($\O(n)$ bzw. $\Theta(n)$) auskommen.
+
+\paragraph{Beispiele:}
+\begin{itemize}
+	\item Mergesort
+	\item Quicksort
+	\item Multiplikation großer Zahlen
+\end{itemize}
+
+\section{Dynamisches Programmieren}
+\section{Backtracking bzw. Branch and Bound}
+\section{Greedy Algorithmen}
+\section{Randomisierte Algorithmen}
+
+
+
+
+

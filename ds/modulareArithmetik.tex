@@ -1,0 +1,177 @@
+%!TEX root = ../main.tex
+\chapter{Modulare Arithmetik}
+Wir rechnen in den sogenannten Restklassen. Für ein $n\in\N$ seien für $k\in\Z$ die Mengen
+\begin{equation*}
+	k+n\Z=\simpleset{\ldots,k-2n,k-n,k,k+n,k+2n,\ldots}.
+\end{equation*}
+die sogenannten Restklassen. Wir definieren hierauf die Äquivalenzrelation $\equiv (\operatorname{mod} n)$ durch
+\begin{equation*}
+	k\equiv l\mod n\Leftrightarrow k\in l+n\Z
+\end{equation*}
+Aus den Restklassen bilden wir den Restklassenring $\Z/n\Z$ mit den Verknüpfungen
+\begin{align*}
+	(k+n\Z)+(l+n\Z)&=k+l+n\Z\\
+	(k+n\Z)*(l+n\Z)&=k*l+n\Z\\
+\end{align*}
+Die multiplikative Gruppe in $\Z/n\Z$ besteht aus den bezüglich Multiplikation invertierbaren Elementen. Sie wird bezeichnet mit $(\Z/n\Z)^\ast$.
+
+Wir bezeichnen mit $\varphi(n)$ die Anzahl der natürlichen Zahlen $k<n$ für die $\ggT(k,n)=1$ gilt. Die multiplikative Gruppe $(\Z/n\Z)^\ast$ hat also $\varphi(n)$ viele Elemente.
+
+
+\section{Wichtige Sätze und Lemmas}
+\begin{itemize}
+	\item Allgemein gilt
+	\begin{equation*}
+		\ggT(ca,cb)=c*\ggT(a,b)
+	\end{equation*}
+	\item \textbf{Lemma von Bezout}
+	Für alle $m,n\in\Z$ existieren $a,b\in\Z$ so, dass
+	\begin{equation*}
+		\ggT(m,n)=am+bn
+	\end{equation*}
+	das heißt, der größte gemeinsame Teiler lässt sich als Linearkombination darstellen.
+	\item \textbf{Fundamentalsatz der Arithmetik} Sei $n\in\N$. Dann lässt sich $n$ eindeutig darstellen als
+	\begin{equation*}
+		n=\prod_{p\text{ Prim}}  p^{n_p}
+	\end{equation*}
+	Dabei ist $n_p\neq 0$ genau dann, wenn $p$ ein Teiler von $n$ ist. Das heißt also, die Primfaktorzerlegung einer Zahl ist eindeutig.
+	\item Die multiplikative Gruppe besteht aus den Elementen, die teilerfremd zum Modul sind
+	\begin{equation*}
+		(\Z/n\Z)^\ast =\set{k+n\Z}{\ggT(k,n)=1}
+	\end{equation*}
+	\item $\Z/n\Z$ ist ein Körper genau dann, wenn $n$ eine Primzahl ist.
+
+	\item Die lineare Abbildung $x\mapsto kx$ auf $\Z/n\Z$ ist genau dann bijektiv, wenn $\ggT(k,n)=1$.
+	
+	\item Sind $m,n$ teilerfremd, d.h. $\ggT(m,n)=1$, dann ist
+	\begin{equation*}
+		\pi:\Z\rightarrow\Z/m\Z\times\Z/n\Z, x\mapsto(x+m\Z,x+n\Z)
+	\end{equation*}
+	surjektiv. Damit erhält man eine bijektive Abbildung
+	\begin{equation*}
+		(x\mod mn)\mapsto (x\mod m,x\mod n)
+	\end{equation*}
+	\item \textbf{Chinesischer Restsatz}
+	Für teilerfremde Zahlen $m,n$ ist die Abbildung
+	\begin{equation*}
+		\Z/mn\Z\rightarrow \Z/m\Z\times \Z/n\Z
+		x+mn\Z\mapsto (x+m\Z,x+n\Z)
+	\end{equation*}
+	ein Isomorphismus (bijektiver Homomorphismus).
+
+	\item \textbf{Der kleine Satz von Fermat} Für alle Primzahlen $p$ und alle $a\in\Z$ gilt
+	\begin{equation*}
+		a^p\equiv a\mod p
+	\end{equation*}
+	Falls $a$ und $p$ teilerfremd sind, gilt sogar
+	\begin{equation*}
+		a^{p-1}\equiv 1\mod p
+	\end{equation*}
+
+	\item \textbf{Satz von Euler} Für teilerfremde ganze Zahlen $a,n$ gilt
+	\begin{equation*}
+		a^{\varphi(n)}\equiv 1 \mod n
+	\end{equation*}
+
+	dies gilt sogar für jede kommutative Gruppe $G$ und jedes $a\in G$ (die multiplikative Gruppe $(Z/n\Z)^\ast$ ist kommutativ)
+	\begin{equation*}
+	 	a^{|G|}=1
+	\end{equation*} 
+
+	\item Summe über die $\phi(t)$ der Teiler von $n$ ist gleich $n$
+	\begin{equation*}
+		\sum_{t|n}\varphi(t)=n
+	\end{equation*}
+\end{itemize}
+
+
+\section{Beispiele und Anwendungen}
+\subsection{Lösen von Kongruenzen}
+\subsubsection{Finden der Inversen in der multiplikativen Gruppe}
+Das Finden des Inversen eines Elements in der multiplikativen Gruppe $(\Z/n\Z)^\ast$ efolgt durch Lösen einer besonderen linearen diophantischen Gleichung. Wollen wir das Inverse von $a$ bestimmen, so wollen wir die Kongruenz
+\begin{equation*}
+	a*x\equiv 1 \mod n
+\end{equation*}
+für $x$ lösen. Das Inverse existiert nur, wenn $a$ und $n$ teilerfremd sind, das heißt $\ggT(a,n)=1$ ist. Damit lässt sich das Problem auf die diophantische Gleichung
+\begin{equation*}
+	a*x+n*y = 1 = \ggT(a,n)
+\end{equation*}
+reduzieren. Wir wissen aus dem Lemma von Bezout, dass sich der $\ggT$ als Linearkombination darstellen lässt. Diese können wir mit dem erweiterten euklidischen Algorithmus finden.
+\paragraph{Beispiel:}
+Wir wollen das Inverse von $17$ in $(\Z/31\Z)^\ast$ bestimmen. Wir wissen, dass $\ggT(17,31)=1$, wir wollen also folgendes lösen
+\begin{align*}
+	&17*x\equiv 1 \mod 31\\
+	&17*x+31*y=1=\ggT(17,31)
+\end{align*}
+Dafür führen wir den euklidischen Algorithmus durch, der $\ggT$ ist markiert
+\begin{align*}
+	31&=1*17+14\\
+	17&=1*14+3\\
+	14&=4*3+2\\
+	3&=1*2+\fbox{1} \leftarrow \text{ ab hier nach oben arbeiten.}\\
+	2&=2*\fbox{1}+0.
+\end{align*}
+Gehen wir nun aus der vorletzten Zeile die Schritte rückwärts zurück, erhalten wir
+\begin{align*}
+	1&=3-2\\
+	&=3-(14-4*3)=5*3-14\\
+	&=5*(17-14)-14=5*17-6*14\\
+	1&=5*17-6*(31-17)=\fbox{11}*17-6*31
+\end{align*}
+womit wir bereits die Linearfaktorzerlegung und damit insbesondere das Inverse gefunden haben.
+
+\subsubsection{Lösen einer allgemeinen diophantischen Gleichung}
+Möchte man eine lineare diophantische Gleichung 
+\begin{equation*}
+	a*x+b*y=c
+\end{equation*}
+lösen bei der $c\neq\ggT(a,b)$ ist, muss man wie folgt vorgehen.
+
+Zu erst ist wichtig, dass $c$ ein Vielfaches von $\ggT(a,b)$ sein muss, sonst ist die Gleichung nicht lösbar.
+
+Dann kann man wie oben vorgehen, den $\ggT$ berechnen und anschließend die vorletzte Zeile so erweitern, dass der Rest gleich $c$ ist. Verfährt man nun weiter wie oben und setzt rückwärts ein, erhält man die gesuchte Lösung.
+
+\subsection{Fehlererkennung}
+
+
+\subsection{Primzahltest und -Zertifikat}
+\subsubsection{Primzahltest nach Fermat 22.3}
+
+\subsubsection{Exaktes Primzahlzertifikat}
+Sei $n\geq 2$ und $n\in\N$. Falls für alle Primzahlen $p$ mit $n\equiv 1\mod p$ eine Zahl $a\in Z$ existiert, so dass
+\begin{equation*}
+ 	a^{n-1}\equiv 1\mod n \text{\quad und \quad}a^{\frac{n-1}p}\not\equiv 1\mod n
+\end{equation*}
+gilt, dann ist $n$ eine Primzahl. 
+
+\subsection{Simultane Kongruenzen lösen}
+\subsection{Schnelle Exponentiation 22.6}
+\subsection{RSA}
+Das RSA-Verfahren ist ein asymmetrisches Verschlüsselungsverfahren, das sehr weit verbreitet ist.
+
+Möchte Bob  ($B$) eine Nachricht an Alice ($A$) senden, so muss Alice zunächst das folgende vorbereiten 
+\begin{enumerate}
+	\item Große Primzahlen $p,q$ mit $p<q$, beide müssen geheim bleiben.
+	\item Berechne $n=p*q$ (öffentlich),
+	\item setze $\varphi(n)=(p-1)(q-1)$,
+	\item wähle $e>1$ mit $\ggT(e,\varphi(n)=1$ (öffentlich), diese Zahl wird zum Verschlüsseln verwendet.
+	\item Berechne $s<n$ mit $e*s\equiv 1\mod \varphi(n)$, d.h. $e*s=k*\varphi(n)+1$. Diese Zahl wird zum Entschlüsseln verwendet und muss unbedingt geheim bleiben.
+\end{enumerate}
+Das Paar $(n,e)$ bildet den \emph{öffentlichen Schlüssel}.
+
+Bobs Nachricht muss im Bereich $\simpleset{0,\ldots,n-1}$ sein, dies kann zum Beispiel durch Aufteilen der Nachricht in mehrere Teile erreicht werden. Die Nachricht sei $x$.
+
+Bob verschlüsselt nun
+\begin{equation*}
+	y=x^e\mod n
+\end{equation*}
+
+Alice kann dann wieder entschlüsseln mit
+\begin{equation*}
+	x'=y^s\mod n
+\end{equation*}
+
+Dies funktionert, da
+\begin{align*}
+	(x^e)^s = x^{e*s}=x^{k*\varphi(n)+1}=x*(x^{\varphi(n)})^k\equiv x*1^k\mod n
+\end{align*}

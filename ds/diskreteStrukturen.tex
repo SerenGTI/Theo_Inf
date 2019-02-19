@@ -1,47 +1,50 @@
 %!TEX root = ../main.tex
 
 \newcommand{\ggT}{\texttt{ggT}}
+\newcommand{\kgV}{\texttt{kgV}}
 
 \chapter{Algebra und Zahlentheorie}
-\begin{definition}{Halbgruppe}
-	
-\end{definition}
-\begin{definition}{Monoid}
-	
-\end{definition}
-\begin{definition}{Gruppe}
-	
-\end{definition}
-\begin{definition}{Ring}
-	
-\end{definition}
-\begin{definition}{Körper}
-	
-\end{definition}
-\begin{definition}{Homomorphismus}
-	
-\end{definition}
+\section{Algebraische Strukturen}
+	Sei $M$ eine Menge und $\circ$ eine zweistellige Verknüpfung
+	\begin{equation*}
+		\circ:M\times M\rightarrow M, (m,n)\mapsto \circ(m,n).
+	\end{equation*}
+	Man schreibt oft $m\circ n$ anstatt $\circ(m,n)$.
 
+	Ist $\circ$ \textbf{assoziativ}, dann bildet $(M,\circ)$ eine \emph{Halbgruppe}.
 
+	\medskip
 
-\begin{definition}{Gruppe}
-	
-\end{definition}
+	Wenn die Halbgruppe $(M,\circ)$ zusätzlich ein \textbf{neutrales Element} bezüglich $\circ$ enthält, nennt man $(M,\circ)$ ein \emph{Monoid}. Manchmal schreibt man dann auch $(M,\circ,e)$ um das neutrale Element $e$ hervorzuheben.
 
+	\medskip
 
-Größter gemeinsamer Teiler
-\begin{lstlisting}
-function ggt(m,n)
-begin
-	if m = 0 then 
-		return n
-	else 
-		return ggT(n mod m, m)
-	end if
-end
-\end{lstlisting}
+	Wenn ein Monoid für jedes Element ein sogenanntes \textbf{beidseitiges Inverses} enthält, dann ist es eine \emph{Gruppe}.
 
+	\medskip
 
+	Ist die Verknüpfung zusätzlich \textbf{kommutativ}, nennt man $(M,\circ, e)$ eine \emph{kommutative} oder \emph{abelsche Gruppe}.
+
+	\bigskip
+
+	Ein \emph{Ring} $R$ besteht aus einer additiven Gruppe mit neutralem Element $0$, das heißt $(R,+,0)$ ist eine \textbf{abelsche Gruppe}. Zusätzlich eine zweite Operation, die Multiplikation $*$, unter der $(R,*,1)$ ein \textbf{Monoid} bildet. Es gelten außerdem die \textbf{Distributivgesetze}.
+
+	\medskip
+
+	Ist in einem Ring die Multiplikation zusätzlich \textbf{kommutativ} und bildet $(R\setminus\simpleset 0, *,1)$ eine \textbf{Gruppe} (d.h. es existieren Inverse), dann nennt man dies einen \emph{Körper}.
+
+	\bigskip
+
+	Ist $X$ eine algebraische Struktur, dann ist eine Teilmenge $T\subseteq X$ eine \emph{Unterstruktur}, falls $T$ ebenfalls die geforderten Struktureigenschaften erfüllt. So zum Beispiel Untergruppe, Untermonoide und so weiter.
+
+	\bigskip
+
+	Ein Homomorphismus ist eine \emph{strukturerhaltende Abbildung}. 
+	Das heißt, z.B. auf zwei Monoiden $(M_1,\circ_1,e_1),(M_2,\circ_2,e_2)$ wäre die Abbildung
+	\begin{equation*}
+		\phi(m\circ_1 n)=\phi(m)\circ_2 \phi(n)\text{ und }\phi(e_1)=e_2
+	\end{equation*}
+	ein Monoid-Homomorphismus.
 
 
 \chapter{Diskrete Wahrscheinlichkeit}

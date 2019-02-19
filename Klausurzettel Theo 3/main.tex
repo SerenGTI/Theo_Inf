@@ -14,12 +14,18 @@
 \usepackage{enumitem}
 \usepackage{multicol}
 \usepackage{fancyhdr}
+\usepackage{xcolor}
 
 
+\mathcode`\*="8000 %Sterne durch Malpunkte ersetzen
+{\catcode`\*\active\gdef*{\cdot}}
 
 \pagestyle{empty}
 
 \setlength{\parindent}{0pt}
+
+\newcommand{\ggT}{\texttt{ggT}}
+\newcommand{\kgV}{\texttt{kgV}}
 
 
 \setlist[2]{noitemsep}
@@ -31,15 +37,134 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\set}[2]{\ensuremath\left\{ #1 \,\middle|\, #2 \right\}}
 \newcommand{\simpleset}[1]{\ensuremath\left\{ #1 \right\}}
+\renewcommand{\O}{\mathcal O}
 
 \begin{document}
 \begin{multicols}{3}
-	\textbf{Simon König 3344789 - Klausurzettel}
+	\textbf{Simon König 3344789 - Klausurzettel Theoretische Informatik 3}
 
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidat
+	\section{Wichtige Algorithmen}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+
+	\section{Laufzeitanalyse}
+
+	\begin{itemize}
+		\item \textbf{Mastertheorem 1} Für $a,b\in\N$, $b>1$ und eine Funktion $g:\N\rightarrow \N$ mit $g\in\Theta(n^c)$ gelte
+		\begin{align*}
+			t(1)&=g(1)\\
+			t(n)&=a*t\left(\frac nb\right)+g(n)
+		\end{align*}
+		Dann gilt 
+		\begin{equation*}
+			t(n)\in\begin{cases}
+			\Theta(n^c)&\text{falls }a<b^c\\
+			\Theta(n^c\log n)&\text{falls }a=b^c\\
+			\Theta(n^{\frac{\log a}{\log b}})&\text{falls }a>b^c\\
+			\end{cases}
+		\end{equation*}
+
+		\item \textbf{Mastertheorem 2} Sei $r>0$ und die Zahlen $\alpha_1\geq 0$ für alle $i$ und erfüllen $\sum_{i=1}^r\alpha_i<1$.
+		Wenn die Rekursive Funktion $t$ die Ungleichung
+		\begin{equation*}
+			t(n)\leq \left( \sum_{i=1}^r t(\lceil \alpha_i*n\rceil) \right)+c*n
+		\end{equation*}
+		für ein $c>0$ erfüllt, dann ist $t(n)\in\O(n)$.
+
+		\item \textbf{Summenformeln}
+		\begin{equation*}
+			\sum_{i=0}^n x^i = \frac{1-x^{n+1}}{1-x}
+		\end{equation*}
+
+		\begin{equation*}
+			?
+		\end{equation*}
+	\end{itemize}
+
+
+
+	\section{Diskrete Strukturen}
+	\begin{itemize}
+		\item Halbgruppe: assoziativ
+		\item Monoid: neutrales Element
+		\item Gruppe: beidseitig Inverse
+		\item Abelsche Gruppe: kommutativ
+		\item Ring: $(R,+,0)$ ist abelsche Gruppe, $(R,*,1)$ ist Monoid, Distributivgesetze
+		\item Körper: $(R\setminus\simpleset 0, *,1)$ ist Gruppe und $*$ ist kommutativ
+
+		
+		\item Eigenschaften einer Kongruenzrelation:%
+		\begin{itemize}%
+			\item Reflexivität: $a\sim a$
+			\item Symmetrie: $a\sim b\Rightarrow b\sim a$
+			\item Transitivität: $a\sim b, b\sim c\Rightarrow a\sim c$
+			\item {\color{red} Verträglichkeit mit Abbildung?}
+		\end{itemize}
+
+	\end{itemize}
+
+
+	\section{Modulare Arithmetik}
+	\begin{itemize}
+		\item Allgemein gilt
+		\begin{equation*}
+			\ggT(ca,cb)=c*\ggT(a,b)
+		\end{equation*}
+		\item \textbf{Lemma von Bezout}
+		Für alle $m,n\in\Z$ existieren $a,b\in\Z$ so, dass
+		\begin{equation*}
+			\ggT(m,n)=am+bn
+		\end{equation*}
+		das heißt, der größte gemeinsame Teiler lässt sich als Linearkombination darstellen.
+		\item \textbf{Fundamentalsatz der Arithmetik} Die Primfaktorzerlegung jeder natürlichen Zahl ist eindeutig.
+		\item Die multiplikative Gruppe besteht aus den Elementen, die teilerfremd zum Modul sind
+		\begin{equation*}
+			(\Z/n\Z)^\ast =\set{k+n\Z}{\ggT(k,n)=1}
+		\end{equation*}
+		\item $\Z/n\Z$ ist ein Körper genau dann, wenn $n$ eine Primzahl ist.
+
+		\item Die lineare Abbildung $x\mapsto kx$ auf $\Z/n\Z$ ist genau dann bijektiv, wenn $\ggT(k,n)=1$.
+		
+		\item Sind $m,n$ teilerfremd, d.h. $\ggT(m,n)=1$, dann ist
+		\begin{equation*}
+			\pi:\Z\rightarrow\Z/m\Z\times\Z/n\Z, x\mapsto(x+m\Z,x+n\Z)
+		\end{equation*}
+		surjektiv. Damit erhält man eine bijektive Abbildung
+		\begin{equation*}
+			(x\mod mn)\mapsto (x\mod m,x\mod n)
+		\end{equation*}
+		\item \textbf{Chinesischer Restsatz}
+		Für teilerfremde Zahlen $m,n$ ist die Abbildung
+		\begin{equation*}
+			\Z/mn\Z\rightarrow \Z/m\Z\times \Z/n\Z, 
+			x+mn\Z\mapsto (x+m\Z,x+n\Z)
+		\end{equation*}
+		ein Isomorphismus (bijektiver Homomorphismus).
+
+		\item \textbf{Der kleine Satz von Fermat} Für alle Primzahlen $p$ und alle $a\in\Z$ gilt
+		\begin{equation*}
+			a^p\equiv a\mod p
+		\end{equation*}
+		Falls $a$ und $p$ teilerfremd sind, gilt sogar
+		\begin{equation*}
+			a^{p-1}\equiv 1\mod p
+		\end{equation*}
+
+		\item \textbf{Satz von Euler} Für teilerfremde ganze Zahlen $a,n$ gilt
+		\begin{equation*}
+			a^{\varphi(n)}\equiv 1 \mod n
+		\end{equation*}
+		Verallgemeinert man den Satz (die multiplikative Gruppe $(\Z/n\Z)^\ast$ ist kommutativ), erhält man den \textbf{Satz von Lagrange} Es gilt sogar für jede kommutative Gruppe $G$ und jedes $a\in G$ 
+		\begin{equation*}
+		 	a^{|G|}=1
+		\end{equation*} 
+
+		\item Summe über die $\varphi(t)$ der Teiler von $n$ ist gleich $n$
+		\begin{equation*}
+			\sum_{t|n}\varphi(t)=n
+		\end{equation*}
+	\end{itemize}
+
 \end{multicols}
 \end{document}

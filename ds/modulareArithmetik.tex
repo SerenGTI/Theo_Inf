@@ -1,5 +1,29 @@
 %!TEX root = ../main.tex
 \chapter{Modulare Arithmetik}
+Bevor wir in Rechnungen einsteigen
+
+definieren wir den sogenannten größten gemeinsamen Teiler
+
+
+Größter gemeinsamer Teiler
+\begin{lstlisting}
+function ggt(m,n)
+begin
+	if m = 0 then 
+		return n
+	else 
+		return ggT(n mod m, m)
+	end if
+end
+\end{lstlisting}
+
+und das kleinste gemeinsame Vielfache
+
+
+
+
+
+
 Wir rechnen in den sogenannten Restklassen. Für ein $n\in\N$ seien für $k\in\Z$ die Mengen
 \begin{equation*}
 	k+n\Z=\simpleset{\ldots,k-2n,k-n,k,k+n,k+2n,\ldots}.
@@ -16,6 +40,16 @@ Aus den Restklassen bilden wir den Restklassenring $\Z/n\Z$ mit den Verknüpfung
 Die multiplikative Gruppe in $\Z/n\Z$ besteht aus den bezüglich Multiplikation invertierbaren Elementen. Sie wird bezeichnet mit $(\Z/n\Z)^\ast$.
 
 Wir bezeichnen mit $\varphi(n)$ die Anzahl der natürlichen Zahlen $k<n$ für die $\ggT(k,n)=1$ gilt. Die multiplikative Gruppe $(\Z/n\Z)^\ast$ hat also $\varphi(n)$ viele Elemente.
+
+
+
+\section{Rechenregeln}
+\begin{itemize}
+	\item 
+	\item $ca\equiv cb\mod m\quad\Leftrightarrow\quad a\equiv b\mod \frac{m}{\ggT(c,m)}$
+\end{itemize}
+
+
 
 
 \section{Wichtige Sätze und Lemmas}
@@ -54,7 +88,7 @@ Wir bezeichnen mit $\varphi(n)$ die Anzahl der natürlichen Zahlen $k<n$ für di
 	\item \textbf{Chinesischer Restsatz}
 	Für teilerfremde Zahlen $m,n$ ist die Abbildung
 	\begin{equation*}
-		\Z/mn\Z\rightarrow \Z/m\Z\times \Z/n\Z
+		\Z/mn\Z\rightarrow \Z/m\Z\times \Z/n\Z, 
 		x+mn\Z\mapsto (x+m\Z,x+n\Z)
 	\end{equation*}
 	ein Isomorphismus (bijektiver Homomorphismus).
@@ -72,13 +106,12 @@ Wir bezeichnen mit $\varphi(n)$ die Anzahl der natürlichen Zahlen $k<n$ für di
 	\begin{equation*}
 		a^{\varphi(n)}\equiv 1 \mod n
 	\end{equation*}
-
-	dies gilt sogar für jede kommutative Gruppe $G$ und jedes $a\in G$ (die multiplikative Gruppe $(Z/n\Z)^\ast$ ist kommutativ)
+	Verallgemeinert man den Satz (die multiplikative Gruppe $(\Z/n\Z)^\ast$ ist kommutativ), erhält man den \textbf{Satz von Lagrange} Es gilt sogar für jede kommutative Gruppe $G$ und jedes $a\in G$ 
 	\begin{equation*}
 	 	a^{|G|}=1
 	\end{equation*} 
 
-	\item Summe über die $\phi(t)$ der Teiler von $n$ ist gleich $n$
+	\item Summe über die $\varphi(t)$ der Teiler von $n$ ist gleich $n$
 	\begin{equation*}
 		\sum_{t|n}\varphi(t)=n
 	\end{equation*}
@@ -88,6 +121,7 @@ Wir bezeichnen mit $\varphi(n)$ die Anzahl der natürlichen Zahlen $k<n$ für di
 \section{Beispiele und Anwendungen}
 \subsection{Lösen von Kongruenzen}
 \subsubsection{Finden der Inversen in der multiplikativen Gruppe}
+\label{subsubsec:inverse}
 Das Finden des Inversen eines Elements in der multiplikativen Gruppe $(\Z/n\Z)^\ast$ efolgt durch Lösen einer besonderen linearen diophantischen Gleichung. Wollen wir das Inverse von $a$ bestimmen, so wollen wir die Kongruenz
 \begin{equation*}
 	a*x\equiv 1 \mod n
@@ -145,6 +179,36 @@ Sei $n\geq 2$ und $n\in\N$. Falls für alle Primzahlen $p$ mit $n\equiv 1\mod p$
 gilt, dann ist $n$ eine Primzahl. 
 
 \subsection{Simultane Kongruenzen lösen}
+Hierfür verwenden wir den chinesischen Restsatz.
+
+Wollen wir die simultane Kongruenz 
+\begin{align*}
+	x&\equiv a_1\mod m_1\\
+	x&\equiv a_2\mod m_2
+\end{align*}
+lösen, so ist zunächst wichtig, dass die beiden Module $m_1,m_2$ teilerfremd $\ggT(m_1,m_2)$ sind. Sonst hat das Kongruenzensystem (außer $a_1=a_2$) keine Lösung.
+
+Wir bestimmen nun die Inversen der Module bezüglich jeweils des anderen Moduls, das heißt bestimme $x_1,x_2$, so dass gilt
+\begin{align*}
+	m_2*x_1&\equiv 1 \mod m_1\\
+	m_1*x_2&\equiv 1 \mod m_2.
+\end{align*}
+Diese kann man wie in \autoref{subsubsec:inverse} gezeigt bestimmen.
+Damit können wir nun die erste Lösung finden durch
+\begin{equation*}
+	x=a_1m_2x_1+a_2m_1x_2.
+\end{equation*}
+genauer sind $x+m_1m_2\Z$ alle Lösungen , denn $m_1m_2=\kgV(m_1,m_2)$.
+
+Diese Lösung stimmt, da
+\begin{align*}
+	x=a_1m_2x_1+\underbrace{a_2m_1x_2}_{\equiv 0}
+	&\equiv a_1\underbrace{m_2x_1}_{\equiv 1}\equiv a_1 \mod m_1\\
+	x=\underbrace{a_1m_2x_1}_{\equiv 0}+a_2m_1x_2
+	&\equiv a_2\underbrace{m_1x_2}_{\equiv 1} \equiv a_2\mod m_2
+\end{align*}
+gilt. Also ist $x+\kgV(m_1,m_2)*k$ für alle $k\in\Z$ eine Lösung.
+
 \subsection{Schnelle Exponentiation 22.6}
 \subsection{RSA}
 Das RSA-Verfahren ist ein asymmetrisches Verschlüsselungsverfahren, das sehr weit verbreitet ist.

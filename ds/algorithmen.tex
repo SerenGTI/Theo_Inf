@@ -67,22 +67,38 @@ Die fünf Landau-Symbole sind $\O, o, \Omega,\omega$ und $\Theta$, mit ihnen wer
 \end{description}
 
 
-\section{Rekursionsgleichungen}
+\section{Laufzeit von rekursiven Programmen}
 Rekursion bedeutet, ein Problem für den Parameterwert $n$ unter Zuhilfenahme des Ergebnisses für den/die Parameterwert/e $m$ bzw $m_i$ zu berechnen.
 Oft ist dabei $m<n$. Man reduziert also ein Problem auf ein bereits gelöstes plus einen meist nur noch kleinen Rechenaufwand.
 
-\paragraph{Beispiele:} Die Fibonacci-Zahlen sowie der euklidische Algorithmus werden oft rekursiv programmiert.
-Aber auch Suchalgorithmen wie die binäre Suche.
 
+Um Aussagen über die Laufzeit zu treffen, muss man sogenannte Rekursionsgleichungen lösen.
+
+Entspricht die Rekursionsgleichung einem der beiden folgenden Sonderfälle, so können die sogenannten Masterheoreme angewandt werden.
 \begin{satz}{Mastertheorem 1}
-	
+	Für $a,b\in\N$, $b>1$ und eine Funktion $g:\N\rightarrow \N$ mit $g\in\Theta(n^c)$ gelte
+	\begin{align*}
+		t(1)&=g(1)\\
+		t(n)&=a*t\left(\frac nb\right)+g(n)
+	\end{align*}
+	Dann gilt 
+	\begin{equation*}
+		t(n)\in\begin{cases}
+		\Theta(n^c)&\text{falls }a<b^c\\
+		\Theta(n^c\log n)&\text{falls }a=b^c\\
+		\Theta(n^{\frac{\log a}{\log b}})&\text{falls }a>b^c\\
+		\end{cases}
+	\end{equation*}
 \end{satz}
 
 \begin{satz}{Mastertheorem 2}
-	
+	Sei $r>0$ und die Zahlen $\alpha_1\geq 0$ für alle $i$ und erfüllen $\sum_{i=1}^r\alpha_i<1$.
+	Wenn die Rekursive Funktion $t$ die Ungleichung
+	\begin{equation*}
+		t(n)\leq \left( \sum_{i=1}^r t(\lceil \alpha_i*n\rceil) \right)+c*n
+	\end{equation*}
+	für ein $c>0$ erfüllt, dann ist $t(n)\in\O(n)$.
 \end{satz}
-
-
 
 
 \chapter{Entwurfsmethoden}
@@ -100,8 +116,38 @@ Wichtig für einen effizienten divide and conquer-Algorithmus ist, dass die Teil
 
 \section{Dynamisches Programmieren}
 \section{Backtracking bzw. Branch and Bound}
+Backtracking -> Tiefensuche
+
+Mache Schritte solange möglich. Falls das Ergebnis keine Lösung ist, gehe einen zurück und nimm den nächsten Pfad.
+
+
+Branch and Bound ist eine Sonderform des Backtracking. Anhand vom Bound wird der nächte Pfad ausgewählt, so kommmt man möglicherweise früher zum Ergebnis.
+
 \section{Greedy Algorithmen}
 \section{Randomisierte Algorithmen}
+
+\section{Andere Algorithmen}
+\subsection{Schnelle Multiplikation}
+Wir wollen $X*Y$ berechnen.
+
+Wir setzen $X=A*b^n+B$ und $Y=C*b^n+D$ damit wäre dann
+\begin{equation*}
+	XY=AC*b^{2n}+(AD+BC)*b^n+BD
+\end{equation*}
+Dies würde normalerweise 4 Multiplikationen benötigen. Allerdings kann man mit einem kleinen Trick nur drei Produkte berechnen
+\begin{align*}
+	P_1&=AC\\
+	P_2&=BD\\
+	P_3&=(A+B)(C+D)=AC+AD+BC+BD
+\end{align*}
+damit kann man aus den drei Produkten den fehlenden Teil durch Subtraktion berechnen
+\begin{equation*}
+	P_3-P_1-P_2=(AD+BC).
+\end{equation*}
+
+\subsubsection{Medianberechnung in Linearzeit}
+\subsubsection{Bottom Up Heapsort und ultimatives Heapsort}
+$1,4n\log n$ und dann $1n\log n$, wow!
 
 
 

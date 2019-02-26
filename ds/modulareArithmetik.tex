@@ -299,7 +299,7 @@ Möchte Bob  ($B$) eine Nachricht an Alice ($A$) senden, so muss Alice zunächst
 	\item Große Primzahlen $p,q$ mit $p<q$, beide müssen geheim bleiben.
 	\item Berechne $n=p*q$ (öffentlich),
 	\item setze $\varphi(n)=(p-1)(q-1)$,
-	\item wähle $e>1$ mit $\ggT(e,\varphi(n)=1$ (öffentlich), diese Zahl wird zum Verschlüsseln verwendet.
+	\item wähle $e>1$ mit $\ggT(e,\varphi(n))=1$ (öffentlich), diese Zahl wird zum Verschlüsseln verwendet.
 	\item Berechne $s<n$ mit $e*s\equiv 1\mod \varphi(n)$, d.h. $e*s=k*\varphi(n)+1$. Diese Zahl wird zum Entschlüsseln verwendet und muss unbedingt geheim bleiben.
 \end{enumerate}
 Das Paar $(n,e)$ bildet den \emph{öffentlichen Schlüssel}.

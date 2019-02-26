@@ -41,11 +41,60 @@
 
 \begin{document}
 \begin{multicols}{3}
+\raggedbottom
 	\textbf{Simon König 3344789 - Klausurzettel Theoretische Informatik 3}
 
 	\section{Wichtige Algorithmen}
 	\begin{itemize}
 		\item Quickselect wählt das $k$ kleinste Element aus einer unsortierten Liste aus. Laufzeit w-c: $\O(n^2)$ und a-c: $\leq4n$
+		\item Quicksort $\O(n\log n)$ worst-case:$\O(n^2)$, Merge-Heapsort $\O(n\log n)$, Dijkstra $\O(n^2+m)$
+
+		\item Algorithmus zur optimalen Klammerung (dynamische Programmierung). Laufzeit $\O(n^3)$
+		Kosten für Matrixmultiplikation $(k\times m)*(m\times l)$ sind $k*m*l$.
+
+		Tabelleneintrag $T_{i,j}$ enthält die minimalen Kosten die Matrizen $M_i$ bis $M_j$ zu multiplizieren.
+
+		$T_{i,j}=\min_{i\leq m\leq j}\simpleset{T_{i,m}+T_{m+1,j}+n_{i-1}*n_{m}*n_{j}}$.
+
+		Tabelle $B$ enthält die Trennpunkte, $T_{1,3}=1$ bedeutet, dass die Trennstelle nach Matrix $2$ kommt, d.h. $M_1(M_2M_3)$.
+
+		\item Schnelle Multiplikation von $X=A*b^n+B$ und $Y=C*b^n+D$
+		\begin{equation*}
+			XY=AC*b^{2n}+(AD+BC)*b^n+BD
+		\end{equation*}
+		wir berechnen
+		\begin{align*}
+			P_1&=AC\\
+			P_2&=BD\\
+			P_3&=(A+B)(C+D)=AC+AD+BC+BD\\
+			&\rightarrow \quad P_3-P_1-P_2=(AD+BC).
+		\end{align*}
+		damit $o(n^{1.6})$.
+
+		\item Bottom-Up Heapsort in $(1.5*n\log n)$ und Ultimatives Heapsort $(n\log n) + \O(n)$
+
+		\item Randomisierte Algorithmen: Monte Carlo, Fehler ist erlaubt (Primzahltest) und Las Vegas, Kein Fehler erlaubt aber keine Aussage ist auch möglich (Quicksort). 
+
+		\item Primzahltest nach Fermat. Wähle $a\in\simpleset{1,\ldots,n}$, $x=a^{n-1}\mod n$. Wenn $x\not\equiv 1\mod n$, dann ist $n$ keine Primzahl. Sonst keine Aussage.
+
+		\item Sei $n\geq 2$ und $n\in\N$. Falls für alle Primzahlen $p$ mit $n\equiv 1\mod p$ eine Zahl $a\in Z$ existiert, so dass
+		\begin{equation*}
+		 	a^{n-1}\equiv 1\mod n \text{\quad und \quad}a^{\frac{n-1}p}\not\equiv 1\mod n
+		\end{equation*}
+		gilt, dann ist $n$ eine Primzahl. 
+
+		\item 
+		\begin{enumerate}
+			\item Große Primzahlen $p,q$ mit $p<q$
+			\item Berechne $n=p*q$
+			\item setze $\varphi(n)=(p-1)(q-1)$,
+			\item wähle $e>1$ mit $\ggT(e,\varphi(n))=1$
+			\item Berechne $s<n$ mit $e*s\equiv 1\mod \varphi(n)$, d.h. $e*s=k*\varphi(n)+1$. 
+		\end{enumerate}
+		Das Paar $(n,e)$ bildet den \emph{öffentlichen Schlüssel}. Die Nachricht sei $x$. Die verschlüsselte Nachricht ist dann $y$
+		\begin{equation*}
+			y=x^e\mod n\quad x'=y^s\mod n
+		\end{equation*}
 	\end{itemize}
 
 	\section{Laufzeitanalyse}
@@ -78,7 +127,7 @@
 		\end{equation*}
 
 		\begin{equation*}
-			?
+			\sum_{i=1}^n i=\frac{n^2+n}{2}
 		\end{equation*}
 	\end{itemize}
 
@@ -127,6 +176,9 @@
 		\begin{equation*}
 			(\Z/n\Z)^\ast =\set{k+n\Z}{\ggT(k,n)=1}
 		\end{equation*}
+
+		\item $|(\Z/n\Z)^\ast|=\varphi(n)$ und $\varphi(p)=p-1$ und falls $\ggT(a,b)=1$, dann $ \varphi(a*b)=\varphi(a)*\varphi(b)$ und $\varphi(n)=n*\prod_{p|n}(1-\frac1p)$
+
 		\item $\Z/n\Z$ ist ein Körper genau dann, wenn $n$ eine Primzahl ist.
 
 		\item Die lineare Abbildung $x\mapsto kx$ auf $\Z/n\Z$ ist genau dann bijektiv, wenn $\ggT(k,n)=1$.
@@ -198,6 +250,8 @@
 
 
 	\section{Graphen}
+	$P_n$ ist der Pfad, $C_n$ ist der Kreis, $K_n$ ist der vollständige Graph, $K_{m,n}$ ist der vollständige bipartite Graph. Stier ist $\forall$ mit 5 Knoten.
+
 	\begin{itemize}
 		\item Die Summe aller Knotengrade in einem ungerichteten Graphen ist immer gerade.
 		\item In jedem endlichen Graph ist die Anzahl der Knoten mit ungeradem Grad gerade.
@@ -216,8 +270,59 @@
 		\end{itemize} (Folie 25.4)
 
 		\item \textbf{Satz von Kuratowski} Ein Graph ist genau dann planar, wenn er keine Unterteilung des $K_5$ oder des $K_{3,3}$ enthält.
+
+		\item \textbf{Satz von Ramsey} 
 	\end{itemize}
 
 
+
+	\section{Zahlen und Abschätzungen}
+	\begin{itemize}
+		\item \textbf{Fibonacci-Zahlen} $F_0=0, F_1=1$. 
+		\begin{equation*}
+			F_{n}\leq 2^n\leq F_{2n}\quad \forall n\geq 3
+		\end{equation*}
+		\begin{equation*}
+			F_n=\frac{1}{\sqrt 5}\left(\left(\frac{1+\sqrt 5}{2}\right)^n-\left(\frac{1-\sqrt 5}{2}\right)^n\right)
+		\end{equation*}
+
+		\begin{equation*}
+			\ggT(F_n,F_m)=F_{\ggT(m,n)}
+		\end{equation*}
+
+		\item \textbf{Catalanzahlen}
+
+		\item \textbf{Partitionszahlen}
+
+		\item \textbf{Dyckwörter}
+
+		\item \textbf{Saturierte Binärbäume}
+
+		\item \begin{align*}
+			n^n\in \omega(n^c n!)\\
+			\log(n!)\in\Theta (n\log n)\\
+			\log(\sqrt n)\in \Theta(\log(\sqrt n))
+		\end{align*}
+
+	\end{itemize}
+
+	\section{Sonstiges}
+	\begin{itemize}
+		\item \textbf{Markov-Ungleichung}, Sei $\forall \omega: X(\omega)\geq 0$ und $E(X)>0$, dann
+		\begin{equation*}
+			\forall \lambda >0: \enspace P(X\geq \lambda E(X))\leq \frac 1\lambda
+		\end{equation*}
+
+		\item $Var(X)=E(X^2)-E(X)^2=E((X-E(X))^2)$.
+		\item $Var(a*X+b)=a^2*X, Var(X+Y)=Var(X)+Var(Y)$
+
+		\item Zurücklegen / Reihenfolge
+		\begin{itemize}
+			\item Ja/Ja: $n^k$
+			\item Nein/Ja: $k!\binom nk$
+			\item Ja/Nein: $\binom{n+k-1}{k}$
+			\item Nein/Nein: $\binom nk$
+		\end{itemize}
+	\end{itemize}
 \end{multicols}
 \end{document}

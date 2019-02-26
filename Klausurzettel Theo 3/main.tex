@@ -45,7 +45,7 @@
 
 	\section{Wichtige Algorithmen}
 	\begin{itemize}
-		\item 
+		\item Quickselect wählt das $k$ kleinste Element aus einer unsortierten Liste aus. Laufzeit w-c: $\O(n^2)$ und a-c: $\leq4n$
 	\end{itemize}
 
 	\section{Laufzeitanalyse}
@@ -99,7 +99,7 @@
 			\item Reflexivität: $a\sim a$
 			\item Symmetrie: $a\sim b\Rightarrow b\sim a$
 			\item Transitivität: $a\sim b, b\sim c\Rightarrow a\sim c$
-			\item {\color{red} Verträglichkeit mit Abbildung?}
+			\item Kongruenzeigenschaft mit Abbildung $\circ$: $x\sim x'\wedge y\sim y'\Rightarrow x\circ y\sim x'\circ y'$ 
 		\end{itemize}
 
 	\end{itemize}
@@ -107,6 +107,11 @@
 
 	\section{Modulare Arithmetik}
 	\begin{itemize}
+		\item Es gilt
+		\begin{equation*}
+			ca\equiv cb\mod m\Rightarrow a\equiv b\mod \frac{m}{\ggT(m,c)}
+		\end{equation*}
+
 		\item Allgemein gilt
 		\begin{equation*}
 			\ggT(ca,cb)=c*\ggT(a,b)
@@ -142,6 +147,26 @@
 		\end{equation*}
 		ein Isomorphismus (bijektiver Homomorphismus).
 
+		Lösung des Kongruenzsystems
+		\begin{align*}
+			x\equiv a_1\mod m_1\\
+			x\equiv a_2\mod m_2
+		\end{align*}
+		finden. Bestimme die Inversen $x_i$
+		\begin{align*}
+			m_2*x_1\equiv 1 \mod m_1\\
+			m_1*x_2\equiv 1 \mod m_2
+		\end{align*}
+		Dann ist die Lösung
+		\begin{equation*}
+			x\in (x_1m_2a_1+x_2m_1a_2)+m_1m_2\Z
+		\end{equation*}
+
+		Es gibt eine Lösung genau dann, wenn für alle Paare $i\neq j$ gilt
+		\begin{equation*}
+			a_i\equiv a_j\mod \ggT(m_i,m_j)
+		\end{equation*}
+
 		\item \textbf{Der kleine Satz von Fermat} Für alle Primzahlen $p$ und alle $a\in\Z$ gilt
 		\begin{equation*}
 			a^p\equiv a\mod p
@@ -164,7 +189,35 @@
 		\begin{equation*}
 			\sum_{t|n}\varphi(t)=n
 		\end{equation*}
+
+		\item \textbf{Satz von Wilson} Für alle natürlichen Zahlen $n\geq 2$ gilt
+		\begin{equation*}
+			(n-1)!\equiv -1\mod n\quad\Leftrightarrow\quad n \text{ ist Primzahl}
+		\end{equation*}
 	\end{itemize}
+
+
+	\section{Graphen}
+	\begin{itemize}
+		\item Die Summe aller Knotengrade in einem ungerichteten Graphen ist immer gerade.
+		\item In jedem endlichen Graph ist die Anzahl der Knoten mit ungeradem Grad gerade.
+		\item Ein zusammenhängender endlicher Graph hat genau dann einen Eulerpfad, wenn die Anzahl der Knoten mit ungeradem Grad maximal 2 ist. Ein Eulerkreis existiert genau dann, wenn alle Knoten geraden Grad haben.
+		\item \textbf{Eulerformel} In endlichen zusammenhängenden planaren Graphen mit $n\geq 1$ Knoten, $m$ Kanten und $f$ Facetten gilt
+		\begin{equation*}
+			n-m+f=2\text{\quad bezeihungsweise\quad}n-m+f=z+1
+		\end{equation*}
+		für $z$ Zusammenhangskomponenten.
+		Wichtige Folgerungen hieraus sind
+		\begin{itemize}
+			\item Ein planarer Graph mit $n\geq 3$ Knoten hat höchstens $3n-6$ Kanten.
+			\item Ein planarer bipartiter Graph mit $n\geq 4$ Knoten hat höchstens $2n-4$ Kanten
+			\item In jedem planaren Graph gibt es mindestens einen Knoten mit Grad kleiner oder gleich $5$.
+			\item Der $K_5$ und der $K_{3,3}$ sind nicht planar.
+		\end{itemize} (Folie 25.4)
+
+		\item \textbf{Satz von Kuratowski} Ein Graph ist genau dann planar, wenn er keine Unterteilung des $K_5$ oder des $K_{3,3}$ enthält.
+	\end{itemize}
+
 
 \end{multicols}
 \end{document}

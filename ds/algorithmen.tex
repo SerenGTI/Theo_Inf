@@ -101,32 +101,12 @@ Entspricht die Rekursionsgleichung einem der beiden folgenden Sonderfälle, so k
 \end{satz}
 
 
-\chapter{Entwurfsmethoden}
+\chapter{Entwurfsmethoden und wichtige Algorithmen}
 \section{Divide and Conquer}
 Das divide and Conquer / Teile und herrsche-Prinzip basiert auf Rekursion. Allgemein wird die Eingabe in zwei (oder mehr) Teile aufgeteilt. Die Berechnung wird rekursiv auf den Teilen durchgeführt, am Schluss werden die beiden Teillösungen zur Gesamtlösung zusammengeführt.
 
 Wichtig für einen effizienten divide and conquer-Algorithmus ist, dass die Teile ungefähr gleich groß sind, d.h. $m\approx \frac n2$. Außerdem sollte das Aufteilen und Zusammensetzen mit linearer Zeit ($\O(n)$ bzw. $\Theta(n)$) auskommen.
 
-\paragraph{Beispiele:}
-\begin{itemize}
-	\item Mergesort
-	\item Quicksort
-	\item Multiplikation großer Zahlen
-\end{itemize}
-
-\section{Dynamisches Programmieren}
-\section{Backtracking bzw. Branch and Bound}
-Backtracking -> Tiefensuche
-
-Mache Schritte solange möglich. Falls das Ergebnis keine Lösung ist, gehe einen zurück und nimm den nächsten Pfad.
-
-
-Branch and Bound ist eine Sonderform des Backtracking. Anhand vom Bound wird der nächte Pfad ausgewählt, so kommmt man möglicherweise früher zum Ergebnis.
-
-\section{Greedy Algorithmen}
-\section{Randomisierte Algorithmen}
-
-\section{Andere Algorithmen}
 \subsection{Schnelle Multiplikation}
 Wir wollen $X*Y$ berechnen.
 
@@ -144,10 +124,65 @@ damit kann man aus den drei Produkten den fehlenden Teil durch Subtraktion berec
 \begin{equation*}
 	P_3-P_1-P_2=(AD+BC).
 \end{equation*}
+Durch diesen Trick erhält man $o(n^{1.6})$ für die Laufzeit.
 
-\subsubsection{Medianberechnung in Linearzeit}
-\subsubsection{Bottom Up Heapsort und ultimatives Heapsort}
+
+\subsection{Bottom Up Heapsort und ultimatives Heapsort}
 $1,4n\log n$ und dann $1n\log n$, wow!
+
+
+\subsection{Weitere Beispiele}
+\begin{itemize}
+	\item Mergesort, $\O(n\log n)$
+	\item Quicksort, $\O(n\log n)$ im average-case, worst-case $\O(n^2)$
+\end{itemize}
+
+
+
+\section{Dynamisches Programmieren}
+Lösung für das Gesamtproblem wird aus vorher ermittelten Teillösungen berechnet. Dazu werden Teillösungen in einer Tabella organisiert aufbewahrt.
+
+\subsection{Optimale Klammerung für Matrix-Multiplikation}
+Wir wollen das Produkt aus $k$ Matrizen $M_1,\ldots,M_k$ berechnen. Dabei ist $M_i$ eine $n_{i-1}\times n_i$-Matrix.
+
+Wir wollen die Klammerung des Produkts
+\begin{equation*}
+	M_1*M_2*\ldots*M_k
+\end{equation*}
+so bestimmen, dass möglichst wenige Skalarmultiplikationen ausgeführt werden müssen.
+
+Möchte man eine $l\times m$-Matrix mit einer $m\times n$-Matrix multiplizieren, benötigt man dafür $l*m*n$ Skalarmultiplikationen.
+
+
+
+\subsection{Weitere Beispiele}
+\begin{itemize}
+	\item Berechnung der Binomialkoeffizienten mit dem Pascal'schen Dreieck
+	\item CYK-Algorithmus, $\O(n^2)$
+\end{itemize}
+
+\section{Backtracking bzw. Branch and Bound}
+Backtracking -> Tiefensuche
+
+Mache Schritte solange möglich. Falls das Ergebnis keine Lösung ist, gehe einen zurück und nimm den nächsten Pfad.
+
+
+Branch and Bound ist eine Sonderform des Backtracking. Anhand vom Bound wird der nächte Pfad ausgewählt, so kommmt man möglicherweise früher zum Ergebnis.
+
+\section{Greedy Algorithmen}
+\section{Randomisierte Algorithmen}
+
+
+
+
+
+
+\section{Andere Algorithmen}
+
+
+
+\subsection{Medianberechnung in Linearzeit}
+
 
 
 

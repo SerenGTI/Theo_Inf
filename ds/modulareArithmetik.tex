@@ -43,17 +43,17 @@ Wir bezeichnen mit $\varphi(n)$ die Anzahl der natürlichen Zahlen $k<n$ für di
 
 
 
-\section{Rechenregeln}
-\begin{itemize}
-	\item 
-	\item $ca\equiv cb\mod m\quad\Leftrightarrow\quad a\equiv b\mod \frac{m}{\ggT(c,m)}$
-\end{itemize}
+
 
 
 
 
 \section{Wichtige Sätze und Lemmas}
 \begin{itemize}
+	\item Es gilt
+	\begin{equation*}
+		ca\equiv cb\mod m\Rightarrow a\equiv b\mod \frac{m}{\ggT(m,c)}
+	\end{equation*}
 	\item Allgemein gilt
 	\begin{equation*}
 		\ggT(ca,cb)=c*\ggT(a,b)
@@ -115,6 +115,11 @@ Wir bezeichnen mit $\varphi(n)$ die Anzahl der natürlichen Zahlen $k<n$ für di
 	\begin{equation*}
 		\sum_{t|n}\varphi(t)=n
 	\end{equation*}
+
+	\item \textbf{Satz von Wilson} Für alle natürlichen Zahlen $n\geq 2$ gilt
+	\begin{equation*}
+		(n-1)!\equiv -1\mod n\quad\Leftrightarrow\quad n \text{ ist Primzahl}
+	\end{equation*}
 \end{itemize}
 
 
@@ -168,8 +173,19 @@ Dann kann man wie oben vorgehen, den $\ggT$ berechnen und anschließend die vorl
 \subsection{Fehlererkennung}
 
 
-\subsection{Primzahltest und -Zertifikat}
-\subsubsection{Primzahltest nach Fermat 22.3}
+\subsection{Primzahltest und -zertifikat}
+\subsubsection{Primzahltest nach Fermat}
+\begin{lstlisting}
+fermatTest(n)
+	a = %*wähle zufällig aus $\simpleset{1,\ldots,n-1}$*)
+	x = %*$a^{n-1}$*) mod n
+	if x mod n != 1 then
+		return false //keine Primzahl
+	else
+		//keine Aussage
+	end if
+\end{lstlisting}
+
 
 \subsubsection{Exaktes Primzahlzertifikat}
 Sei $n\geq 2$ und $n\in\N$. Falls für alle Primzahlen $p$ mit $n\equiv 1\mod p$ eine Zahl $a\in Z$ existiert, so dass
@@ -181,6 +197,7 @@ gilt, dann ist $n$ eine Primzahl.
 \subsection{Simultane Kongruenzen lösen}
 Hierfür verwenden wir den chinesischen Restsatz.
 
+\paragraph{Zwei Kongruenzen}
 Wollen wir die simultane Kongruenz 
 \begin{align*}
 	x&\equiv a_1\mod m_1\\
@@ -200,6 +217,8 @@ Damit können wir nun die erste Lösung finden durch
 \end{equation*}
 genauer sind $x+m_1m_2\Z$ alle Lösungen , denn $m_1m_2=\kgV(m_1,m_2)$.
 
+\bigskip
+
 Diese Lösung stimmt, da
 \begin{align*}
 	x=a_1m_2x_1+\underbrace{a_2m_1x_2}_{\equiv 0}
@@ -209,7 +228,69 @@ Diese Lösung stimmt, da
 \end{align*}
 gilt. Also ist $x+\kgV(m_1,m_2)*k$ für alle $k\in\Z$ eine Lösung.
 
-\subsection{Schnelle Exponentiation 22.6}
+
+
+\paragraph{Mehrere Kongruenzen}
+Für mehr als zwei Kongruenzen in einem System muss man etwas allgemeiner vorgehen.
+Sei ein Kongruenzsystem aus 
+\begin{equation*}
+	x\equiv a_i\mod m_i
+\end{equation*}
+für $i\in\simpleset{1,\ldots,n}$ gegeben.
+
+Zuerst wird
+\begin{equation*}
+	M=\kgV(m_1,\ldots,m_n)=m_1*\ldots*m_n
+\end{equation*}
+berechnet.
+Hiermit wird dann für jedes Modul der Wert
+\begin{equation*}
+	M_i=\frac M{m_i}
+\end{equation*}
+berechnet. Damit sind $M_i$ und $m_i$ teilerfremd. Man kann dann die Zahlen $r_i,x_i$ mit 
+\begin{equation}
+	r_i*m_i+x_i*M_i=1=\ggT(M_i,m_i)\label{eq:ggtChin}
+\end{equation}
+mit dem erweiterten euklidischen Algorithmus bestimmen. 
+Man kann also die erste Lösung bestimmen als
+\begin{equation*}
+	\hat x=\sum_{i=1}^n a_i*x_i*M_i.
+\end{equation*}
+Jede Lösung ist dann aus $\hat x+M\Z$.
+
+\bigskip
+
+Diese Lösung stimmt, denn es gilt für alle $i$
+\begin{align*}
+	x_i*M_i&\equiv 1\mod m_i\\
+	x_i*M_i&\equiv 0\mod m_j\enspace \forall j\neq i
+\end{align*}
+Die erste Zeile folgt sofort aus \autoref{eq:ggtChin}. Die zweite folgt daraus, dass $M_i$ alle Module $m_j$ als Faktor enthält.
+
+\subsection{Schnelle Exponentiation}
+Um $a^b\mod n$ auszurechnen, verwenden wir das folgende Programm
+\begin{lstlisting}
+exp(a,b):
+	e = 1
+	while b>0 do
+		if b odd then
+			e = e*a mod n
+		end if
+		a = a*a mod n
+		b = %*$\lfloor$*)b/2%*$\rfloor$*)
+	end while
+	return e
+\end{lstlisting}
+
+Berechnet man damit $4^9\mod 5$, erhält man schriftlich ungefähr die folgende Darstellung
+\begin{align*}
+	4^9&\equiv 4*4^8\mod 5\\
+	&\equiv 4*(4^2)^4\mod 5\\
+	&\equiv 4*((4^2)^2)^2\mod 5\\
+	&\equiv 4*((16)^2)^2\equiv 4*1\mod 5
+\end{align*}
+
+
 \subsection{RSA}
 Das RSA-Verfahren ist ein asymmetrisches Verschlüsselungsverfahren, das sehr weit verbreitet ist.
 

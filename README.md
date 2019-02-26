@@ -1,5 +1,5 @@
-# Theoretische Informatik 1 & 2
-Eine Kurzzusammenfassung über die Module Formale Sprachen und Automatentheorie sowie Berechenbarkeit und Komplexität (Theoretische Informatik 1 und 2) an der Universität Stuttgart, gehalten in WS 17/18 und SoSe 18 von Prof. Dr. Ulrich Hertrampf.
+# Theoretische Informatik 1 bis 3
+Eine Kurzzusammenfassung über die Module Formale Sprachen und Automatentheorie, Berechenbarkeit und Komplexität sowie Algorithmen und Diskrete Strukturen (Theoretische Informatik 1, 2 und 3) an der Universität Stuttgart, gehalten in WS 17/18 bis WiSe 18/19 von Prof. Dr. Ulrich Hertrampf.
 
 Alle Inhalte sind nach bestem Wissen und Gewissen selbst erstellt, es können Fehler enthalten sein. 
 

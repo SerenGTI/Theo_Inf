@@ -283,7 +283,7 @@
 
 		\item \textbf{Satz von Kuratowski} Ein Graph ist genau dann planar, wenn er keine Unterteilung des $K_5$ oder des $K_{3,3}$ enthält.
 
-		\item \textbf{Satz von Ramsey} 
+		\item \textbf{Satz von Ramsey} Fur alle $n\in N$ gibt es ein $N\in\N$, so dass jeder Graph mit $N$ Knoten eine Clique der Größe $n$ oder eine unabhängige Menge der Größe $n$ enthält.
 	\end{itemize}
 
 
@@ -303,12 +303,13 @@
 		\end{equation*}
 
 		\item \textbf{Catalanzahlen}
+		\begin{equation*}
+			C_n=\frac{1}{n+1}\binom{2n}{n}=\frac{1}{2n+1}\binom{2n+1}{n}\sim\frac{4^n}{n\sqrt{\pi n}}
+		\end{equation*}
 
-		\item \textbf{Partitionszahlen}
+		\textbf{Dyckwörter} $D_n$ ist die Menge der Dyckwörter mit $n$ Klammerpaaren, d.h. Länge $2n$. $|D_n|=C_n$.
 
-		\item \textbf{Dyckwörter}
-
-		\item \textbf{Saturierte Binärbäume}
+		\textbf{Saturierte Binärbäume} Binärbäume, dessen Knoten entweder zwei oder keine Nachfolger haben. Zuordnung von Saturierten Bäumen zu normalen Binärbäumen ist bijektiv durch Weglassen aller Blätter. Es gibt $C_n$ viele saturierte Binärbäume mit $n$ inneren Knoten.
 
 		\item \textbf{Abschätzungen von Laufzeiten}
 		\begin{align*}
@@ -329,13 +330,19 @@
 		\item $Var(X)=E(X^2)-E(X)^2=E((X-E(X))^2)$.
 		\item $Var(a*X+b)=a^2*X, Var(X+Y)=Var(X)+Var(Y)$
 
-		\item Zurücklegen / Reihenfolge
+		\item \textbf{Kombinatorik} Zurücklegen / Reihenfolge
 		\begin{itemize}
 			\item Ja/Ja: $n^k$
 			\item Nein/Ja: $k!\binom nk$
 			\item Ja/Nein: $\binom{n+k-1}{k}$
 			\item Nein/Nein: $\binom nk$
 		\end{itemize}
+
+		\textbf{Partitionszahlen}
+		Auf wieviele Arten kann man $n$ als Summe von $k\in \N$ schreiben? Diese Anzahl nennen wir $P(n,k)$. Z.B. Aufteilung einer $n$-elementigen Menge in $k$ nichtleere Teilmengen.
+		\begin{equation*}
+			P(n,k)=P(n-1,k-1)+P(n-k,k)=\sum_{j\leq k}P(n-k,j)
+		\end{equation*}
 	\end{itemize}
 \end{multicols}
 \end{document}

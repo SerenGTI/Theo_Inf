@@ -42,7 +42,7 @@
 \begin{document}
 \begin{multicols}{3}
 \raggedbottom
-	\textbf{Simon König 3344789 - Klausurzettel Theoretische Informatik 3}
+	\textbf{Klausurzettel Theoretische Informatik 3}
 
 	\section{Wichtige Algorithmen}
 	\begin{itemize}
@@ -94,7 +94,9 @@
 			y=x^e\mod n\quad x'=y^s\mod n
 		\end{equation*}
 
-		\item \textbf{String-Matching} 
+		\item \textbf{String-Matching} Text der Länge $n$, Muster $m$. Knuth-Morris-Pratt:
+		Rabin-Karp (Hashing zur Basis $|\Sigma|$ mit Modulus $p$): a-c:$\O(m+n)+k\O(m)$ bei $k$ Kollisionen, w-c: $\Theta(m*n)$.
+		BruteForce: $\Theta(m*n)$. Endlicher Automat: $\Theta(|\Sigma|*m+n)$. Knuth-Morris-Pratt: w-c: $\O(n*m)$.
 	\end{itemize}
 
 
@@ -124,8 +126,11 @@
 		\item \textbf{Summenformeln}
 		\begin{align*}
 			\sum_{i=0}^n x^i &= \frac{1-x^{n+1}}{1-x}\\
-			\sum_{i=1}^n i &= \frac{n^2+n}{2}
+			\sum_{i=1}^n i &= \frac{n^2+n}{2}\\
+			\sum_{i=0}^n 2^i&=2^{n+1}-1
 		\end{align*}
+
+		\item \textbf{Rekursionsgleichung} $T(n)=2*T(n-b)+c, T(0)=d>0$, dann ist $T(n)=(d+c)a^{\frac nb}-c$
 
 		\item \textbf{Landausymbole} Damit $f\in \Lambda(g)$ gilt
 
@@ -286,7 +291,7 @@
 		\item \textbf{Satz von Ramsey} Fur alle $n\in N$ gibt es ein $N\in\N$, so dass jeder Graph mit $N$ Knoten eine Clique der Größe $n$ oder eine unabhängige Menge der Größe $n$ enthält.
 	\end{itemize}
 
-
+	\columnbreak
 
 	\section{Zahlen und Abschätzungen}
 	\begin{itemize}
@@ -313,19 +318,50 @@
 
 		\item \textbf{Abschätzungen von Laufzeiten}
 		\begin{align*}
-			n^n&\in \omega(n^c n!)\\
-			\log(n!)&\in\Theta (n\log n)\\
-			\log(\sqrt n)&\in \Theta(\log(\sqrt n))
+			n^n&\in \omega(n^c n!) \text{ bzw } n! \in o(n^n)\\
+			\log(n!)&\in\Theta (n\log n)=\Theta(\log(n^n))\\
+			\log(\sqrt n)&\in \Theta(\log n))\\
+			a^n &\in \omega(b^n) \text{ für } a>b
 		\end{align*}
 
+		\item \textbf{Binomialkoeffizient} Durchschnittswert der Binomialkoeffizienten
+		\begin{equation*}
+			\binom{n}{\lfloor\frac{n}{2}\rfloor}=\binom{n}{\lceil\frac{n}{2}\rceil}>\frac{2^n}{n}
+		\end{equation*}
+
+		\item \textbf{Stirlingformel}
+		\begin{equation*}
+			n!\sim \sqrt{2\pi n}*(\frac ne)^n
+		\end{equation*}
+
+		\item \textbf{Kleinstes Gemeinsames Vielfaches} 
+		$\kgV(n)=\kgV(2,\ldots,n)$. \begin{equation*}
+			2^{n-1}<\kgV(n)<4^{n-1}
+		\end{equation*}
+		das zweite falls $n\geq 7$
+		und für alle $m,n\in\N$, $1<m<n$ gilt
+		\begin{equation*}
+			m\binom nm \text{ teilt } \kgV(n)
+		\end{equation*}
+			
+		\item \textbf{Primzahldichte} $\pi(n)$ sind die Zahlen kleiner gleich $n$.
+		\begin{equation*}
+		 	\frac{n}{\log_2 n}\leq\pi(n)\leq \frac{(1+\epsilon)n}{\log_2 n}
+		\end{equation*} 
+
+		\textbf{Bertrand'sches Postulat} Für alle $n\in\N$ existiert eine Primzahl $n<p\leq 2n$
 	\end{itemize}
+	
+	\columnbreak
 
 	\section{Sonstiges}
 	\begin{itemize}
-		\item \textbf{Markov-Ungleichung}, Sei $\forall \omega: X(\omega)\geq 0$ und $E(X)>0$, dann
+		\item \textbf{Markov-Ungleichung} Sei $\forall \omega: X(\omega)\geq 0$ und $E(X)>0$, dann
 		\begin{equation*}
 			\forall \lambda >0: \enspace P(X\geq \lambda E(X))\leq \frac 1\lambda
 		\end{equation*}
+
+		\item \textbf{Bernoulli-Ungleichung} $x\geq -1$, dann ist $(1+x)^n\geq 1+nx$
 
 		\item $Var(X)=E(X^2)-E(X)^2=E((X-E(X))^2)$.
 		\item $Var(a*X+b)=a^2*X, Var(X+Y)=Var(X)+Var(Y)$
